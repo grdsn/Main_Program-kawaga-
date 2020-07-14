@@ -24,9 +24,10 @@ namespace WindowsFormsApp1
         private void Create_parts_Load(object sender, EventArgs e)
         {
             parts_name.Text = "テキストの追加";
-            
+ 
             info_label.Text = "テキストを追加してください。";
             TextAdd.Visible = true;
+            int test;
 
         }
 

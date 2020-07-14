@@ -75,7 +75,8 @@
             "順序のあるリスト",
             "順序のないリスト",
             "画像",
-            "スクリプト"});
+            "スクリプト",
+            "太字"});
             this.parts_list.Location = new System.Drawing.Point(12, 12);
             this.parts_list.Name = "parts_list";
             this.parts_list.Size = new System.Drawing.Size(228, 568);

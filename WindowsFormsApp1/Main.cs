@@ -136,7 +136,7 @@ namespace WindowsFormsApp1
                 writer_html(result);
                 cnt++; //次の行へ
             }
-            if (sel == null)
+            if (sel == "太字")
             {
                 
             }
@@ -160,7 +160,7 @@ namespace WindowsFormsApp1
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-
+           
         }
     }
 }
