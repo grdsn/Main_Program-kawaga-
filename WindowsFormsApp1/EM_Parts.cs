@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp1
+{
+    public partial class EM_Parts : Form
+    {
+        public EM_Parts()
+        {
+            InitializeComponent();
+        }
+
+        private void EM_Parts_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        public string ShowMiniForm()
+        {
+
+            EM_Parts f = new EM_Parts();
+            f.ShowDialog();
+            string receiveText = "<em>" + f.TextAdd.Text.Replace("\r\n", "<br>") + "</em>";　//HTML文
+            f.Dispose();
+            return receiveText; //HTML文を返す
+
+        }
+
+        private void TextAdd_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        /*
+         * 追加ボタン処理
+         */
+        private void AddConfirm_Click(object sender, EventArgs e)
+        {
+            Close(); //画面を閉じ内容を反映
+        }
+    }
+}
