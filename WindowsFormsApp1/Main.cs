@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,7 +50,7 @@ namespace WindowsFormsApp1
                 writer.Write("<body>");
                    for(int i = 0; i<= cnt; i++)
                     {
-                       writer.Write("<div class=\"" + i + "\"><p>" + text_box[i] + "</p></div>"); //HTMLコードを追加する
+                       writer.Write("<div class=\"" + i + "\">" + text_box[i] + "</div>"); //HTMLコードを追加する
                     }
                 writer.Write("</body>");
             writer.Write("</HTML>"); 
@@ -83,6 +84,7 @@ namespace WindowsFormsApp1
             OL_Parts op = new OL_Parts(); //順序のあるリスト
             UL_Parts up = new UL_Parts(); //順序のないリスト
             H_Parts hp = new H_Parts(); //見出し
+            B_Parts bp = new B_Parts();
 
             // 選択されている部品の名前を取り込む
             
@@ -138,7 +140,9 @@ namespace WindowsFormsApp1
             }
             if (sel == "太字")
             {
-                
+                result = bp.ShowMiniForm();
+                writer_html(result);
+                cnt++; //次の行へ
             }
 
             Browser_show(); //結果を画面上に表示
@@ -149,7 +153,6 @@ namespace WindowsFormsApp1
          */
         private void Browser_show()
         {
-
             webBrowser1.Navigate("c:/Users/S3a2/Desktop/index.html");
         }
 
@@ -161,6 +164,37 @@ namespace WindowsFormsApp1
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
            
+        }
+
+        private void webBrowser2_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void webBrowser1_DocumentCompleted_1(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
+
+        private void tabPage1_Click_1(object sender, EventArgs e)
+        {
+             
+                HTMLBOX.Text = "TEST";
+
+            
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //StreamReaderでファイルの内容を読み込む
+            StreamReader st = new StreamReader(@"C:\Users\S3a2\Desktop\index.html", Encoding.GetEncoding("UTF-8"));
+            HTMLBOX.Text = st.ReadToEnd();
+            st.Close();
         }
     }
 }
