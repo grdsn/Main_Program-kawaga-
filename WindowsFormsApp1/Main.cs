@@ -34,6 +34,8 @@ namespace WindowsFormsApp1
                 parts_list.Items.Add(item);
             }
         }
+            int test;
+        }
 
         /*
          * ブラウザ内の情報を更新する
