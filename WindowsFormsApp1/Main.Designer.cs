@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Result_Btn = new System.Windows.Forms.Button();
             this.Title = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,16 +40,21 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.HTMLBOX = new System.Windows.Forms.TextBox();
             this.PartsBox = new System.Windows.Forms.GroupBox();
+            this.resetBtn = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.PartsBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // Result_Btn
             // 
             this.Result_Btn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Result_Btn.Location = new System.Drawing.Point(12, 591);
+            this.Result_Btn.Location = new System.Drawing.Point(14, 542);
             this.Result_Btn.Name = "Result_Btn";
             this.Result_Btn.Size = new System.Drawing.Size(111, 47);
             this.Result_Btn.TabIndex = 0;
@@ -58,7 +64,7 @@
             // 
             // Title
             // 
-            this.Title.Location = new System.Drawing.Point(58, 644);
+            this.Title.Location = new System.Drawing.Point(58, 517);
             this.Title.Name = "Title";
             this.Title.Size = new System.Drawing.Size(182, 19);
             this.Title.TabIndex = 3;
@@ -66,7 +72,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 647);
+            this.label1.Location = new System.Drawing.Point(12, 520);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 12);
             this.label1.TabIndex = 4;
@@ -76,19 +82,9 @@
             // 
             this.parts_list.FormattingEnabled = true;
             this.parts_list.ItemHeight = 12;
-            this.parts_list.Items.AddRange(new object[] {
-            "見出し",
-            "テキスト",
-            "テキストの強調",
-            "ハイパーテキスト",
-            "順序のあるリスト",
-            "順序のないリスト",
-            "画像",
-            "スクリプト",
-            "太字"});
             this.parts_list.Location = new System.Drawing.Point(6, 18);
             this.parts_list.Name = "parts_list";
-            this.parts_list.Size = new System.Drawing.Size(228, 124);
+            this.parts_list.Size = new System.Drawing.Size(238, 148);
             this.parts_list.TabIndex = 6;
             this.parts_list.SelectedIndexChanged += new System.EventHandler(this.parts_list_SelectedIndexChanged);
             this.parts_list.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.parts_list_MouseDoubleClick);
@@ -96,7 +92,7 @@
             // Reset_Btn
             // 
             this.Reset_Btn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Reset_Btn.Location = new System.Drawing.Point(129, 591);
+            this.Reset_Btn.Location = new System.Drawing.Point(131, 542);
             this.Reset_Btn.Name = "Reset_Btn";
             this.Reset_Btn.Size = new System.Drawing.Size(111, 47);
             this.Reset_Btn.TabIndex = 8;
@@ -112,7 +108,7 @@
             this.tabControl1.Location = new System.Drawing.Point(295, 31);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(720, 593);
+            this.tabControl1.Size = new System.Drawing.Size(720, 611);
             this.tabControl1.TabIndex = 9;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -122,20 +118,19 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(634, 541);
+            this.tabPage1.Size = new System.Drawing.Size(712, 581);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "プレビュー";
             this.tabPage1.UseVisualStyleBackColor = true;
-            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click_1);
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(3, 6);
+            this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(624, 533);
+            this.webBrowser1.Size = new System.Drawing.Size(712, 581);
             this.webBrowser1.TabIndex = 1;
-            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted_1);
+            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             // 
             // tabPage2
             // 
@@ -143,7 +138,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 26);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(712, 563);
+            this.tabPage2.Size = new System.Drawing.Size(712, 581);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "HTML";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -164,16 +159,48 @@
             this.PartsBox.Controls.Add(this.parts_list);
             this.PartsBox.Location = new System.Drawing.Point(12, 31);
             this.PartsBox.Name = "PartsBox";
-            this.PartsBox.Size = new System.Drawing.Size(268, 165);
+            this.PartsBox.Size = new System.Drawing.Size(250, 184);
             this.PartsBox.TabIndex = 10;
             this.PartsBox.TabStop = false;
             this.PartsBox.Text = "素材";
+            // 
+            // resetBtn
+            // 
+            this.resetBtn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.resetBtn.Location = new System.Drawing.Point(14, 595);
+            this.resetBtn.Name = "resetBtn";
+            this.resetBtn.Size = new System.Drawing.Size(228, 47);
+            this.resetBtn.TabIndex = 11;
+            this.resetBtn.Text = "リセット";
+            this.resetBtn.UseVisualStyleBackColor = true;
+            this.resetBtn.Click += new System.EventHandler(this.resetBtn_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(12, 233);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(250, 263);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "カラー";
             // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1215, 676);
+            this.ClientSize = new System.Drawing.Size(1062, 676);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.resetBtn);
             this.Controls.Add(this.PartsBox);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.Reset_Btn);
@@ -189,6 +216,7 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.PartsBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,6 +235,10 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox HTMLBOX;
         private System.Windows.Forms.GroupBox PartsBox;
+        private System.Windows.Forms.Button resetBtn;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

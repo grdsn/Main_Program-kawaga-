@@ -25,8 +25,14 @@ namespace WindowsFormsApp1
         }
 
         private void Form1_Load(object sender, EventArgs e)
+            //ddddd
         {
-
+            //素材項目の追加
+            string[] s1 = { "見出し", "テキスト", "テキストの強調","ハイパーテキスト","太字", "順序のあるリスト","順序のないリスト" };
+            foreach (string item in s1)
+            {
+                parts_list.Items.Add(item);
+            }
         }
 
         /*
@@ -40,21 +46,36 @@ namespace WindowsFormsApp1
         /*
          *HTMLを書き出すためのプログラム
          */
-        public void writer_html(string input)
+        public void writer_html(string input,int flag)
         {
-            text_box[cnt] = input;           
-            writer = new System.IO.StreamWriter(@"c:\Users\S3a2\Desktop\index.html", false, System.Text.Encoding.Default); 
-            writer.Write("<DOCTYPE! HTML>");
-            writer.Write("<HTML>");
-                writer.Write("<head>"+"<title>" + Title.Text + "</title></head>"); //タイトルの定義
+            if (flag == 0)
+            {
+                text_box[cnt] = input;
+                writer = new System.IO.StreamWriter(@"c:\Users\S3a2\Desktop\index.html", false, System.Text.Encoding.UTF8);
+                writer.Write("<DOCTYPE! HTML>");
+                writer.Write("<HTML>"); //HTML開始
+                writer.Write("<head>" + "<title>" + Title.Text + "</title></head>"); //タイトルの定義
                 writer.Write("<body>");
-                   for(int i = 0; i<= cnt; i++)
-                    {
-                       writer.Write("<div class=\"" + i + "\">" + text_box[i] + "</div>"); //HTMLコードを追加する
-                    }
+                for (int i = 0; i <= cnt; i++)
+                {
+                    writer.Write("<div class=\"" + i + "\">" + text_box[i] + "</div>"); //HTMLコードを追加する
+                }
                 writer.Write("</body>");
-            writer.Write("</HTML>"); 
-            writer.Close();
+                writer.Write("</HTML>"); //HTML終了
+                writer.Close();
+            }
+            else
+            {
+                //配列内のデータを初期化
+                for(int i = 0; i <=cnt; i++)
+                {
+                    text_box[cnt] = "";
+                }
+                writer = new System.IO.StreamWriter(@"c:\Users\S3a2\Desktop\index.html", false, System.Text.Encoding.UTF8);
+                writer.Write("");
+                cnt = 0;
+                writer.Close(); //閉じる
+            }
             
         }
 
@@ -66,7 +87,7 @@ namespace WindowsFormsApp1
             if (cnt >0)
             {
                 cnt--;
-                writer_html("");
+                writer_html("",0);
                 Browser_show();　//結果を画面上に表示
             }
         }
@@ -93,55 +114,55 @@ namespace WindowsFormsApp1
             if (sel == "テキスト") 
             {
                 result = tp.ShowMiniForm();
-                writer_html(result);
+                writer_html(result,0);
                 cnt++; //次の行へ
             }
 
             if (sel == "テキストの強調")
             {
                 result = ep.ShowMiniForm();
-                writer_html(result);
+                writer_html(result,0);
                 cnt++; //次の行へ
             }
 
             if (sel == "ハイパーテキスト")
             {
                 result = hpp.ShowMiniForm();
-                writer_html(result);
+                writer_html(result,0);
                 cnt++; //次の行へ
             }
 
             if(sel == "画像")
             {
                 result = ip.ShowMiniForm();
-                writer_html(result);
+                writer_html(result,0);
                 cnt++; //次の行へ
             }
 
             if (sel == "順序のあるリスト")
             {
                 result = op.ShowMiniForm();
-                writer_html(result);
+                writer_html(result,0);
                 cnt++; //次の行へ
             }
 
             if (sel == "順序のないリスト")
             {
                 result = up.ShowMiniForm();
-                writer_html(result);
+                writer_html(result,0);
                 cnt++; //次の行へ
             }
 
             if (sel == "見出し")
             {
                 result = hp.ShowMiniForm();
-                writer_html(result);
+                writer_html(result,0);
                 cnt++; //次の行へ
             }
             if (sel == "太字")
             {
                 result = bp.ShowMiniForm();
-                writer_html(result);
+                writer_html(result,0);
                 cnt++; //次の行へ
             }
 
@@ -156,6 +177,46 @@ namespace WindowsFormsApp1
             webBrowser1.Navigate("c:/Users/S3a2/Desktop/index.html");
         }
 
+        /*
+         * タブを変更した場合
+         */
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            HTML_show(); //ソースコードを表示
+        }
+
+        /*
+         *初期化処理
+         */
+        private void resetBtn_Click(object sender, EventArgs e)
+        {
+            writer_html("", 1);//画面データを削除   
+            HTML_show();//リセット完了後のHTMLソースを出力
+            Browser_show(); //リセット完了後のブラウザ画面を出力
+        }
+
+        /*
+         * HTMLソースコードを表示する
+         */
+        private void HTML_show()
+        {  
+            StreamReader st = new StreamReader(@"C:\Users\S3a2\Desktop\index.html", Encoding.GetEncoding("UTF-8"));　//StreamReaderでファイルの内容を読み込む
+            HTMLBOX.Text = st.ReadToEnd(); //streamReader内のテキストを書き込む
+            st.Close();//終了
+        }
+
+        private void parts_list_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index == -1) return;
+
+            e.Graphics.DrawImage(Image.FromFile(@"C:\Program Files\Internet Explorer\images\bing.ico"), e.Bounds.X, e.Bounds.Y);
+            e.Graphics.DrawString(parts_list.Items[e.Index].ToString(),
+                                  new Font(parts_list.Items[e.Index].ToString(), 12),
+                                  new SolidBrush(Color.Black),
+                                  e.Bounds.X + Image.FromFile(@"C:\Program Files\Internet Explorer\images\bing.ico").Width,
+                                  e.Bounds.Y);
+        }
+
         private void parts_list_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -163,38 +224,7 @@ namespace WindowsFormsApp1
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-           
-        }
 
-        private void webBrowser2_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void webBrowser1_DocumentCompleted_1(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-
-        }
-
-        private void tabPage1_Click_1(object sender, EventArgs e)
-        {
-             
-                HTMLBOX.Text = "TEST";
-
-            
-        }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //StreamReaderでファイルの内容を読み込む
-            StreamReader st = new StreamReader(@"C:\Users\S3a2\Desktop\index.html", Encoding.GetEncoding("UTF-8"));
-            HTMLBOX.Text = st.ReadToEnd();
-            st.Close();
         }
     }
 }
