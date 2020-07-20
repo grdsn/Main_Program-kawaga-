@@ -24,6 +24,7 @@ namespace WindowsFormsApp1
         {
             Table_Parts f = new Table_Parts();
             f.ShowDialog();
+            string work = ""; //文字格納用
             int cnt = 1; //テキストボックス用カウント
             int row = int.Parse(f.row_Box.Text);
             int col = int.Parse(f.col_Box.Text);
@@ -35,8 +36,16 @@ namespace WindowsFormsApp1
                     receiveText += "<tr>";
                     for (int j = 0; j < row; j++)
                     {
-                        receiveText += "<td>" + "</td>";
+                        Control[] cs = this.Controls.Find("tb" + cnt, true);
+                        if(cs.Length > 0)
+                        {
+                            ((TextBox)cs[0]).Text = work;
+                            MessageBox.Show(work);
+                        }
+                        receiveText += "<td>" + work + "</td>";
+                        cnt++;
                     }
+                    work = "";
                     receiveText += "</tr>";
                 }
                 receiveText += "</table>";
@@ -45,14 +54,14 @@ namespace WindowsFormsApp1
             return receiveText;
         }
 
-        private void Table_Parts_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void AddConfirm_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void Table_Parts_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

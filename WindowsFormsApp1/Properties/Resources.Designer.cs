@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Drawing;
+
 namespace WindowsFormsApp1.Properties
 {
 
@@ -33,6 +35,8 @@ namespace WindowsFormsApp1.Properties
         internal Resources()
         {
         }
+
+        public static Bitmap Message { get; internal set; }
 
         /// <summary>
         ///   このクラスで使用されるキャッシュされた ResourceManager インスタンスを返します。
