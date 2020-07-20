@@ -50,6 +50,10 @@ namespace WindowsFormsApp1
             lvi.ImageIndex = 4;
             partsList.Items.Add(lvi);
 
+            lvi = new ListViewItem("テーブル");
+            lvi.ImageIndex = 8;
+            partsList.Items.Add(lvi);
+
             lvi = new ListViewItem("順序のあるリスト");
             lvi.ImageIndex = 5;
             partsList.Items.Add(lvi);
@@ -80,15 +84,15 @@ namespace WindowsFormsApp1
             {
                 text_box[cnt] = input;
                 writer = new System.IO.StreamWriter(@"c:\Users\S3a2\Desktop\index.html", false, System.Text.Encoding.UTF8);
-                writer.Write("<DOCTYPE! HTML>");
-                writer.Write("<HTML>"); //HTML開始
-                writer.Write("<head>" + "<title>" + Title.Text + "</title></head>"); //タイトルの定義
+                writer.Write("<DOCTYPE! HTML>\n");
+                writer.Write("<HTML>\n"); //HTML開始
+                writer.Write("<head>\r\n" + "<title>" + Title.Text + "</title>\n</head>\n"); //タイトルの定義
                 writer.Write("<body>");
                 for (int i = 0; i <= cnt; i++)
                 {
                     writer.Write("<div class=\"" + i + "\">" + text_box[i] + "</div>"); //HTMLコードを追加する
                 }
-                writer.Write("</body>");
+                writer.Write("</body>\n");
                 writer.Write("</HTML>"); //HTML終了
                 writer.Close();
             }
@@ -189,6 +193,7 @@ namespace WindowsFormsApp1
             UL_Parts up = new UL_Parts(); //順序のないリスト
             H_Parts hp = new H_Parts(); //見出し
             B_Parts bp = new B_Parts(); //太字
+            Table_Parts tbp = new Table_Parts(); //テーブル
 
             // 選択されている部品の名前を取り込む
             sel = Create_parts_num();
@@ -215,21 +220,21 @@ namespace WindowsFormsApp1
                 cnt++; //次の行へ
             }
 
-            if (sel == "7")　//画像
+            if (sel == "8")　//画像
             {
                 result = ip.ShowMiniForm();
                 writer_html(result, 0);
                 cnt++; //次の行へ
             }
 
-            if (sel == "5") //順序のあるリスト
+            if (sel == "6") //順序のあるリスト
             {
                 result = op.ShowMiniForm();
                 writer_html(result, 0);
                 cnt++; //次の行へ
             }
 
-            if (sel == "6") //順序のないリスト
+            if (sel == "7") //順序のないリスト
             {
                 result = up.ShowMiniForm();
                 writer_html(result, 0);
@@ -249,10 +254,18 @@ namespace WindowsFormsApp1
                 cnt++; //次の行へ
             }
 
+            if (sel == "5") //テーブル
+            {
+                result = tbp.ShowMiniForm();
+                writer_html(result, 0);
+                cnt++; //次の行へ
+            }
+
             Browser_show(); //結果を画面上に表示
 
 
         }
 
+      
     }
 }
