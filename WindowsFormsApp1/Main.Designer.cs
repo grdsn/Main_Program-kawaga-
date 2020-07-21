@@ -45,7 +45,6 @@
             this.開くToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HTMLBtn = new System.Windows.Forms.Button();
             this.HTMLBOX = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -67,15 +66,15 @@
             // 
             // Title
             // 
-            this.Title.Location = new System.Drawing.Point(64, 456);
+            this.Title.Location = new System.Drawing.Point(59, 70);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(198, 19);
+            this.Title.Size = new System.Drawing.Size(214, 19);
             this.Title.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 459);
+            this.label1.Location = new System.Drawing.Point(13, 73);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 12);
             this.label1.TabIndex = 4;
@@ -95,7 +94,7 @@
             // PartsBox
             // 
             this.PartsBox.Controls.Add(this.partsList);
-            this.PartsBox.Location = new System.Drawing.Point(12, 67);
+            this.PartsBox.Location = new System.Drawing.Point(12, 95);
             this.PartsBox.Name = "PartsBox";
             this.PartsBox.Size = new System.Drawing.Size(270, 243);
             this.PartsBox.TabIndex = 10;
@@ -171,7 +170,7 @@
             // 開くToolStripMenuItem
             // 
             this.開くToolStripMenuItem.Name = "開くToolStripMenuItem";
-            this.開くToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
+            this.開くToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.開くToolStripMenuItem.Text = "開く";
             // 
             // HTMLBtn
@@ -194,15 +193,6 @@
             this.HTMLBOX.Size = new System.Drawing.Size(964, 633);
             this.HTMLBOX.TabIndex = 15;
             this.HTMLBOX.Visible = false;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Location = new System.Drawing.Point(13, 316);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(269, 123);
-            this.groupBox1.TabIndex = 16;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "カラー";
             // 
             // button1
             // 
@@ -243,7 +233,6 @@
             this.Controls.Add(this.ResetBtn);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.HTMLBOX);
             this.Controls.Add(this.HTMLBtn);
             this.Controls.Add(this.webBrowser1);
@@ -283,7 +272,6 @@
         private System.Windows.Forms.Button HTMLBtn;
         private System.Windows.Forms.TextBox HTMLBOX;
         private System.Windows.Forms.ListView partsList;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ToolStripMenuItem 開くToolStripMenuItem;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;

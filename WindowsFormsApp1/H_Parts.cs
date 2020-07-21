@@ -26,11 +26,18 @@ namespace WindowsFormsApp1
 
         public string ShowMiniForm()
         {
-
+            string receiveText = "";
             H_Parts f = new H_Parts();
             f.ShowDialog();
-            int size = int.Parse(size_box.Text); //階層を指定
-            string receiveText = "<h" + size + ">" + f.Title_Add.Text + "</h" + size + ">" ; //HTML文
+            int size = int.Parse(f.size_box.Text); //階層を指定
+            if (size <= 6)
+            {
+                receiveText = "<h" + size + ">" + f.Title_Add.Text + "</h" + size + ">"; //HTML文
+            }
+            else
+            {
+                MessageBox.Show("1～6までの範囲で指定してください。");
+            }
             f.Dispose();
             return receiveText; //HTML文を返す
 

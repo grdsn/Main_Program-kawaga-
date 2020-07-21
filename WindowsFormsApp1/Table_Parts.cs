@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
-{ 
+{
     public partial class Table_Parts : Form
     {
-        
+
         int tr_num; //列の指定
         int td_num = 0; //行の指定
+        
         public Table_Parts()
         {
             InitializeComponent();
@@ -28,30 +29,34 @@ namespace WindowsFormsApp1
             int cnt = 1; //テキストボックス用カウント
             int row = int.Parse(f.row_Box.Text);
             int col = int.Parse(f.col_Box.Text);
-            string receiveText = "<table border=\"1\">";
-            if (row <= 4 && col <= 9) //列が４行以下行が９行以下
+            try
             {
-                for (int i = 0; i < col; i++)
+                string receiveText = "<table border=\"1\">";
+                if (row <= 4 && col <= 9) //列が４行以下行が９行以下
                 {
-                    receiveText += "<tr>";
-                    for (int j = 0; j < row; j++)
+                    for (int i = 0; i < col; i++)
                     {
-                        Control[] cs = this.Controls.Find("tb" + cnt, true);
-                        if(cs.Length > 0)
+                        receiveText += "<tr>";
+                        for (int j = 0; j < row; j++)
                         {
-                            ((TextBox)cs[0]).Text = work;
-                            MessageBox.Show(work);
+                            work = ((TextBox)f.Controls[string.Format("tb{0}", cnt)]).Text;
+                            receiveText += "<td>" + work + "</td>";
+                            cnt++;
                         }
-                        receiveText += "<td>" + work + "</td>";
-                        cnt++;
+                        
+                        work = "";
+                        receiveText += "</tr>";
                     }
-                    work = "";
-                    receiveText += "</tr>";
+                    receiveText += "</table>";
                 }
-                receiveText += "</table>";
+                f.Dispose();
+                return receiveText;
             }
-            f.Dispose();
-            return receiveText;
+            catch(Exception e)
+            {
+                return e.ToString();
+            }
+            
         }
 
         private void AddConfirm_Click(object sender, EventArgs e)
@@ -63,5 +68,6 @@ namespace WindowsFormsApp1
         {
 
         }
+    
     }
 }

@@ -84,15 +84,15 @@ namespace WindowsFormsApp1
             {
                 text_box[cnt] = input;
                 writer = new System.IO.StreamWriter(@"c:\Users\S3a2\Desktop\index.html", false, System.Text.Encoding.UTF8);
-                writer.Write("<DOCTYPE! HTML>\n");
-                writer.Write("<HTML>\n"); //HTML開始
-                writer.Write("<head>\r\n" + "<title>" + Title.Text + "</title>\n</head>\n"); //タイトルの定義
-                writer.Write("<body>");
+                writer.Write("<DOCTYPE! HTML>\r\n");
+                writer.Write("<HTML>\r\n"); //HTML開始
+                writer.Write("<head>\r\n" + "<title>" + Title.Text + "</title>\r\n</head>\r\n"); //タイトルの定義
+                writer.Write("<body>\r\n");
                 for (int i = 0; i <= cnt; i++)
                 {
-                    writer.Write("<div class=\"" + i + "\">" + text_box[i] + "</div>"); //HTMLコードを追加する
+                    writer.Write("<div class=\"" + i + "\">\r\n" + text_box[i] + "\r\n</div>\r\n"); //HTMLコードを追加する
                 }
-                writer.Write("</body>\n");
+                writer.Write("</body>\r\n");
                 writer.Write("</HTML>"); //HTML終了
                 writer.Close();
             }
