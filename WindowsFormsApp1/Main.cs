@@ -9,20 +9,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
-
-
 namespace WindowsFormsApp1
 {
     public partial class main : Form
     {
         //かわが制作部分--------------------------------------------------------
-
+        string result;
         string[] text_box = new string[10000]; //HTMLタグ格納用
         int cnt = 0; //タグ数カウント
         string sel; //選択した部品の名前を格納
         Boolean HTML_flg = false;//ソースコード表示判定用
         //終わり----------------------------------------------------------------
+
 
 
         //在間くん作成部分------------------------------------------------------
@@ -114,7 +112,7 @@ namespace WindowsFormsApp1
         }
 
         /*
-         * ブラウザ内の情報を更新する(かわが)
+         * ブラウザ内の情報を更新するインスタンスを呼び出す(かわが)
          */
         private void Result_Btn_Click(object sender, EventArgs e)
         {
@@ -126,7 +124,7 @@ namespace WindowsFormsApp1
          */
         public void writer_html(string input,int flag)
         {
-            if (flag == 0)
+            if (flag == 0) //配列にデータを追加する
             {
                 text_box[cnt] = input;
                 writer = new System.IO.StreamWriter(@"c:\Users\S3a2\Desktop\index.html", false, System.Text.Encoding.UTF8);
@@ -142,9 +140,8 @@ namespace WindowsFormsApp1
                 writer.Write("</HTML>"); //HTML終了
                 writer.Close();
             }
-            else
+            else　if(flg==1) //配列内のデータを初期化
             {
-                //配列内のデータを初期化
                 for(int i = 0; i <=cnt; i++)
                 {
                     text_box[cnt] = "";
@@ -155,6 +152,11 @@ namespace WindowsFormsApp1
                 writer.Close(); //閉じる
             }
             
+        }
+
+        private void replace_HTML(string input1,string input2)
+        {
+
         }
 
         /*
@@ -228,15 +230,14 @@ namespace WindowsFormsApp1
             {
                 return partsList.SelectedItems[0].Index.ToString();
             }
-            return "error";
+            return "-1";
         }
 
         /*
-         * パーツを選択し、各部品に分岐させる(かわが)
+         * 
          */
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        { 
-            string result;
+        private void insert_Parts(string sel)
+        {
             Text_parts tp = new Text_parts(); //テキスト
             EM_Parts ep = new EM_Parts(); //テキストの強調
             Hyper_Parts hpp = new Hyper_Parts(); //ハイパーテキスト
@@ -246,10 +247,6 @@ namespace WindowsFormsApp1
             H_Parts hp = new H_Parts(); //見出し
             B_Parts bp = new B_Parts(); //太字
             Table_Parts tbp = new Table_Parts(); //テーブル
-
-            // 選択されている部品の名前を取り込む
-            sel = Create_parts_num();
-            
             //部品選択分岐-----------------------------------------------
             if (sel == "1") //テキスト
             {
@@ -296,7 +293,7 @@ namespace WindowsFormsApp1
             if (sel == "0") //見出し
             {
                 result = hp.ShowMiniForm();
-                //writer_html(result, 0);
+                writer_html(result, 0);
                 cnt++; //次の行へ
             }
             if (sel == "4") //太字
@@ -313,12 +310,21 @@ namespace WindowsFormsApp1
                 cnt++; //次の行へ
             }
             //部品選択分岐-----------------------------------------------
-            
+        }
+
+        /*
+         * パーツを選択し、各部品に分岐させる(かわが)
+         */
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //(create_parts_num)indexの要素番号を出力する
+            // 選択されている部品の名前を取り込む
+            insert_Parts(Create_parts_num()); //indexで判別し部品を挿入する
             Browser_show(); //結果を画面上に表示
 
             //在間くん作成プログラム-----------------------------------------------
             
-            switch (int.Parse(sel))
+            switch (int.Parse(Create_parts_num()))
             {
                 //見出し
                 case 0:
@@ -431,9 +437,6 @@ namespace WindowsFormsApp1
                     break;
             }
             //在間くん作成プログラム-----------------------------------------------
-
-
-
         }
 
         //在間くん作成プログラム統合部分-----------------------------------------------
@@ -560,12 +563,9 @@ namespace WindowsFormsApp1
         {
             return delegate (object sender2, EventArgs e2)
             {
-
                 if (flg != 6 && flg != 5 && flg != 7)
                 {   //通常時の処理
                     //選択したボタンのプロパティを表示
-
-
                     switch (getkind)
                     {
                         case "h1":
@@ -595,7 +595,6 @@ namespace WindowsFormsApp1
                 }//通常時
                 else if (flg == 5)
                 {   //押されている
-
                     Control[] controls = Controls.Find(name, true);
                     foreach (Control control in controls)
                     {   //部品の削除処理
@@ -629,9 +628,7 @@ namespace WindowsFormsApp1
                             default:
                                 break;
                         }
-
                     }
-
                 }//flg==5
                 else if (flg == 7)
                 {
@@ -648,6 +645,7 @@ namespace WindowsFormsApp1
                             break;
                         //二回目
                         case 1:
+                            name2 = name;
                             ctrl2 = cont;   //二つ目の部品の名前を保持
                             cont2 = flowLayoutPanel1.Controls.GetChildIndex(cont);  //部品のFlowLayoutPanelのインデックスを保持
                             SwapControls(cont1, cont2, ctrl1, ctrl2);       //入れ替えメソッドの実行
@@ -656,6 +654,7 @@ namespace WindowsFormsApp1
                         default:
                             break;
                     }
+                    replace_HTML(name1, name2);
                 }//flg==7
             };
         }
@@ -686,14 +685,11 @@ namespace WindowsFormsApp1
             flowLayoutPanel1.SuspendLayout();
 
             //入れ替え処理
-            flowLayoutPanel1.Controls.SetChildIndex(ctrl1, y);
-            flowLayoutPanel1.Controls.SetChildIndex(ctrl2, x);
+            flowLayoutPanel1.Controls.SetChildIndex(ctrl1, y); //1個目に選択したもの
+            flowLayoutPanel1.Controls.SetChildIndex(ctrl2, x); //2個目
 
             flowLayoutPanel1.ResumeLayout();
         }
-
-
-
         //在間くん作成プログラム統合部分-----------------------------------------------
     }
 }

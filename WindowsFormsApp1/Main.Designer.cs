@@ -51,7 +51,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button_edit = new System.Windows.Forms.Button();
             this.group_tag = new System.Windows.Forms.GroupBox();
-            this.button_swap = new System.Windows.Forms.Button();
             this.groupBody = new System.Windows.Forms.GroupBox();
             this.button_body2 = new System.Windows.Forms.Button();
             this.property_text = new System.Windows.Forms.TextBox();
@@ -60,6 +59,7 @@
             this.groupHead = new System.Windows.Forms.GroupBox();
             this.button_head2 = new System.Windows.Forms.Button();
             this.button_title = new System.Windows.Forms.Button();
+            this.button_swap = new System.Windows.Forms.Button();
             this.button_delete = new System.Windows.Forms.Button();
             this.button_head1 = new System.Windows.Forms.Button();
             this.button_body1 = new System.Windows.Forms.Button();
@@ -87,7 +87,7 @@
             // 
             this.Title.Location = new System.Drawing.Point(59, 70);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(214, 19);
+            this.Title.Size = new System.Drawing.Size(262, 19);
             this.Title.TabIndex = 3;
             // 
             // label1
@@ -115,7 +115,7 @@
             this.PartsBox.Controls.Add(this.partsList);
             this.PartsBox.Location = new System.Drawing.Point(12, 95);
             this.PartsBox.Name = "PartsBox";
-            this.PartsBox.Size = new System.Drawing.Size(270, 243);
+            this.PartsBox.Size = new System.Drawing.Size(318, 243);
             this.PartsBox.TabIndex = 10;
             this.PartsBox.TabStop = false;
             this.PartsBox.Text = "素材";
@@ -126,7 +126,7 @@
             this.partsList.LargeImageList = this.imageList;
             this.partsList.Location = new System.Drawing.Point(6, 18);
             this.partsList.Name = "partsList";
-            this.partsList.Size = new System.Drawing.Size(255, 219);
+            this.partsList.Size = new System.Drawing.Size(303, 219);
             this.partsList.TabIndex = 0;
             this.partsList.UseCompatibleStateImageBehavior = false;
             this.partsList.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
@@ -284,17 +284,6 @@
             this.group_tag.TabIndex = 21;
             this.group_tag.TabStop = false;
             // 
-            // button_swap
-            // 
-            this.button_swap.Location = new System.Drawing.Point(162, 10);
-            this.button_swap.Name = "button_swap";
-            this.button_swap.Size = new System.Drawing.Size(75, 23);
-            this.button_swap.TabIndex = 4;
-            this.button_swap.Text = "並び替え";
-            this.button_swap.UseVisualStyleBackColor = true;
-            this.button_swap.Visible = false;
-            this.button_swap.Click += new System.EventHandler(this.button_swap_Click);
-            // 
             // groupBody
             // 
             this.groupBody.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
@@ -390,6 +379,17 @@
             this.button_title.TabIndex = 1;
             this.button_title.Text = "<TITLE>";
             this.button_title.UseVisualStyleBackColor = false;
+            // 
+            // button_swap
+            // 
+            this.button_swap.Location = new System.Drawing.Point(162, 10);
+            this.button_swap.Name = "button_swap";
+            this.button_swap.Size = new System.Drawing.Size(75, 23);
+            this.button_swap.TabIndex = 4;
+            this.button_swap.Text = "並び替え";
+            this.button_swap.UseVisualStyleBackColor = true;
+            this.button_swap.Visible = false;
+            this.button_swap.Click += new System.EventHandler(this.button_swap_Click);
             // 
             // button_delete
             // 
