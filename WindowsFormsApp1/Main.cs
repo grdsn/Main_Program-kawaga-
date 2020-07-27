@@ -143,7 +143,7 @@ namespace WindowsFormsApp1
          */
         public void writer_html(string input,int flag)
         {
-            String destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "index.html");
+            String destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "index.html"); //相対パスで指定 (デスクトップに保存)
             if (flag == 0) //配列にデータを追加する
             {
                 text_box[cnt] = input;
@@ -447,7 +447,8 @@ namespace WindowsFormsApp1
          */
         private void Browser_show()
         {
-            webBrowser1.Navigate("c:/Users/S3a2/Desktop/index.html");
+            String destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "index.html"); //相対パスで指定 (デスクトップに保存)
+            webBrowser1.Navigate(destinationPath);
         }
 
         /*
@@ -463,8 +464,9 @@ namespace WindowsFormsApp1
          * HTMLソースコードを表示する(かわが)
          */
         private void HTML_show()
-        {  
-            StreamReader st = new StreamReader(@"C:\Users\S3a2\Desktop\index.html", Encoding.GetEncoding("UTF-8"));　//StreamReaderでファイルの内容を読み込む
+        {
+            String destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "index.html"); //相対パスで指定 (デスクトップに保存)
+            StreamReader st = new StreamReader(destinationPath, Encoding.GetEncoding("UTF-8"));　//StreamReaderでファイルの内容を読み込む
             HTMLBOX.Text = st.ReadToEnd(); //streamReader内のテキストを書き込む
             st.Close();//終了
         }
