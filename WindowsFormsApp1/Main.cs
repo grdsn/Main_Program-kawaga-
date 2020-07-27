@@ -143,10 +143,11 @@ namespace WindowsFormsApp1
          */
         public void writer_html(string input,int flag)
         {
+            String destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "index.html");
             if (flag == 0) //配列にデータを追加する
             {
                 text_box[cnt] = input;
-                writer = new System.IO.StreamWriter(@"%USERPROFILE%\Desktop", false, System.Text.Encoding.UTF8);
+                writer = new System.IO.StreamWriter(destinationPath, false, System.Text.Encoding.UTF8);
                 writer.Write("<DOCTYPE! HTML>\r\n");
                 writer.Write("<HTML>\r\n"); //HTML開始
                 writer.Write("<head>\r\n" + "<title>" + Title.Text + "</title>\r\n</head>\r\n"); //タイトルの定義
@@ -165,7 +166,7 @@ namespace WindowsFormsApp1
                 {
                     text_box[cnt] = "";
                 }
-                writer = new System.IO.StreamWriter(@"c:\Users\S3a2\Desktop\index.html", false, System.Text.Encoding.UTF8);
+                writer = new System.IO.StreamWriter(destinationPath, false, System.Text.Encoding.UTF8);
                 writer.Write("");
                 cnt = 0;
                 writer.Close(); //閉じる
@@ -173,6 +174,9 @@ namespace WindowsFormsApp1
             
         }
 
+        /*
+         * HTMLのファイルに位置を置き換える
+         */
         private void replace_HTML(string input1,string input2)
         {
 
