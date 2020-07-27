@@ -37,17 +37,25 @@
             this.PartsBox = new System.Windows.Forms.GroupBox();
             this.partsList = new System.Windows.Forms.ListView();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.ResetBtn = new System.Windows.Forms.Button();
+            this.NewButton = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.開くToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemFileNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemFileOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.MenuItemFileSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemFileSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemFileExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BackText = new System.Windows.Forms.ToolStripMenuItem();
             this.HTMLBtn = new System.Windows.Forms.Button();
             this.HTMLBOX = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.SaveButton = new System.Windows.Forms.Button();
+            this.SaveAsButton = new System.Windows.Forms.Button();
+            this.oepn_Btn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.button_edit = new System.Windows.Forms.Button();
             this.group_tag = new System.Windows.Forms.GroupBox();
@@ -64,6 +72,8 @@
             this.button_head1 = new System.Windows.Forms.Button();
             this.button_body1 = new System.Windows.Forms.Button();
             this.button_html = new System.Windows.Forms.Button();
+            this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.PartsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -145,16 +155,16 @@
             this.imageList.Images.SetKeyName(7, "イメージ画像のアイコン素材 2.png");
             this.imageList.Images.SetKeyName(8, "読書のアイコン.png");
             // 
-            // ResetBtn
+            // NewButton
             // 
-            this.ResetBtn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.ResetBtn.Location = new System.Drawing.Point(204, 27);
-            this.ResetBtn.Name = "ResetBtn";
-            this.ResetBtn.Size = new System.Drawing.Size(91, 34);
-            this.ResetBtn.TabIndex = 11;
-            this.ResetBtn.Text = "新規";
-            this.ResetBtn.UseVisualStyleBackColor = true;
-            this.ResetBtn.Click += new System.EventHandler(this.resetBtn_Click);
+            this.NewButton.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.NewButton.Location = new System.Drawing.Point(204, 27);
+            this.NewButton.Name = "NewButton";
+            this.NewButton.Size = new System.Drawing.Size(91, 34);
+            this.NewButton.TabIndex = 11;
+            this.NewButton.Text = "新規";
+            this.NewButton.UseVisualStyleBackColor = true;
+            this.NewButton.Click += new System.EventHandler(this.NewButton_Click);
             // 
             // errorProvider1
             // 
@@ -171,7 +181,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ファイルToolStripMenuItem});
+            this.ファイルToolStripMenuItem,
+            this.BackText});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1302, 24);
@@ -181,16 +192,76 @@
             // ファイルToolStripMenuItem
             // 
             this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.開くToolStripMenuItem});
+            this.MenuItemFileNew,
+            this.MenuItemFileOpen,
+            this.toolStripSeparator1,
+            this.MenuItemFileSave,
+            this.MenuItemFileSaveAs,
+            this.toolStripSeparator2,
+            this.終了XToolStripMenuItem});
             this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
             this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.ファイルToolStripMenuItem.Text = "ファイル";
             // 
-            // 開くToolStripMenuItem
+            // MenuItemFileNew
             // 
-            this.開くToolStripMenuItem.Name = "開くToolStripMenuItem";
-            this.開くToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
-            this.開くToolStripMenuItem.Text = "開く";
+            this.MenuItemFileNew.Name = "MenuItemFileNew";
+            this.MenuItemFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.MenuItemFileNew.Size = new System.Drawing.Size(181, 22);
+            this.MenuItemFileNew.Text = "新規作成(&N)";
+            this.MenuItemFileNew.Click += new System.EventHandler(this.MenuItemFileNew_Click);
+            // 
+            // MenuItemFileOpen
+            // 
+            this.MenuItemFileOpen.Name = "MenuItemFileOpen";
+            this.MenuItemFileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.MenuItemFileOpen.Size = new System.Drawing.Size(181, 22);
+            this.MenuItemFileOpen.Text = "開く(&O)";
+            this.MenuItemFileOpen.Click += new System.EventHandler(this.MenuItemFileOpen_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            // 
+            // MenuItemFileSave
+            // 
+            this.MenuItemFileSave.Name = "MenuItemFileSave";
+            this.MenuItemFileSave.Size = new System.Drawing.Size(181, 22);
+            this.MenuItemFileSave.Text = "上書き保存(&S)";
+            // 
+            // MenuItemFileSaveAs
+            // 
+            this.MenuItemFileSaveAs.Name = "MenuItemFileSaveAs";
+            this.MenuItemFileSaveAs.Size = new System.Drawing.Size(181, 22);
+            this.MenuItemFileSaveAs.Text = "名前を付けて保存(&A)";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
+            // 
+            // 終了XToolStripMenuItem
+            // 
+            this.終了XToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemFileExitToolStripMenuItem});
+            this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
+            this.終了XToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.終了XToolStripMenuItem.Text = "終了(&X)";
+            // 
+            // menuItemFileExitToolStripMenuItem
+            // 
+            this.menuItemFileExitToolStripMenuItem.Name = "menuItemFileExitToolStripMenuItem";
+            this.menuItemFileExitToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.menuItemFileExitToolStripMenuItem.Text = "MenuItemFileExit";
+            this.menuItemFileExitToolStripMenuItem.Click += new System.EventHandler(this.menuItemFileExitToolStripMenuItem_Click);
+            // 
+            // BackText
+            // 
+            this.BackText.Name = "BackText";
+            this.BackText.Size = new System.Drawing.Size(40, 20);
+            this.BackText.Text = "戻る";
+            this.BackText.Click += new System.EventHandler(this.BackText_Click);
             // 
             // HTMLBtn
             // 
@@ -212,36 +283,39 @@
             this.HTMLBOX.Size = new System.Drawing.Size(917, 795);
             this.HTMLBOX.TabIndex = 15;
             this.HTMLBOX.Visible = false;
+            this.HTMLBOX.TextChanged += new System.EventHandler(this.HTMLBOX_TextChanged);
             // 
-            // button1
+            // SaveButton
             // 
-            this.button1.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(609, 28);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(133, 33);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "上書き保存";
-            this.button1.UseVisualStyleBackColor = true;
+            this.SaveButton.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
+            this.SaveButton.Location = new System.Drawing.Point(609, 28);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(133, 33);
+            this.SaveButton.TabIndex = 17;
+            this.SaveButton.Text = "上書き保存";
+            this.SaveButton.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // SaveAsButton
             // 
-            this.button2.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
-            this.button2.Location = new System.Drawing.Point(398, 28);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(207, 33);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "名前をつけて保存";
-            this.button2.UseVisualStyleBackColor = true;
+            this.SaveAsButton.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
+            this.SaveAsButton.Location = new System.Drawing.Point(396, 29);
+            this.SaveAsButton.Name = "SaveAsButton";
+            this.SaveAsButton.Size = new System.Drawing.Size(207, 33);
+            this.SaveAsButton.TabIndex = 18;
+            this.SaveAsButton.Text = "名前をつけて保存";
+            this.SaveAsButton.UseVisualStyleBackColor = true;
+            this.SaveAsButton.Click += new System.EventHandler(this.SaveAsButton_Click);
             // 
-            // button3
+            // oepn_Btn
             // 
-            this.button3.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
-            this.button3.Location = new System.Drawing.Point(301, 28);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(91, 33);
-            this.button3.TabIndex = 19;
-            this.button3.Text = "開く";
-            this.button3.UseVisualStyleBackColor = true;
+            this.oepn_Btn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
+            this.oepn_Btn.Location = new System.Drawing.Point(301, 28);
+            this.oepn_Btn.Name = "oepn_Btn";
+            this.oepn_Btn.Size = new System.Drawing.Size(91, 33);
+            this.oepn_Btn.TabIndex = 19;
+            this.oepn_Btn.Text = "開く";
+            this.oepn_Btn.UseVisualStyleBackColor = true;
+            this.oepn_Btn.Click += new System.EventHandler(this.oepn_Btn_Click);
             // 
             // label2
             // 
@@ -447,6 +521,10 @@
             this.button_html.UseVisualStyleBackColor = false;
             this.button_html.Click += new System.EventHandler(this.button_html_Click);
             // 
+            // OpenFileDialog
+            // 
+            this.OpenFileDialog.FileName = "openFileDialog1";
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -454,10 +532,10 @@
             this.ClientSize = new System.Drawing.Size(1302, 884);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button_edit);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.ResetBtn);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.oepn_Btn);
+            this.Controls.Add(this.NewButton);
+            this.Controls.Add(this.SaveAsButton);
+            this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.HTMLBOX);
             this.Controls.Add(this.HTMLBtn);
             this.Controls.Add(this.webBrowser1);
@@ -472,6 +550,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "main";
             this.Text = "メインページ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.PartsBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
@@ -493,7 +572,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Reset_Btn;
         private System.Windows.Forms.GroupBox PartsBox;
-        private System.Windows.Forms.Button ResetBtn;
+        private System.Windows.Forms.Button NewButton;
         private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.WebBrowser webBrowser1;
@@ -502,10 +581,10 @@
         private System.Windows.Forms.Button HTMLBtn;
         private System.Windows.Forms.TextBox HTMLBOX;
         private System.Windows.Forms.ListView partsList;
-        private System.Windows.Forms.ToolStripMenuItem 開くToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemFileOpen;
+        private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button oepn_Btn;
+        private System.Windows.Forms.Button SaveAsButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button_edit;
         private System.Windows.Forms.GroupBox group_tag;
@@ -522,6 +601,16 @@
         private System.Windows.Forms.Button button_head1;
         private System.Windows.Forms.Button button_body1;
         private System.Windows.Forms.Button button_html;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemFileNew;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemFileSave;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemFileSaveAs;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem 終了XToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem BackText;
+        private System.Windows.Forms.ToolStripMenuItem menuItemFileExitToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog SaveFileDialog;
+        private System.Windows.Forms.OpenFileDialog OpenFileDialog;
     }
 }
 

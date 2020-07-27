@@ -13,13 +13,17 @@ namespace WindowsFormsApp1
 {
     public partial class main : Form
     {
-        //かわが制作部分--------------------------------------------------------
-        string result;
+        //定義--------------------------------------------------------
+        const string ApplicationName = "かんたんWeb君";//アプリケーション名
+        private string FileName = ""; //ファイル名(フルパス)
+        string result;//結果格納
+        private bool Edited = false;
+        string adress; //アドレスの相対パス
         string[] text_box = new string[10000]; //HTMLタグ格納用
         int cnt = 0; //タグ数カウント
         string sel; //選択した部品の名前を格納
         Boolean HTML_flg = false;//ソースコード表示判定用
-        //終わり----------------------------------------------------------------
+        //定義----------------------------------------------------------------
 
 
         //在間くん作成部分------------------------------------------------------
@@ -108,6 +112,22 @@ namespace WindowsFormsApp1
             //在間くん作成部分--------------------------------------------
             this.flowLayoutPanel1.VerticalScroll.Visible = true;
             //在間くん作成部分--------------------------------------------
+
+            this.Text = ApplicationName;
+
+            // 複数行入力を有効化
+            HTMLBOX.Multiline = true;
+
+            // 垂直方向スクロールバー表示を有効化
+            HTMLBOX.ScrollBars = ScrollBars.Vertical;
+
+            // フォーム全体にテキストボックスを表示
+            //textBox.Dock = DockStyle.Fill;
+
+            // 「名前を付けて保存」ダイアログで「ファイル種類」を選択させる
+            SaveFileDialog.Filter = "HTML|*.html|CSS|*.css";
+
+            UpdateStatus("", false);
         }
 
         /*
@@ -126,7 +146,7 @@ namespace WindowsFormsApp1
             if (flag == 0) //配列にデータを追加する
             {
                 text_box[cnt] = input;
-                writer = new System.IO.StreamWriter(@"c:\Users\S3a2\Desktop\index.html", false, System.Text.Encoding.UTF8);
+                writer = new System.IO.StreamWriter(@"%USERPROFILE%\Desktop", false, System.Text.Encoding.UTF8);
                 writer.Write("<DOCTYPE! HTML>\r\n");
                 writer.Write("<HTML>\r\n"); //HTML開始
                 writer.Write("<head>\r\n" + "<title>" + Title.Text + "</title>\r\n</head>\r\n"); //タイトルの定義
@@ -159,6 +179,253 @@ namespace WindowsFormsApp1
         }
 
         /*
+         * 戻るボタンが押された場合
+         */
+        private void BackText_Click(object sender, EventArgs e)
+        {
+            if (cnt > 0)
+            {
+                cnt--;
+                writer_html("", 0);
+                Browser_show();　//結果を画面上に表示
+            }
+        }
+
+        /*
+         *終了がクリックされたとき 
+         */
+        private void menuItemFileExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        /*
+         * アプリケーションを更新する
+         */
+        private void UpdateStatus(string Name, bool Edited)
+        {
+            // ファイル名を保持する
+            this.FileName = Name;
+
+            // 編集状態を保持する
+            this.Edited = Edited;
+
+            // タイトルバー表示名
+            string title = ApplicationName + " - " + this.FileName;
+
+            if (FileName != "")
+            {
+                // タイトルバーにファイル名を表示する
+                this.Text = ApplicationName + " - " + this.FileName;
+            }
+
+            if (Edited)
+            {
+                // 編集中があれば「（変更あり）」をタイトル名に付ける
+                title += "（変更あり）";
+            }
+
+            // タイトルバー表示名を設定する
+            this.Text = title;
+
+            if (FileName == "")
+            {
+                // ファイル名が未設定
+                // 「上書き保存」を無効
+                MenuItemFileSave.Enabled = false;
+                SaveButton.Enabled = false;
+            }
+            else
+            {
+                // 「上書き保存」を有効
+                MenuItemFileSave.Enabled = true;
+                SaveButton.Enabled = true;
+            }
+
+            if (!Edited)
+            {
+                // 編集前
+                // 「名前を付けて保存」を無効
+                MenuItemFileSaveAs.Enabled = false;
+                SaveAsButton.Enabled = false;
+            }
+            else
+            {
+                // 編集中
+                // 「名前を付けて保存」を有効
+                MenuItemFileSaveAs.Enabled = true;
+                SaveAsButton.Enabled = true;
+            }
+        }
+        /*
+         * 終了する前にデータが残っていたら確認する
+         */
+        private void main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!Edited)
+            {
+                // テキストが「未編集」の場合はそのまま終了
+                return;
+            }
+
+            // 終了確認ダイアログを表示
+            bool result = ShowDiscardDialog();
+
+            if (!result)
+            {
+                // 「はい」以外が選択された場合は
+                // アプリケーション終了をキャンセルする
+                e.Cancel = true;
+            }
+        }
+
+        /*
+         * HTMLファイルを開く
+         */
+        private void oepn_Btn_Click(object sender, EventArgs e)
+        {
+            MenuItemFileOpen_Click(sender, e);
+        }
+
+        /*
+         * ファイル新規作成
+         */
+        private void MenuItemFileNew_Click(object sender, EventArgs e)
+        {
+            if (!Edited)
+            {
+                //テキストボックスの内容をクリア
+                HTMLBOX.Clear();
+
+                // ファイル名（フルパス）
+                this.FileName = "新規作成";
+
+                //ファイル名保持
+                this.Text = ApplicationName + " - " + this.FileName;
+            }
+            else
+            {
+                // テキストが「編集中」
+                // 終了確認ダイアログを表示
+                bool result = ShowDiscardDialog();
+
+                if (!result)
+                {
+                    // 「OK」ボタン以外がクリックされた場合は処理を中断
+                    return;
+                }
+                else
+                {
+                    //テキストボックスの内容をクリア
+                    HTMLBOX.Clear();
+
+                    // ファイル名（フルパス）
+                    this.FileName = "新規作成";
+
+                    //ファイル名保持
+                    this.Text = ApplicationName + " - " + this.FileName;
+                }
+            }
+        }
+
+        /*
+         *テキストファイルの内容をテキストボックスに格納する 
+         */
+        private void LoadFile(string value)
+        {
+            //UTF-8に変換してファイルを開く
+            HTMLBOX.Text = System.IO.File.ReadAllText(value, Encoding.GetEncoding("UTF-8"));
+
+            this.FileName = value;
+
+            UpdateStatus(FileName, false);
+
+            Browser_show();
+
+        }
+
+        private void SaveAsButton_Click(object sender, EventArgs e)
+        {
+            MenuItemSaveAs_Click(sender, e);
+        }
+
+        private void MenuItemSaveAs_Click(object sender, EventArgs e)
+        {
+            // ファイル名を初期入力させておく
+            SaveFileDialog.FileName = System.IO.Path.GetFileName(this.FileName);
+
+            if (DialogResult.OK == SaveFileDialog.ShowDialog())
+            {
+                // 「開く」ボタンがクリックされたとき
+                SaveFile(SaveFileDialog.FileName);
+            }
+        }
+
+        private void MenuItemSave_Click(object sender, EventArgs e)
+        {
+            SaveFile(this.FileName);
+        }
+
+        private void SaveFile(string value)
+        {
+            //UTF-8で保存
+            System.IO.File.WriteAllText(value, HTMLBOX.Text, Encoding.GetEncoding("UTF-8"));
+
+            // ファイル名を保持する
+            this.FileName = value;
+
+            UpdateStatus(FileName, false);
+
+        }
+
+        /*
+         * ファイルを開く処理
+         */
+        private void MenuItemFileOpen_Click(object sender, EventArgs e)
+        {
+            if (Edited)
+            {
+                // テキストが「編集中」
+                // 終了確認ダイアログを表示
+                bool result = ShowDiscardDialog();
+
+                // キャンセルがクリックされた場合は処理を中断
+                if (!result)
+                {
+                    return;
+                }
+            }
+
+            OpenFileDialog.FileName = "";
+            if (DialogResult.OK == OpenFileDialog.ShowDialog())
+            {
+                // 「開く」ボタンがクリックされたとき
+                LoadFile(OpenFileDialog.FileName);
+
+            }
+        }
+
+        /*
+         * 警告を表示する
+         */
+        private bool ShowDiscardDialog()
+        {
+            // ダイアログ表示
+            DialogResult result = MessageBox.Show("編集内容を破棄しますか？", ApplicationName, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            if (DialogResult.OK == result)
+            {
+                // 「OK」
+                return true;
+            }
+            else
+            {
+                // 「OK」以外
+                return false;
+            }
+        }
+
+        /*
          *  最下部のHTMLタグを削除する(かわが)
          */
         private void Reset_Btn_Click(object sender, EventArgs e)
@@ -180,14 +447,13 @@ namespace WindowsFormsApp1
         }
 
         /*
-         *初期化処理(かわが)
+         *新規追加(かわが)
          */
-        private void resetBtn_Click(object sender, EventArgs e)
+        private void NewButton_Click(object sender, EventArgs e)
         {
-            writer_html("", 1);//画面データを削除   
-            HTML_show();//リセット完了後のHTMLソースを出力
-            Browser_show(); //リセット完了後のブラウザ画面を出力
+            MenuItemFileNew_Click(sender, e);
         }
+
 
         /*
          * HTMLソースコードを表示する(かわが)
@@ -321,8 +587,10 @@ namespace WindowsFormsApp1
             insert_Parts(Create_parts_num()); //indexで判別し部品を挿入する
             Browser_show(); //結果を画面上に表示
 
+            UpdateStatus(FileName, true); //変更あり状態に変更する
+
             //在間くん作成プログラム-----------------------------------------------
-            
+
             switch (int.Parse(Create_parts_num()))
             {
                 //見出し
@@ -688,6 +956,18 @@ namespace WindowsFormsApp1
 
             flowLayoutPanel1.ResumeLayout();
         }
+
+        private void HTMLBOX_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
         //在間くん作成プログラム統合部分-----------------------------------------------
+
+
+
+
     }
 }
