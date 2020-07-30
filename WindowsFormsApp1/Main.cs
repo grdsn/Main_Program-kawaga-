@@ -14,7 +14,7 @@ namespace WindowsFormsApp1
     public partial class main : Form
     {
         //定義--------------------------------------------------------
-        const string ApplicationName = "かんたんWeb君";//アプリケーション名
+        const string ApplicationName = "かんたんWeb君(Ver.1)";//アプリケーション名
         private string FileName = ""; //ファイル名(フルパス)
         string result;//結果格納
         private bool Edited = false;
@@ -456,7 +456,8 @@ namespace WindowsFormsApp1
          */
         private void Browser_show()
         {
-            webBrowser1.Navigate(get_Path());　//相対パスで指定 (デスクトップに保存)
+            String destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "index.html"); //相対パスで指定 (デスクトップに保存)
+            webBrowser1.Navigate(destinationPath);
         }
 
         /*
@@ -473,7 +474,7 @@ namespace WindowsFormsApp1
          */
         private void HTML_show()
         {
-            String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
+            String destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "index.html"); //相対パスで指定 (デスクトップに保存)
             StreamReader st = new StreamReader(destinationPath, Encoding.GetEncoding("UTF-8"));　//StreamReaderでファイルの内容を読み込む
             HTMLBOX.Text = st.ReadToEnd(); //streamReader内のテキストを書き込む
             st.Close();//終了
