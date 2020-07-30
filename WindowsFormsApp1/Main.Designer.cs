@@ -29,15 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Button oepn_Btn;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main));
-            this.Result_Btn = new System.Windows.Forms.Button();
             this.Title = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.Reset_Btn = new System.Windows.Forms.Button();
             this.PartsBox = new System.Windows.Forms.GroupBox();
             this.partsList = new System.Windows.Forms.ListView();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.NewButton = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -51,11 +49,7 @@
             this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemFileExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BackText = new System.Windows.Forms.ToolStripMenuItem();
-            this.HTMLBtn = new System.Windows.Forms.Button();
             this.HTMLBOX = new System.Windows.Forms.TextBox();
-            this.SaveButton = new System.Windows.Forms.Button();
-            this.SaveAsButton = new System.Windows.Forms.Button();
-            this.oepn_Btn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.button_edit = new System.Windows.Forms.Button();
             this.group_tag = new System.Windows.Forms.GroupBox();
@@ -74,28 +68,43 @@
             this.button_html = new System.Windows.Forms.Button();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.PreviewBtn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.NewButton = new System.Windows.Forms.Button();
+            this.SaveAsButton = new System.Windows.Forms.Button();
+            this.SaveButton = new System.Windows.Forms.Button();
+            this.HTMLBtn = new System.Windows.Forms.Button();
+            this.Reset_Btn = new System.Windows.Forms.Button();
+            this.Result_Btn = new System.Windows.Forms.Button();
+            oepn_Btn = new System.Windows.Forms.Button();
             this.PartsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.group_tag.SuspendLayout();
             this.groupBody.SuspendLayout();
             this.groupHead.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Result_Btn
+            // oepn_Btn
             // 
-            this.Result_Btn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Result_Btn.Location = new System.Drawing.Point(963, 28);
-            this.Result_Btn.Name = "Result_Btn";
-            this.Result_Btn.Size = new System.Drawing.Size(90, 34);
-            this.Result_Btn.TabIndex = 0;
-            this.Result_Btn.Text = "更新";
-            this.Result_Btn.UseVisualStyleBackColor = true;
-            this.Result_Btn.Click += new System.EventHandler(this.Result_Btn_Click);
+            oepn_Btn.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Open;
+            oepn_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            oepn_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            oepn_Btn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
+            oepn_Btn.ForeColor = System.Drawing.Color.White;
+            oepn_Btn.Location = new System.Drawing.Point(134, 32);
+            oepn_Btn.Name = "oepn_Btn";
+            oepn_Btn.Size = new System.Drawing.Size(115, 67);
+            oepn_Btn.TabIndex = 19;
+            oepn_Btn.UseVisualStyleBackColor = true;
+            oepn_Btn.Click += new System.EventHandler(this.oepn_Btn_Click);
             // 
             // Title
             // 
-            this.Title.Location = new System.Drawing.Point(59, 70);
+            this.Title.Location = new System.Drawing.Point(59, 118);
             this.Title.Name = "Title";
             this.Title.Size = new System.Drawing.Size(262, 19);
             this.Title.TabIndex = 3;
@@ -103,27 +112,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 73);
+            this.label1.Location = new System.Drawing.Point(13, 121);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 12);
             this.label1.TabIndex = 4;
             this.label1.Text = "タイトル";
             // 
-            // Reset_Btn
-            // 
-            this.Reset_Btn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Reset_Btn.Location = new System.Drawing.Point(1059, 27);
-            this.Reset_Btn.Name = "Reset_Btn";
-            this.Reset_Btn.Size = new System.Drawing.Size(90, 34);
-            this.Reset_Btn.TabIndex = 8;
-            this.Reset_Btn.Text = "戻る";
-            this.Reset_Btn.UseVisualStyleBackColor = true;
-            this.Reset_Btn.Click += new System.EventHandler(this.Reset_Btn_Click);
-            // 
             // PartsBox
             // 
             this.PartsBox.Controls.Add(this.partsList);
-            this.PartsBox.Location = new System.Drawing.Point(12, 95);
+            this.PartsBox.Location = new System.Drawing.Point(12, 143);
             this.PartsBox.Name = "PartsBox";
             this.PartsBox.Size = new System.Drawing.Size(318, 243);
             this.PartsBox.TabIndex = 10;
@@ -155,27 +153,16 @@
             this.imageList.Images.SetKeyName(7, "イメージ画像のアイコン素材 2.png");
             this.imageList.Images.SetKeyName(8, "読書のアイコン.png");
             // 
-            // NewButton
-            // 
-            this.NewButton.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.NewButton.Location = new System.Drawing.Point(204, 27);
-            this.NewButton.Name = "NewButton";
-            this.NewButton.Size = new System.Drawing.Size(91, 34);
-            this.NewButton.TabIndex = 11;
-            this.NewButton.Text = "新規";
-            this.NewButton.UseVisualStyleBackColor = true;
-            this.NewButton.Click += new System.EventHandler(this.NewButton_Click);
-            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(348, 68);
+            this.webBrowser1.Location = new System.Drawing.Point(12, 22);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(917, 795);
+            this.webBrowser1.Size = new System.Drawing.Size(917, 458);
             this.webBrowser1.TabIndex = 1;
             // 
             // menuStrip1
@@ -263,66 +250,24 @@
             this.BackText.Text = "戻る";
             this.BackText.Click += new System.EventHandler(this.BackText_Click);
             // 
-            // HTMLBtn
-            // 
-            this.HTMLBtn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.HTMLBtn.Location = new System.Drawing.Point(748, 27);
-            this.HTMLBtn.Name = "HTMLBtn";
-            this.HTMLBtn.Size = new System.Drawing.Size(209, 34);
-            this.HTMLBtn.TabIndex = 14;
-            this.HTMLBtn.Text = "ソースコード表示";
-            this.HTMLBtn.UseVisualStyleBackColor = true;
-            this.HTMLBtn.Click += new System.EventHandler(this.HTMLBtn_Click);
-            // 
             // HTMLBOX
             // 
-            this.HTMLBOX.Location = new System.Drawing.Point(348, 67);
+            this.HTMLBOX.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
+            this.HTMLBOX.Location = new System.Drawing.Point(12, 22);
             this.HTMLBOX.Multiline = true;
             this.HTMLBOX.Name = "HTMLBOX";
             this.HTMLBOX.ReadOnly = true;
-            this.HTMLBOX.Size = new System.Drawing.Size(917, 795);
+            this.HTMLBOX.Size = new System.Drawing.Size(917, 458);
             this.HTMLBOX.TabIndex = 15;
             this.HTMLBOX.Visible = false;
             this.HTMLBOX.TextChanged += new System.EventHandler(this.HTMLBOX_TextChanged);
             // 
-            // SaveButton
-            // 
-            this.SaveButton.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
-            this.SaveButton.Location = new System.Drawing.Point(609, 28);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(133, 33);
-            this.SaveButton.TabIndex = 17;
-            this.SaveButton.Text = "上書き保存";
-            this.SaveButton.UseVisualStyleBackColor = true;
-            // 
-            // SaveAsButton
-            // 
-            this.SaveAsButton.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
-            this.SaveAsButton.Location = new System.Drawing.Point(396, 29);
-            this.SaveAsButton.Name = "SaveAsButton";
-            this.SaveAsButton.Size = new System.Drawing.Size(207, 33);
-            this.SaveAsButton.TabIndex = 18;
-            this.SaveAsButton.Text = "名前をつけて保存";
-            this.SaveAsButton.UseVisualStyleBackColor = true;
-            this.SaveAsButton.Click += new System.EventHandler(this.SaveAsButton_Click);
-            // 
-            // oepn_Btn
-            // 
-            this.oepn_Btn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
-            this.oepn_Btn.Location = new System.Drawing.Point(301, 28);
-            this.oepn_Btn.Name = "oepn_Btn";
-            this.oepn_Btn.Size = new System.Drawing.Size(91, 33);
-            this.oepn_Btn.TabIndex = 19;
-            this.oepn_Btn.Text = "開く";
-            this.oepn_Btn.UseVisualStyleBackColor = true;
-            this.oepn_Btn.Click += new System.EventHandler(this.oepn_Btn_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(12, 352);
+            this.label2.Location = new System.Drawing.Point(12, 400);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 16);
             this.label2.TabIndex = 22;
@@ -334,7 +279,7 @@
             this.button_edit.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button_edit.FlatAppearance.BorderSize = 0;
             this.button_edit.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_edit.Location = new System.Drawing.Point(255, 345);
+            this.button_edit.Location = new System.Drawing.Point(255, 393);
             this.button_edit.Name = "button_edit";
             this.button_edit.Size = new System.Drawing.Size(75, 23);
             this.button_edit.TabIndex = 20;
@@ -344,7 +289,7 @@
             // 
             // group_tag
             // 
-            this.group_tag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.group_tag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
             this.group_tag.Controls.Add(this.groupBody);
             this.group_tag.Controls.Add(this.groupHead);
             this.group_tag.Controls.Add(this.button_swap);
@@ -352,7 +297,8 @@
             this.group_tag.Controls.Add(this.button_head1);
             this.group_tag.Controls.Add(this.button_body1);
             this.group_tag.Controls.Add(this.button_html);
-            this.group_tag.Location = new System.Drawing.Point(12, 361);
+            this.group_tag.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.group_tag.Location = new System.Drawing.Point(12, 409);
             this.group_tag.Name = "group_tag";
             this.group_tag.Size = new System.Drawing.Size(318, 507);
             this.group_tag.TabIndex = 21;
@@ -388,7 +334,7 @@
             // 
             // property_text
             // 
-            this.property_text.BackColor = System.Drawing.SystemColors.Info;
+            this.property_text.BackColor = System.Drawing.Color.White;
             this.property_text.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.property_text.ForeColor = System.Drawing.SystemColors.InfoText;
             this.property_text.Location = new System.Drawing.Point(167, 34);
@@ -401,6 +347,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(166, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 16);
@@ -525,20 +472,156 @@
             // 
             this.OpenFileDialog.FileName = "openFileDialog1";
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
+            this.panel1.Controls.Add(this.HTMLBOX);
+            this.panel1.Controls.Add(this.webBrowser1);
+            this.panel1.Location = new System.Drawing.Point(345, 121);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(945, 495);
+            this.panel1.TabIndex = 24;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
+            this.label4.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label4.Location = new System.Drawing.Point(357, 124);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 16);
+            this.label4.TabIndex = 25;
+            this.label4.Text = "プレビュー";
+            // 
+            // PreviewBtn
+            // 
+            this.PreviewBtn.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Preview;
+            this.PreviewBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.PreviewBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PreviewBtn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.PreviewBtn.ForeColor = System.Drawing.Color.White;
+            this.PreviewBtn.Location = new System.Drawing.Point(763, 30);
+            this.PreviewBtn.Name = "PreviewBtn";
+            this.PreviewBtn.Size = new System.Drawing.Size(120, 69);
+            this.PreviewBtn.TabIndex = 26;
+            this.PreviewBtn.UseVisualStyleBackColor = true;
+            this.PreviewBtn.Visible = false;
+            this.PreviewBtn.Click += new System.EventHandler(this.PreviewBtn_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Tutorial;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(380, 32);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(119, 67);
+            this.button1.TabIndex = 23;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // NewButton
+            // 
+            this.NewButton.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.New;
+            this.NewButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.NewButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NewButton.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.NewButton.ForeColor = System.Drawing.Color.White;
+            this.NewButton.Location = new System.Drawing.Point(12, 32);
+            this.NewButton.Name = "NewButton";
+            this.NewButton.Size = new System.Drawing.Size(116, 67);
+            this.NewButton.TabIndex = 11;
+            this.NewButton.UseVisualStyleBackColor = true;
+            this.NewButton.Click += new System.EventHandler(this.NewButton_Click);
+            // 
+            // SaveAsButton
+            // 
+            this.SaveAsButton.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.SaveAs;
+            this.SaveAsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SaveAsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveAsButton.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
+            this.SaveAsButton.ForeColor = System.Drawing.Color.White;
+            this.SaveAsButton.Location = new System.Drawing.Point(505, 32);
+            this.SaveAsButton.Name = "SaveAsButton";
+            this.SaveAsButton.Size = new System.Drawing.Size(124, 67);
+            this.SaveAsButton.TabIndex = 18;
+            this.SaveAsButton.UseVisualStyleBackColor = true;
+            this.SaveAsButton.Click += new System.EventHandler(this.SaveAsButton_Click);
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Save;
+            this.SaveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
+            this.SaveButton.ForeColor = System.Drawing.Color.White;
+            this.SaveButton.Location = new System.Drawing.Point(635, 31);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(122, 68);
+            this.SaveButton.TabIndex = 17;
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
+            // HTMLBtn
+            // 
+            this.HTMLBtn.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.SauceCode;
+            this.HTMLBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.HTMLBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HTMLBtn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.HTMLBtn.ForeColor = System.Drawing.Color.White;
+            this.HTMLBtn.Location = new System.Drawing.Point(763, 30);
+            this.HTMLBtn.Name = "HTMLBtn";
+            this.HTMLBtn.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.HTMLBtn.Size = new System.Drawing.Size(120, 69);
+            this.HTMLBtn.TabIndex = 14;
+            this.HTMLBtn.UseVisualStyleBackColor = true;
+            this.HTMLBtn.Click += new System.EventHandler(this.HTMLBtn_Click);
+            // 
+            // Reset_Btn
+            // 
+            this.Reset_Btn.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Back;
+            this.Reset_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Reset_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Reset_Btn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Reset_Btn.ForeColor = System.Drawing.Color.White;
+            this.Reset_Btn.Location = new System.Drawing.Point(255, 32);
+            this.Reset_Btn.Name = "Reset_Btn";
+            this.Reset_Btn.Size = new System.Drawing.Size(119, 67);
+            this.Reset_Btn.TabIndex = 8;
+            this.Reset_Btn.UseVisualStyleBackColor = true;
+            this.Reset_Btn.Click += new System.EventHandler(this.Reset_Btn_Click);
+            // 
+            // Result_Btn
+            // 
+            this.Result_Btn.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Update;
+            this.Result_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Result_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Result_Btn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Result_Btn.ForeColor = System.Drawing.Color.White;
+            this.Result_Btn.Location = new System.Drawing.Point(889, 31);
+            this.Result_Btn.Name = "Result_Btn";
+            this.Result_Btn.Size = new System.Drawing.Size(115, 68);
+            this.Result_Btn.TabIndex = 0;
+            this.Result_Btn.UseVisualStyleBackColor = true;
+            this.Result_Btn.Click += new System.EventHandler(this.Result_Btn_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1302, 884);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(1302, 918);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button_edit);
-            this.Controls.Add(this.oepn_Btn);
+            this.Controls.Add(oepn_Btn);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.SaveAsButton);
             this.Controls.Add(this.SaveButton);
-            this.Controls.Add(this.HTMLBOX);
-            this.Controls.Add(this.HTMLBtn);
-            this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.PartsBox);
             this.Controls.Add(this.Reset_Btn);
             this.Controls.Add(this.label1);
@@ -546,6 +629,8 @@
             this.Controls.Add(this.Result_Btn);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.group_tag);
+            this.Controls.Add(this.HTMLBtn);
+            this.Controls.Add(this.PreviewBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "main";
@@ -560,6 +645,8 @@
             this.groupBody.ResumeLayout(false);
             this.groupBody.PerformLayout();
             this.groupHead.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -583,7 +670,6 @@
         private System.Windows.Forms.ListView partsList;
         private System.Windows.Forms.ToolStripMenuItem MenuItemFileOpen;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Button oepn_Btn;
         private System.Windows.Forms.Button SaveAsButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button_edit;
@@ -611,6 +697,10 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemFileExitToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog SaveFileDialog;
         private System.Windows.Forms.OpenFileDialog OpenFileDialog;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button PreviewBtn;
     }
 }
 

@@ -173,6 +173,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="UL_Parts.resx">
       <DependentUpon>UL_Parts.cs</DependentUpon>
@@ -202,6 +203,33 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\New.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveAs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SauceCode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tutorial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Update.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Preview.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

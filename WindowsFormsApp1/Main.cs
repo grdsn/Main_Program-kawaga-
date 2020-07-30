@@ -127,7 +127,7 @@ namespace WindowsFormsApp1
             // 「名前を付けて保存」ダイアログで「ファイル種類」を選択させる
             SaveFileDialog.Filter = "HTML|*.html|CSS|*.css";
 
-            UpdateStatus("", false);
+            UpdateStatus("", false);        
         }
 
         /*
@@ -139,11 +139,19 @@ namespace WindowsFormsApp1
         }
 
         /*
+         * 相対パスでデスクトップを指定する
+         */
+        private string get_Path()
+        {
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), FileName);
+        }
+
+        /*
          *HTMLを書き出すためのプログラム(かわが)
          */
         public void writer_html(string input,int flag)
         {
-            String destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "index.html"); //相対パスで指定 (デスクトップに保存)
+            String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
             if (flag == 0) //配列にデータを追加する
             {
                 text_box[cnt] = input;
@@ -350,6 +358,7 @@ namespace WindowsFormsApp1
 
         private void SaveAsButton_Click(object sender, EventArgs e)
         {
+            HTML_show();
             MenuItemSaveAs_Click(sender, e);
         }
 
@@ -447,8 +456,7 @@ namespace WindowsFormsApp1
          */
         private void Browser_show()
         {
-            String destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "index.html"); //相対パスで指定 (デスクトップに保存)
-            webBrowser1.Navigate(destinationPath);
+            webBrowser1.Navigate(get_Path());　//相対パスで指定 (デスクトップに保存)
         }
 
         /*
@@ -465,7 +473,7 @@ namespace WindowsFormsApp1
          */
         private void HTML_show()
         {
-            String destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "index.html"); //相対パスで指定 (デスクトップに保存)
+            String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
             StreamReader st = new StreamReader(destinationPath, Encoding.GetEncoding("UTF-8"));　//StreamReaderでファイルの内容を読み込む
             HTMLBOX.Text = st.ReadToEnd(); //streamReader内のテキストを書き込む
             st.Close();//終了
@@ -479,15 +487,24 @@ namespace WindowsFormsApp1
         {
             if (HTML_flg == false)
             {
+                HTMLBtn.Visible = false;
+                PreviewBtn.Visible = true;
                 HTMLBOX.Visible = true; //HTMLソースコード用のテキストボックスを有効化
-                HTMLBtn.Text = "プレビュー表示";
+                //HTMLBtn.Text = "プレビュー表示";
                 HTML_show(); //ソースコードを表示
                 HTML_flg = true; //次回クリック時にブラウザ画面にもどる
             }
-            else
+           
+        }
+
+        private void PreviewBtn_Click(object sender, EventArgs e)
+        {
+            if (HTML_flg == true)
             {
+                HTMLBtn.Visible = true;
+                PreviewBtn.Visible = false;
                 HTMLBOX.Visible = false;　//HTMLソースコード用のテキストボックスを無効化
-                HTMLBtn.Text = "ソースコード表示";
+                //HTMLBtn.Text = "ソースコード表示";
                 HTML_flg = false; //再びソースコード表示可にする
             }
         }
@@ -968,8 +985,16 @@ namespace WindowsFormsApp1
 
         }
 
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            SaveFile(this.FileName);
+        }
 
+        //チュートリアルボタン
+        private void button1_Click(object sender, EventArgs e)
+        {
 
+        }
         //在間くん作成プログラム統合部分-----------------------------------------------
 
 
