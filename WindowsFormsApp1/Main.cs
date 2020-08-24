@@ -149,7 +149,7 @@ namespace WindowsFormsApp1
         /*
          *HTMLを書き出すためのプログラム(かわが)
          */
-        public void writer_html(string input,int flag)
+        public void writer_html(string input, int flag)
         {
             String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
             if (flag == 0) //配列にデータを追加する
@@ -168,9 +168,9 @@ namespace WindowsFormsApp1
                 writer.Write("</HTML>"); //HTML終了
                 writer.Close();
             }
-            else　if(flg==1) //配列内のデータを初期化
+            else if (flg == 1) //配列内のデータを初期化
             {
-                for(int i = 0; i <=cnt; i++)
+                for (int i = 0; i <= cnt; i++)
                 {
                     text_box[cnt] = "";
                 }
@@ -179,14 +179,6 @@ namespace WindowsFormsApp1
                 cnt = 0;
                 writer.Close(); //閉じる
             }
-            
-        }
-
-        /*
-         * HTMLのファイルに位置を置き換える
-         */
-        private void replace_HTML(string input1,string input2)
-        {
 
         }
 
@@ -347,11 +339,8 @@ namespace WindowsFormsApp1
         {
             //UTF-8に変換してファイルを開く
             HTMLBOX.Text = System.IO.File.ReadAllText(value, Encoding.GetEncoding("UTF-8"));
-
             this.FileName = value;
-
             UpdateStatus(FileName, false);
-
             Browser_show();
 
         }
@@ -456,7 +445,7 @@ namespace WindowsFormsApp1
          */
         private void Browser_show()
         {
-            String destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "index.html"); //相対パスで指定 (デスクトップに保存)
+            String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
             webBrowser1.Navigate(destinationPath);
         }
 
@@ -474,7 +463,7 @@ namespace WindowsFormsApp1
          */
         private void HTML_show()
         {
-            String destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "index.html"); //相対パスで指定 (デスクトップに保存)
+            String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
             StreamReader st = new StreamReader(destinationPath, Encoding.GetEncoding("UTF-8"));　//StreamReaderでファイルの内容を読み込む
             HTMLBOX.Text = st.ReadToEnd(); //streamReader内のテキストを書き込む
             st.Close();//終了
@@ -944,7 +933,7 @@ namespace WindowsFormsApp1
                         default:
                             break;
                     }
-                    replace_HTML(name1, name2);
+                    //置き換えようプログラム実装予定
                 }//flg==7
             };
         }
@@ -981,11 +970,6 @@ namespace WindowsFormsApp1
             flowLayoutPanel1.ResumeLayout();
         }
 
-        private void HTMLBOX_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void SaveButton_Click(object sender, EventArgs e)
         {
             SaveFile(this.FileName);
@@ -993,6 +977,11 @@ namespace WindowsFormsApp1
 
         //チュートリアルボタン
         private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PartsBox_Enter(object sender, EventArgs e)
         {
 
         }

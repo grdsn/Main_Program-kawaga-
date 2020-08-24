@@ -127,6 +127,7 @@
             this.PartsBox.TabIndex = 10;
             this.PartsBox.TabStop = false;
             this.PartsBox.Text = "素材";
+            this.PartsBox.Enter += new System.EventHandler(this.PartsBox_Enter);
             // 
             // partsList
             // 
@@ -162,7 +163,7 @@
             this.webBrowser1.Location = new System.Drawing.Point(12, 22);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(917, 458);
+            this.webBrowser1.Size = new System.Drawing.Size(917, 757);
             this.webBrowser1.TabIndex = 1;
             // 
             // menuStrip1
@@ -257,10 +258,9 @@
             this.HTMLBOX.Multiline = true;
             this.HTMLBOX.Name = "HTMLBOX";
             this.HTMLBOX.ReadOnly = true;
-            this.HTMLBOX.Size = new System.Drawing.Size(917, 458);
+            this.HTMLBOX.Size = new System.Drawing.Size(917, 763);
             this.HTMLBOX.TabIndex = 15;
             this.HTMLBOX.Visible = false;
-            this.HTMLBOX.TextChanged += new System.EventHandler(this.HTMLBOX_TextChanged);
             // 
             // label2
             // 
@@ -479,7 +479,7 @@
             this.panel1.Controls.Add(this.webBrowser1);
             this.panel1.Location = new System.Drawing.Point(345, 121);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(945, 495);
+            this.panel1.Size = new System.Drawing.Size(945, 795);
             this.panel1.TabIndex = 24;
             // 
             // label4
