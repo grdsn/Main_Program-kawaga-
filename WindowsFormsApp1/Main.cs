@@ -11,8 +11,10 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
+    
     public partial class main : Form
     {
+
         //定義--------------------------------------------------------
         const string ApplicationName = "かんたんWeb君(Ver.1)";//アプリケーション名
         private string FileName = ""; //ファイル名(フルパス)
@@ -22,6 +24,7 @@ namespace WindowsFormsApp1
         string[] text_box = new string[10000]; //HTMLタグ格納用
         int cnt = 0; //タグ数カウント
         string sel; //選択した部品の名前を格納
+        Boolean create_new = false; //新規作成判定フラグ
         Boolean HTML_flg = false;//ソースコード表示判定用
         //定義----------------------------------------------------------------
 
@@ -135,7 +138,10 @@ namespace WindowsFormsApp1
          */
         private void Result_Btn_Click(object sender, EventArgs e)
         {
-            Browser_show();　//結果を画面上に表示
+            if (create_new == true)
+            {
+                Browser_show();　//結果を画面上に表示
+            }
         }
 
         /*
@@ -455,6 +461,7 @@ namespace WindowsFormsApp1
         private void NewButton_Click(object sender, EventArgs e)
         {
             MenuItemFileNew_Click(sender, e);
+            create_new = true;
         }
 
 
@@ -463,10 +470,14 @@ namespace WindowsFormsApp1
          */
         private void HTML_show()
         {
-            String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
-            StreamReader st = new StreamReader(destinationPath, Encoding.GetEncoding("UTF-8"));　//StreamReaderでファイルの内容を読み込む
-            HTMLBOX.Text = st.ReadToEnd(); //streamReader内のテキストを書き込む
-            st.Close();//終了
+            if(create_new == true)
+            {
+                String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
+                StreamReader st = new StreamReader(destinationPath, Encoding.GetEncoding("UTF-8")); //StreamReaderでファイルの内容を読み込む
+                HTMLBOX.Text = st.ReadToEnd(); //streamReader内のテキストを書き込む
+                st.Close();//終了
+            }
+       
         }
 
 
