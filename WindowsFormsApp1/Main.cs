@@ -73,6 +73,8 @@ namespace WindowsFormsApp1
          */
         private void Form1_Load(object sender, EventArgs e)
         {
+            MenuItemFileNew_Click(sender, e); //起動時にテキストを新規作成扱いにする
+
             ListViewItem lvi = new ListViewItem();
             
             lvi.Text = "見出し";
@@ -138,7 +140,7 @@ namespace WindowsFormsApp1
          */
         private void Result_Btn_Click(object sender, EventArgs e)
         {
-            if (create_new == true)
+            if (HTML_flg == true)
             {
                 Browser_show();　//結果を画面上に表示
             }
@@ -168,7 +170,7 @@ namespace WindowsFormsApp1
                 writer.Write("<body>\r\n");
                 for (int i = 0; i <= cnt; i++)
                 {
-                    writer.Write("<div class=\"" + i + "\">\r\n" + text_box[i] + "\r\n</div>\r\n"); //HTMLコードを追加する
+                    writer.Write("<div class=\"" + (i+1) + "\">\r\n" + text_box[i] + "\r\n</div>\r\n"); //HTMLコードを追加する
                 }
                 writer.Write("</body>\r\n");
                 writer.Write("</HTML>"); //HTML終了
@@ -202,7 +204,7 @@ namespace WindowsFormsApp1
         }
 
         /*
-         *終了がクリックされたとき 
+         *　終了がクリックされたとき 
          */
         private void menuItemFileExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -295,6 +297,7 @@ namespace WindowsFormsApp1
         private void oepn_Btn_Click(object sender, EventArgs e)
         {
             MenuItemFileOpen_Click(sender, e);
+            create_new = true;
         }
 
         /*
@@ -308,7 +311,7 @@ namespace WindowsFormsApp1
                 HTMLBOX.Clear();
 
                 // ファイル名（フルパス）
-                this.FileName = "新規作成";
+                this.FileName = "新規作成.html";
 
                 //ファイル名保持
                 this.Text = ApplicationName + " - " + this.FileName;
@@ -330,7 +333,7 @@ namespace WindowsFormsApp1
                     HTMLBOX.Clear();
 
                     // ファイル名（フルパス）
-                    this.FileName = "新規作成";
+                    this.FileName = "新規作成.html";
 
                     //ファイル名保持
                     this.Text = ApplicationName + " - " + this.FileName;
@@ -438,13 +441,19 @@ namespace WindowsFormsApp1
          */
         private void Reset_Btn_Click(object sender, EventArgs e)
         {
-            if (cnt >0)
-            {
-                cnt--;
-                writer_html("",0);
-                Browser_show();　//結果を画面上に表示
-            }
+            reset_cls();
+
         }
+        private void reset_cls()
+            {
+                if (cnt > 0)
+                {
+                    
+                    cnt--;
+                    writer_html("", 0);
+                    Browser_show(); //結果を画面上に表示
+                }
+            }
 
         /*
          * フォーム内のブラウザを更新する(かわが)
@@ -490,6 +499,7 @@ namespace WindowsFormsApp1
             {
                 HTMLBtn.Visible = false;
                 PreviewBtn.Visible = true;
+                webBrowser1.Visible = false;
                 HTMLBOX.Visible = true; //HTMLソースコード用のテキストボックスを有効化
                 //HTMLBtn.Text = "プレビュー表示";
                 HTML_show(); //ソースコードを表示
@@ -504,6 +514,7 @@ namespace WindowsFormsApp1
             {
                 HTMLBtn.Visible = true;
                 PreviewBtn.Visible = false;
+                webBrowser1.Visible = true;
                 HTMLBOX.Visible = false;　//HTMLソースコード用のテキストボックスを無効化
                 //HTMLBtn.Text = "ソースコード表示";
                 HTML_flg = false; //再びソースコード表示可にする
@@ -897,26 +908,34 @@ namespace WindowsFormsApp1
                         {
                             case "h1":
                                 addH1Count--;
+                                reset_cls();
                                 break;
                             case "p":
                                 addPCount--;
+                                reset_cls();
                                 break;
                             case "table":
                                 addTableCount--;
+                                reset_cls();
                                 break;
                             case "img":
                                 addImgCount--;
+                                reset_cls();
                                 break;
                             case "url":
                                 addUrlCount--;
+                                reset_cls();
                                 break;
                             case "textbox":
                                 addTextboxCount--;
+                                reset_cls();
                                 break;
                             case "button_button":
                                 addButtonCount--;
+                                reset_cls();
                                 break;
                             default:
+                                reset_cls();
                                 break;
                         }
                     }
@@ -989,10 +1008,20 @@ namespace WindowsFormsApp1
         //チュートリアルボタン
         private void button1_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void PartsBox_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MenuItemFileSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void HTMLBOX_TextChanged(object sender, EventArgs e)
         {
 
         }

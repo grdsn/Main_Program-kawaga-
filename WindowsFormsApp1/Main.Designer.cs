@@ -70,14 +70,12 @@
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.PreviewBtn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Tutorial_btn = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
             this.SaveAsButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.HTMLBtn = new System.Windows.Forms.Button();
-            this.Reset_Btn = new System.Windows.Forms.Button();
-            this.Result_Btn = new System.Windows.Forms.Button();
+            this.PreviewBtn = new System.Windows.Forms.Button();
             oepn_Btn = new System.Windows.Forms.Button();
             this.PartsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -217,6 +215,7 @@
             this.MenuItemFileSave.Name = "MenuItemFileSave";
             this.MenuItemFileSave.Size = new System.Drawing.Size(181, 22);
             this.MenuItemFileSave.Text = "上書き保存(&S)";
+            this.MenuItemFileSave.Click += new System.EventHandler(this.MenuItemFileSave_Click);
             // 
             // MenuItemFileSaveAs
             // 
@@ -261,6 +260,7 @@
             this.HTMLBOX.Size = new System.Drawing.Size(917, 763);
             this.HTMLBOX.TabIndex = 15;
             this.HTMLBOX.Visible = false;
+            this.HTMLBOX.TextChanged += new System.EventHandler(this.HTMLBOX_TextChanged);
             // 
             // label2
             // 
@@ -475,11 +475,12 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
-            this.panel1.Controls.Add(this.HTMLBOX);
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.webBrowser1);
-            this.panel1.Location = new System.Drawing.Point(345, 121);
+            this.panel1.Controls.Add(this.HTMLBOX);
+            this.panel1.Location = new System.Drawing.Point(345, 118);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(945, 795);
+            this.panel1.Size = new System.Drawing.Size(945, 798);
             this.panel1.TabIndex = 24;
             // 
             // label4
@@ -487,40 +488,25 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
             this.label4.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label4.Location = new System.Drawing.Point(357, 124);
+            this.label4.Location = new System.Drawing.Point(9, 3);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 16);
             this.label4.TabIndex = 25;
             this.label4.Text = "プレビュー";
             // 
-            // PreviewBtn
+            // Tutorial_btn
             // 
-            this.PreviewBtn.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Preview;
-            this.PreviewBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PreviewBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PreviewBtn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.PreviewBtn.ForeColor = System.Drawing.Color.White;
-            this.PreviewBtn.Location = new System.Drawing.Point(763, 30);
-            this.PreviewBtn.Name = "PreviewBtn";
-            this.PreviewBtn.Size = new System.Drawing.Size(120, 69);
-            this.PreviewBtn.TabIndex = 26;
-            this.PreviewBtn.UseVisualStyleBackColor = true;
-            this.PreviewBtn.Visible = false;
-            this.PreviewBtn.Click += new System.EventHandler(this.PreviewBtn_Click);
-            // 
-            // button1
-            // 
-            this.button1.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Tutorial;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(380, 32);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 67);
-            this.button1.TabIndex = 23;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Tutorial_btn.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Tutorial;
+            this.Tutorial_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Tutorial_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Tutorial_btn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Tutorial_btn.ForeColor = System.Drawing.Color.White;
+            this.Tutorial_btn.Location = new System.Drawing.Point(254, 32);
+            this.Tutorial_btn.Name = "Tutorial_btn";
+            this.Tutorial_btn.Size = new System.Drawing.Size(119, 67);
+            this.Tutorial_btn.TabIndex = 23;
+            this.Tutorial_btn.UseVisualStyleBackColor = true;
+            this.Tutorial_btn.Click += new System.EventHandler(this.button1_Click);
             // 
             // NewButton
             // 
@@ -543,7 +529,7 @@
             this.SaveAsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveAsButton.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
             this.SaveAsButton.ForeColor = System.Drawing.Color.White;
-            this.SaveAsButton.Location = new System.Drawing.Point(505, 32);
+            this.SaveAsButton.Location = new System.Drawing.Point(379, 32);
             this.SaveAsButton.Name = "SaveAsButton";
             this.SaveAsButton.Size = new System.Drawing.Size(124, 67);
             this.SaveAsButton.TabIndex = 18;
@@ -557,7 +543,7 @@
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
             this.SaveButton.ForeColor = System.Drawing.Color.White;
-            this.SaveButton.Location = new System.Drawing.Point(635, 31);
+            this.SaveButton.Location = new System.Drawing.Point(509, 31);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(122, 68);
             this.SaveButton.TabIndex = 17;
@@ -571,7 +557,7 @@
             this.HTMLBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.HTMLBtn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.HTMLBtn.ForeColor = System.Drawing.Color.White;
-            this.HTMLBtn.Location = new System.Drawing.Point(763, 30);
+            this.HTMLBtn.Location = new System.Drawing.Point(637, 30);
             this.HTMLBtn.Name = "HTMLBtn";
             this.HTMLBtn.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.HTMLBtn.Size = new System.Drawing.Size(120, 69);
@@ -579,33 +565,20 @@
             this.HTMLBtn.UseVisualStyleBackColor = true;
             this.HTMLBtn.Click += new System.EventHandler(this.HTMLBtn_Click);
             // 
-            // Reset_Btn
+            // PreviewBtn
             // 
-            this.Reset_Btn.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Back;
-            this.Reset_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Reset_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Reset_Btn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Reset_Btn.ForeColor = System.Drawing.Color.White;
-            this.Reset_Btn.Location = new System.Drawing.Point(255, 32);
-            this.Reset_Btn.Name = "Reset_Btn";
-            this.Reset_Btn.Size = new System.Drawing.Size(119, 67);
-            this.Reset_Btn.TabIndex = 8;
-            this.Reset_Btn.UseVisualStyleBackColor = true;
-            this.Reset_Btn.Click += new System.EventHandler(this.Reset_Btn_Click);
-            // 
-            // Result_Btn
-            // 
-            this.Result_Btn.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Update;
-            this.Result_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Result_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Result_Btn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Result_Btn.ForeColor = System.Drawing.Color.White;
-            this.Result_Btn.Location = new System.Drawing.Point(889, 31);
-            this.Result_Btn.Name = "Result_Btn";
-            this.Result_Btn.Size = new System.Drawing.Size(115, 68);
-            this.Result_Btn.TabIndex = 0;
-            this.Result_Btn.UseVisualStyleBackColor = true;
-            this.Result_Btn.Click += new System.EventHandler(this.Result_Btn_Click);
+            this.PreviewBtn.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Preview;
+            this.PreviewBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.PreviewBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PreviewBtn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.PreviewBtn.ForeColor = System.Drawing.Color.White;
+            this.PreviewBtn.Location = new System.Drawing.Point(637, 30);
+            this.PreviewBtn.Name = "PreviewBtn";
+            this.PreviewBtn.Size = new System.Drawing.Size(120, 69);
+            this.PreviewBtn.TabIndex = 26;
+            this.PreviewBtn.UseVisualStyleBackColor = true;
+            this.PreviewBtn.Visible = false;
+            this.PreviewBtn.Click += new System.EventHandler(this.PreviewBtn_Click);
             // 
             // main
             // 
@@ -613,9 +586,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1302, 918);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Tutorial_btn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button_edit);
             this.Controls.Add(oepn_Btn);
@@ -623,10 +595,8 @@
             this.Controls.Add(this.SaveAsButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.PartsBox);
-            this.Controls.Add(this.Reset_Btn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Title);
-            this.Controls.Add(this.Result_Btn);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.group_tag);
             this.Controls.Add(this.HTMLBtn);
@@ -653,16 +623,11 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button Result_Btn;
-        private System.Windows.Forms.TextBox Title;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button Reset_Btn;
         private System.Windows.Forms.GroupBox PartsBox;
         private System.Windows.Forms.Button NewButton;
         private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem ファイルToolStripMenuItem;
         private System.Windows.Forms.Button HTMLBtn;
@@ -697,10 +662,12 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemFileExitToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog SaveFileDialog;
         private System.Windows.Forms.OpenFileDialog OpenFileDialog;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Tutorial_btn;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button PreviewBtn;
+        internal System.Windows.Forms.TextBox Title;
+        internal System.Windows.Forms.WebBrowser webBrowser1;
     }
 }
 
