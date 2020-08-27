@@ -79,6 +79,12 @@
     <Compile Include="EM_Parts.Designer.cs">
       <DependentUpon>EM_Parts.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileName_Parts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileName_Parts.Designer.cs">
+      <DependentUpon>FileName_Parts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Hyper_Parts.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EM_Parts.resx">
       <DependentUpon>EM_Parts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileName_Parts.resx">
+      <DependentUpon>FileName_Parts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Hyper_Parts.resx">
       <DependentUpon>Hyper_Parts.cs</DependentUpon>

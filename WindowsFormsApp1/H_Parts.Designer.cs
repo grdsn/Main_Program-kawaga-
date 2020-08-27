@@ -34,6 +34,7 @@
             this.Title_Add = new System.Windows.Forms.TextBox();
             this.AddConfirm = new System.Windows.Forms.Button();
             this.size_box = new System.Windows.Forms.TextBox();
+            this.cancel_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // info_label
@@ -93,17 +94,29 @@
             this.size_box.Text = "1";
             this.size_box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // cancel_btn
+            // 
+            this.cancel_btn.Location = new System.Drawing.Point(16, 119);
+            this.cancel_btn.Name = "cancel_btn";
+            this.cancel_btn.Size = new System.Drawing.Size(101, 22);
+            this.cancel_btn.TabIndex = 15;
+            this.cancel_btn.Text = "キャンセル";
+            this.cancel_btn.UseVisualStyleBackColor = true;
+            this.cancel_btn.Click += new System.EventHandler(this.cancel_btn_Click);
+            // 
             // H_Parts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(345, 130);
+            this.ClientSize = new System.Drawing.Size(345, 143);
+            this.Controls.Add(this.cancel_btn);
             this.Controls.Add(this.size_box);
             this.Controls.Add(this.AddConfirm);
             this.Controls.Add(this.Title_Add);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.info_label);
             this.Controls.Add(this.parts_name);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "H_Parts";
             this.Text = "H_Parts";
             this.Load += new System.EventHandler(this.H_Parts_Load);
@@ -120,5 +133,6 @@
         private System.Windows.Forms.TextBox Title_Add;
         private System.Windows.Forms.Button AddConfirm;
         private System.Windows.Forms.TextBox size_box;
+        private System.Windows.Forms.Button cancel_btn;
     }
 }

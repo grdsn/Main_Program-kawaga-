@@ -32,6 +32,7 @@
             this.info_label = new System.Windows.Forms.Label();
             this.AddConfirm = new System.Windows.Forms.Button();
             this.TextAdd = new System.Windows.Forms.TextBox();
+            this.cancel_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // parts_name
@@ -55,7 +56,7 @@
             // 
             // AddConfirm
             // 
-            this.AddConfirm.Location = new System.Drawing.Point(361, 9);
+            this.AddConfirm.Location = new System.Drawing.Point(361, 6);
             this.AddConfirm.Name = "AddConfirm";
             this.AddConfirm.Size = new System.Drawing.Size(101, 43);
             this.AddConfirm.TabIndex = 3;
@@ -65,25 +66,36 @@
             // 
             // TextAdd
             // 
-            this.TextAdd.Location = new System.Drawing.Point(2, 55);
+            this.TextAdd.Location = new System.Drawing.Point(12, 55);
             this.TextAdd.Multiline = true;
             this.TextAdd.Name = "TextAdd";
             this.TextAdd.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.TextAdd.Size = new System.Drawing.Size(472, 179);
+            this.TextAdd.Size = new System.Drawing.Size(450, 179);
             this.TextAdd.TabIndex = 6;
             this.TextAdd.UseWaitCursor = true;
-            this.TextAdd.TextChanged += new System.EventHandler(this.Main_box_TextChanged);
             // 
-            // Create_parts
+            // cancel_btn
+            // 
+            this.cancel_btn.Location = new System.Drawing.Point(12, 240);
+            this.cancel_btn.Name = "cancel_btn";
+            this.cancel_btn.Size = new System.Drawing.Size(101, 22);
+            this.cancel_btn.TabIndex = 7;
+            this.cancel_btn.Text = "キャンセル";
+            this.cancel_btn.UseVisualStyleBackColor = true;
+            this.cancel_btn.Click += new System.EventHandler(this.cancel_btn_Click);
+            // 
+            // Text_parts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 232);
+            this.ClientSize = new System.Drawing.Size(474, 273);
+            this.Controls.Add(this.cancel_btn);
             this.Controls.Add(this.TextAdd);
             this.Controls.Add(this.AddConfirm);
             this.Controls.Add(this.info_label);
             this.Controls.Add(this.parts_name);
-            this.Name = "Create_parts";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Name = "Text_parts";
             this.Text = "Create_parts";
             this.Load += new System.EventHandler(this.Create_parts_Load);
             this.ResumeLayout(false);
@@ -97,5 +109,6 @@
         private System.Windows.Forms.Label info_label;
         private System.Windows.Forms.Button AddConfirm;
         private System.Windows.Forms.TextBox TextAdd;
+        private System.Windows.Forms.Button cancel_btn;
     }
 }

@@ -48,9 +48,16 @@ namespace WindowsFormsApp1
         {
 
             Img_Parts f = new Img_Parts();
+            string receiveText;
             f.ShowDialog();
-
-            string receiveText = "<img src=\"" + f.img_name + "\">"; //画像HTML
+            if (f.img_name != "")
+            {
+                receiveText = "<img src=\"" + f.img_name + "\">"; //画像HTML
+            }
+            else
+            {
+                receiveText = "-1";
+            }
             f.Dispose();
             return receiveText;　//HTML文を返す
 
@@ -79,6 +86,12 @@ namespace WindowsFormsApp1
         private void AddConfirm_Click(object sender, EventArgs e)
         {
             Close(); //画面を閉じる
+        }
+
+        private void cancel_btn_Click(object sender, EventArgs e)
+        {
+            img_name = "";
+            Close();
         }
     }
 }

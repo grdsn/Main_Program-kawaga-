@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace WindowsFormsApp1
 {
     
@@ -73,8 +74,8 @@ namespace WindowsFormsApp1
          */
         private void Form1_Load(object sender, EventArgs e)
         {
-            MenuItemFileNew_Click(sender, e); //起動時にテキストを新規作成扱いにする
-
+            MessageBox.Show("まず新規作成でファイルを作成するか\n開くボタンでファイルを開いてください\n" +
+                            "ファイルはデスクトップ上に作成されます");
             ListViewItem lvi = new ListViewItem();
             
             lvi.Text = "見出し";
@@ -135,6 +136,15 @@ namespace WindowsFormsApp1
             UpdateStatus("", false);        
         }
 
+        private void Start_Visible()
+        {
+            SaveAsButton.Visible = true; //名前を付けて保存ボタン
+            SaveButton.Visible = true; //上書き保存ボタン
+            HTMLBtn.Visible = true; //ソースコード表示ボタン
+            partsList.Visible = true; //部品リスト
+            Title.Visible = true;  //タイトル
+        }
+
         /*
          * ブラウザ内の情報を更新するインスタンスを呼び出す(かわが)
          */
@@ -170,7 +180,10 @@ namespace WindowsFormsApp1
                 writer.Write("<body>\r\n");
                 for (int i = 0; i <= cnt; i++)
                 {
-                    writer.Write("<div class=\"" + (i+1) + "\">\r\n" + text_box[i] + "\r\n</div>\r\n"); //HTMLコードを追加する
+                    if(text_box[i] != "-1")
+                    {
+                        writer.Write("<div class=\"" + (i + 1) + "\">\r\n" + text_box[i] + "\r\n</div>\r\n"); //HTMLコードを追加する
+                    }
                 }
                 writer.Write("</body>\r\n");
                 writer.Write("</HTML>"); //HTML終了
@@ -298,6 +311,7 @@ namespace WindowsFormsApp1
         {
             MenuItemFileOpen_Click(sender, e);
             create_new = true;
+            Start_Visible();
         }
 
         /*
@@ -305,13 +319,14 @@ namespace WindowsFormsApp1
          */
         private void MenuItemFileNew_Click(object sender, EventArgs e)
         {
+            FileName_Parts fnp = new FileName_Parts();
             if (!Edited)
             {
                 //テキストボックスの内容をクリア
                 HTMLBOX.Clear();
 
                 // ファイル名（フルパス）
-                this.FileName = "新規作成.html";
+                this.FileName = fnp.ShowMiniForm() + ".html";　//ファイル名を指定させる
 
                 //ファイル名保持
                 this.Text = ApplicationName + " - " + this.FileName;
@@ -333,7 +348,7 @@ namespace WindowsFormsApp1
                     HTMLBOX.Clear();
 
                     // ファイル名（フルパス）
-                    this.FileName = "新規作成.html";
+                    this.FileName = fnp.ShowMiniForm() + ".html"; //ファイル名を指定させる
 
                     //ファイル名保持
                     this.Text = ApplicationName + " - " + this.FileName;
@@ -470,6 +485,7 @@ namespace WindowsFormsApp1
         private void NewButton_Click(object sender, EventArgs e)
         {
             MenuItemFileNew_Click(sender, e);
+            Start_Visible();
             create_new = true;
         }
 
@@ -1005,26 +1021,29 @@ namespace WindowsFormsApp1
             SaveFile(this.FileName);
         }
 
+        private Tutorial_Parts tuto = null;
         //チュートリアルボタン
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            //フォームが表示されているかの判定  
+            if (this.tuto == null || this.tuto.IsDisposed)
+                this.tuto = new Tutorial_Parts(this);
+
+            //チュートリアルは起動済みか判定
+            if (!this.tuto.Visible)
+            {
+                //起動していない…チュートリアルを起動
+                Tutorial_Parts tuto = new Tutorial_Parts(this);
+                this.tuto.Show();
+            }
+            else
+            {
+                //起動済み…メッセージ表示
+                MessageBox.Show("すでにチュートリアルを起動しています");
+            }
         }
 
-        private void PartsBox_Enter(object sender, EventArgs e)
-        {
 
-        }
-
-        private void MenuItemFileSave_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void HTMLBOX_TextChanged(object sender, EventArgs e)
-        {
-
-        }
         //在間くん作成プログラム統合部分-----------------------------------------------
 
 

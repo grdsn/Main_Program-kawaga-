@@ -76,6 +76,9 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.HTMLBtn = new System.Windows.Forms.Button();
             this.PreviewBtn = new System.Windows.Forms.Button();
+            this.Parts_Visible = new System.Windows.Forms.TextBox();
+            this.Title_Visible = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             oepn_Btn = new System.Windows.Forms.Button();
             this.PartsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -106,6 +109,7 @@
             this.Title.Name = "Title";
             this.Title.Size = new System.Drawing.Size(262, 19);
             this.Title.TabIndex = 3;
+            this.Title.Visible = false;
             // 
             // label1
             // 
@@ -119,13 +123,14 @@
             // PartsBox
             // 
             this.PartsBox.Controls.Add(this.partsList);
+            this.PartsBox.Controls.Add(this.Title_Visible);
+            this.PartsBox.Controls.Add(this.Parts_Visible);
             this.PartsBox.Location = new System.Drawing.Point(12, 143);
             this.PartsBox.Name = "PartsBox";
             this.PartsBox.Size = new System.Drawing.Size(318, 243);
             this.PartsBox.TabIndex = 10;
             this.PartsBox.TabStop = false;
             this.PartsBox.Text = "素材";
-            this.PartsBox.Enter += new System.EventHandler(this.PartsBox_Enter);
             // 
             // partsList
             // 
@@ -136,6 +141,7 @@
             this.partsList.Size = new System.Drawing.Size(303, 219);
             this.partsList.TabIndex = 0;
             this.partsList.UseCompatibleStateImageBehavior = false;
+            this.partsList.Visible = false;
             this.partsList.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // imageList
@@ -163,6 +169,7 @@
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Size = new System.Drawing.Size(917, 757);
             this.webBrowser1.TabIndex = 1;
+    
             // 
             // menuStrip1
             // 
@@ -215,7 +222,6 @@
             this.MenuItemFileSave.Name = "MenuItemFileSave";
             this.MenuItemFileSave.Size = new System.Drawing.Size(181, 22);
             this.MenuItemFileSave.Text = "上書き保存(&S)";
-            this.MenuItemFileSave.Click += new System.EventHandler(this.MenuItemFileSave_Click);
             // 
             // MenuItemFileSaveAs
             // 
@@ -260,7 +266,6 @@
             this.HTMLBOX.Size = new System.Drawing.Size(917, 763);
             this.HTMLBOX.TabIndex = 15;
             this.HTMLBOX.Visible = false;
-            this.HTMLBOX.TextChanged += new System.EventHandler(this.HTMLBOX_TextChanged);
             // 
             // label2
             // 
@@ -534,6 +539,7 @@
             this.SaveAsButton.Size = new System.Drawing.Size(124, 67);
             this.SaveAsButton.TabIndex = 18;
             this.SaveAsButton.UseVisualStyleBackColor = true;
+            this.SaveAsButton.Visible = false;
             this.SaveAsButton.Click += new System.EventHandler(this.SaveAsButton_Click);
             // 
             // SaveButton
@@ -548,6 +554,7 @@
             this.SaveButton.Size = new System.Drawing.Size(122, 68);
             this.SaveButton.TabIndex = 17;
             this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Visible = false;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // HTMLBtn
@@ -563,6 +570,7 @@
             this.HTMLBtn.Size = new System.Drawing.Size(120, 69);
             this.HTMLBtn.TabIndex = 14;
             this.HTMLBtn.UseVisualStyleBackColor = true;
+            this.HTMLBtn.Visible = false;
             this.HTMLBtn.Click += new System.EventHandler(this.HTMLBtn_Click);
             // 
             // PreviewBtn
@@ -579,6 +587,35 @@
             this.PreviewBtn.UseVisualStyleBackColor = true;
             this.PreviewBtn.Visible = false;
             this.PreviewBtn.Click += new System.EventHandler(this.PreviewBtn_Click);
+            // 
+            // Parts_Visible
+            // 
+            this.Parts_Visible.Location = new System.Drawing.Point(6, 19);
+            this.Parts_Visible.Multiline = true;
+            this.Parts_Visible.Name = "Parts_Visible";
+            this.Parts_Visible.ReadOnly = true;
+            this.Parts_Visible.Size = new System.Drawing.Size(302, 218);
+            this.Parts_Visible.TabIndex = 1;
+            this.Parts_Visible.Text = "新規作成か開くを選択後,部品が選択できます";
+            // 
+            // Title_Visible
+            // 
+            this.Title_Visible.Location = new System.Drawing.Point(47, -25);
+            this.Title_Visible.Multiline = true;
+            this.Title_Visible.Name = "Title_Visible";
+            this.Title_Visible.ReadOnly = true;
+            this.Title_Visible.Size = new System.Drawing.Size(262, 19);
+            this.Title_Visible.TabIndex = 2;
+            this.Title_Visible.Text = "新規作成か開くをクリック後利用できます";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(59, 118);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(261, 19);
+            this.textBox1.TabIndex = 27;
+            this.textBox1.Text = "新規作成・開くを選択後利用できます";
             // 
             // main
             // 
@@ -601,6 +638,7 @@
             this.Controls.Add(this.group_tag);
             this.Controls.Add(this.HTMLBtn);
             this.Controls.Add(this.PreviewBtn);
+            this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "main";
@@ -608,6 +646,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.PartsBox.ResumeLayout(false);
+            this.PartsBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -668,6 +707,9 @@
         private System.Windows.Forms.Button PreviewBtn;
         internal System.Windows.Forms.TextBox Title;
         internal System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.TextBox Parts_Visible;
+        private System.Windows.Forms.TextBox Title_Visible;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

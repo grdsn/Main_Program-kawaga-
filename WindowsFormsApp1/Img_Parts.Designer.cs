@@ -32,6 +32,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pcb_preview = new System.Windows.Forms.PictureBox();
             this.AddConfirm = new System.Windows.Forms.Button();
+            this.cancel_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_preview)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,14 +54,25 @@
             this.AddConfirm.UseVisualStyleBackColor = true;
             this.AddConfirm.Click += new System.EventHandler(this.AddConfirm_Click);
             // 
+            // cancel_btn
+            // 
+            this.cancel_btn.Location = new System.Drawing.Point(12, 363);
+            this.cancel_btn.Name = "cancel_btn";
+            this.cancel_btn.Size = new System.Drawing.Size(101, 21);
+            this.cancel_btn.TabIndex = 10;
+            this.cancel_btn.Text = "キャンセル";
+            this.cancel_btn.UseVisualStyleBackColor = true;
+            this.cancel_btn.Click += new System.EventHandler(this.cancel_btn_Click);
+            // 
             // Img_Parts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(407, 393);
+            this.Controls.Add(this.cancel_btn);
             this.Controls.Add(this.AddConfirm);
             this.Controls.Add(this.pcb_preview);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Img_Parts";
             this.Text = "Img_Parts";
             this.Load += new System.EventHandler(this.Img_Parts_Load);
@@ -74,5 +86,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox pcb_preview;
         private System.Windows.Forms.Button AddConfirm;
+        private System.Windows.Forms.Button cancel_btn;
     }
 }

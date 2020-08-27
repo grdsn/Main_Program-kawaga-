@@ -8,20 +8,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static WindowsFormsApp1.main;
+
 
 /*
 * チュートリアル機能
 *  担当：伊賀
 */
-namespace Tutorial
+namespace WindowsFormsApp1
 {
     /*
      * チュートリアル画面表示
      */
     public partial class Tutorial_Parts : Form
     {
-        WindowsFormsApp1.main mn;
+        main mn;
 
         //定義
         String tutoBar = "";      //タイトルバー
@@ -33,7 +33,7 @@ namespace Tutorial
         /*
          * チュートリアルの画面表示
          */
-        public Tutorial_Parts(WindowsFormsApp1.main m)
+        public Tutorial_Parts(main m)
         {
             // メイン・フォームへの参照を保存
             mn = m;
@@ -49,7 +49,7 @@ namespace Tutorial
         /* 
         * 「次へ」ボタン押下時の処理
         */
-        private void btnNext_Click_1(object sender, EventArgs e)
+        private void btnNext_Click_1()
         {
             //定義
             tutoBar = mn.Text; //タイトルバー    
@@ -187,8 +187,10 @@ namespace Tutorial
         }
 
         /*
-         * チュートリアル終了時の処理
+         * チュートリアル
          */
+        
+
         private void Tutorial_Parts_FormClosing_1(object sender, FormClosingEventArgs e)
         {
             //メッセージの表示
@@ -205,6 +207,16 @@ namespace Tutorial
                 //いいえ…チュートリアル続行
                 e.Cancel = true;
             }
+        }
+
+        private void Tutorial_Parts_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            btnNext_Click_1();
         }
     }
 }

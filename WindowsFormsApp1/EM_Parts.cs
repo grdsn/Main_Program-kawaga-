@@ -26,8 +26,16 @@ namespace WindowsFormsApp1
         {
 
             EM_Parts f = new EM_Parts();
+            string receiveText;
             f.ShowDialog();
-            string receiveText = "<em>" + f.TextAdd.Text.Replace("\r\n", "<br>") + "</em>";　//HTML文
+            if(f.TextAdd.Text != "")
+            {
+                receiveText = "<em>" + f.TextAdd.Text.Replace("\r\n", "<br>") + "</em>";　//HTML文
+            }
+            else
+            {
+                receiveText = "-1";
+            }
             f.Dispose();
             return receiveText; //HTML文を返す
 
@@ -44,6 +52,12 @@ namespace WindowsFormsApp1
         private void AddConfirm_Click(object sender, EventArgs e)
         {
             Close(); //画面を閉じ内容を反映
+        }
+
+        private void cancel_btn_Click(object sender, EventArgs e)
+        {
+            TextAdd.Text = "";
+            Close();
         }
     }
 }

@@ -34,6 +34,7 @@
             this.OL_box = new System.Windows.Forms.ListBox();
             this.Add_button = new System.Windows.Forms.Button();
             this.Add_Text = new System.Windows.Forms.TextBox();
+            this.cancel_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AddConfirm
@@ -73,6 +74,7 @@
             this.OL_box.Name = "OL_box";
             this.OL_box.Size = new System.Drawing.Size(337, 160);
             this.OL_box.TabIndex = 8;
+            this.OL_box.SelectedIndexChanged += new System.EventHandler(this.OL_box_SelectedIndexChanged);
             // 
             // Add_button
             // 
@@ -91,17 +93,29 @@
             this.Add_Text.Size = new System.Drawing.Size(236, 19);
             this.Add_Text.TabIndex = 10;
             // 
+            // cancel_btn
+            // 
+            this.cancel_btn.Location = new System.Drawing.Point(12, 263);
+            this.cancel_btn.Name = "cancel_btn";
+            this.cancel_btn.Size = new System.Drawing.Size(75, 23);
+            this.cancel_btn.TabIndex = 11;
+            this.cancel_btn.Text = "キャンセル";
+            this.cancel_btn.UseVisualStyleBackColor = true;
+            this.cancel_btn.Click += new System.EventHandler(this.cancel_btn_Click);
+            // 
             // OL_Parts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(361, 283);
+            this.ClientSize = new System.Drawing.Size(361, 295);
+            this.Controls.Add(this.cancel_btn);
             this.Controls.Add(this.Add_Text);
             this.Controls.Add(this.Add_button);
             this.Controls.Add(this.OL_box);
             this.Controls.Add(this.info_label);
             this.Controls.Add(this.parts_name);
             this.Controls.Add(this.AddConfirm);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "OL_Parts";
             this.Text = "OL_Parts";
             this.Load += new System.EventHandler(this.OL_Parts_Load);
@@ -118,5 +132,6 @@
         private System.Windows.Forms.ListBox OL_box;
         private System.Windows.Forms.Button Add_button;
         private System.Windows.Forms.TextBox Add_Text;
+        private System.Windows.Forms.Button cancel_btn;
     }
 }

@@ -30,13 +30,20 @@ namespace WindowsFormsApp1
             H_Parts f = new H_Parts();
             f.ShowDialog();
             int size = int.Parse(f.size_box.Text); //階層を指定
-            if (size <= 6)
+            if(f.Title_Add.Text != "")
             {
-                receiveText = "<h" + size + ">" + f.Title_Add.Text + "</h" + size + ">"; //HTML文
+                if (size <= 6)
+                {
+                    receiveText = "<h" + size + ">" + f.Title_Add.Text + "</h" + size + ">"; //HTML文
+                }
+                else
+                {
+                    MessageBox.Show("1～6までの範囲で指定してください。");
+                }
             }
             else
             {
-                MessageBox.Show("1～6までの範囲で指定してください。");
+                receiveText = "-1";
             }
             f.Dispose();
             return receiveText; //HTML文を返す
@@ -49,6 +56,12 @@ namespace WindowsFormsApp1
         private void AddConfirm_Click(object sender, EventArgs e)
         {
             Close(); //画面を閉じ反映させる
+        }
+
+        private void cancel_btn_Click(object sender, EventArgs e)
+        {
+            Title_Add.Text = "";
+            Close();
         }
     }
 }

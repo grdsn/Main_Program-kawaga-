@@ -31,21 +31,21 @@ namespace WindowsFormsApp1
             int col = int.Parse(f.col_Box.Text);
             try
             {
-                string receiveText = "<table border=\"1\">";
+                string receiveText = "<table border=\"1\">" + "\r\n";
                 if (row <= 4 && col <= 9) //列が４行以下行が９行以下
                 {
                     for (int i = 0; i < col; i++)
                     {
-                        receiveText += "<tr>";
+                        receiveText += "  <tr>" + "\r\n";
                         for (int j = 0; j < row; j++)
                         {
                             work = ((TextBox)f.Controls[string.Format("tb{0}", cnt)]).Text;
-                            receiveText += "<td>" + work + "</td>";
+                            receiveText += "    <td>" + work + "</td>" + "\r\n";
                             cnt++;
                         }
                         
                         work = "";
-                        receiveText += "</tr>";
+                        receiveText += "  </tr>" + "\r\n";
                     }
                     receiveText += "</table>";
                 }

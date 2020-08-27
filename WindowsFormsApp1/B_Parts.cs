@@ -26,14 +26,28 @@ namespace WindowsFormsApp1
         {
             B_Parts f = new B_Parts();
             f.ShowDialog();
-
-            string receiveText = "<b>" + f.TextAdd.Text + "</b>" ;
+            string receiveText;
+            if (f.TextAdd.Text != "-1" && f.TextAdd.Text != "")
+            {
+                receiveText = "<b>" + f.TextAdd.Text + "</b>";
+            }
+            else
+            { 
+                receiveText = "-1";     
+            }
+           
             f.Dispose();
             return receiveText;
         }
 
         private void AddConfirm_Click(object sender, EventArgs e)
         {
+            Close();
+        }
+
+        private void cancel_btn_Click(object sender, EventArgs e)
+        {
+            TextAdd.Text = "-1";
             Close();
         }
     }

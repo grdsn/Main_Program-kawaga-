@@ -1,4 +1,4 @@
-﻿namespace Tutorial
+﻿namespace WindowsFormsApp1
 {
     partial class Tutorial_Parts
     {
@@ -41,6 +41,7 @@
             this.btnNext.TabIndex = 3;
             this.btnNext.Text = "次へ";
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // labelTitle
             // 
@@ -63,7 +64,7 @@
             this.labelText.TabIndex = 4;
             this.labelText.Text = "サンプル";
             // 
-            // Tutorial
+            // Tutorial_Parts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -71,8 +72,9 @@
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.labelText);
             this.Controls.Add(this.btnNext);
-            this.Name = "Tutorial";
+            this.Name = "Tutorial_Parts";
             this.Text = "Tutorial";
+            this.Load += new System.EventHandler(this.Tutorial_Parts_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

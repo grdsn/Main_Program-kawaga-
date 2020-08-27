@@ -32,6 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.TextAdd = new System.Windows.Forms.TextBox();
             this.parts_name = new System.Windows.Forms.Label();
+            this.cancel_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AddConfirm
@@ -72,15 +73,27 @@
             this.parts_name.TabIndex = 7;
             this.parts_name.Text = "太字の追加";
             // 
+            // cancel_btn
+            // 
+            this.cancel_btn.Location = new System.Drawing.Point(12, 106);
+            this.cancel_btn.Name = "cancel_btn";
+            this.cancel_btn.Size = new System.Drawing.Size(101, 20);
+            this.cancel_btn.TabIndex = 11;
+            this.cancel_btn.Text = "キャンセル";
+            this.cancel_btn.UseVisualStyleBackColor = true;
+            this.cancel_btn.Click += new System.EventHandler(this.cancel_btn_Click);
+            // 
             // B_Parts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(507, 112);
+            this.ClientSize = new System.Drawing.Size(507, 137);
+            this.Controls.Add(this.cancel_btn);
             this.Controls.Add(this.AddConfirm);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.TextAdd);
             this.Controls.Add(this.parts_name);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "B_Parts";
             this.Text = "B_Parts";
             this.Load += new System.EventHandler(this.B_Parts_Load);
@@ -95,5 +108,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox TextAdd;
         private System.Windows.Forms.Label parts_name;
+        private System.Windows.Forms.Button cancel_btn;
     }
 }

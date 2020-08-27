@@ -13,6 +13,7 @@ namespace WindowsFormsApp1
     public partial class UL_Parts : Form
     {
         int count;
+        bool cancel_flg = false;
         public UL_Parts()
         {
             InitializeComponent();
@@ -25,12 +26,19 @@ namespace WindowsFormsApp1
             f.ShowDialog();
             f.Dispose();
             string[] add_list = f.UL_box.Items.Cast<string>().ToArray(); //追加するリスト項目を取得
-            receiveText = "<ul>"; //順序のないリスト「開始」
-            for (int i = 0; i < f.count; i++)
+            if (cancel_flg == false && add_list.Length > 0)
             {
-                receiveText += "<li>" + add_list[i] + "</li>"; //順序のあるリスト「項目」
+                receiveText = "  <ul>" + "\r\n"; //順序のないリスト「開始」
+                for (int i = 0; i < f.count; i++)
+                {
+                    receiveText += "    <li>" + add_list[i] + "</li> " + "\r\n"; //順序のあるリスト「項目」
+                }
+                receiveText += "  </ul>";　//順序のないリスト「終了」
             }
-            receiveText += "</ul>";　//順序のないリスト「終了」
+            else
+            {
+                receiveText = "-1";
+            }
             return receiveText; //HTML文を返す
 
 
@@ -49,7 +57,11 @@ namespace WindowsFormsApp1
          */
         private void Add_button_Click(object sender, EventArgs e)
         {
-            AddText();
+            if (Add_Text.Text != "")
+            {
+                AddText();
+            }
+
         }
 
         /*
@@ -59,11 +71,13 @@ namespace WindowsFormsApp1
         {
             UL_box.Items.Add(Add_Text.Text); //UL_box内に要素を追加
             count = UL_box.Items.Count; //要素数を取得
+            Add_Text.Text = "";
         }
 
-        private void info_label_Click(object sender, EventArgs e)
+        private void cancel_btn_Click(object sender, EventArgs e)
         {
-
+            cancel_flg = true;
+            Close();
         }
     }
 }
