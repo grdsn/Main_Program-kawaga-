@@ -36,6 +36,8 @@
             this.PartsBox = new System.Windows.Forms.GroupBox();
             this.partsList = new System.Windows.Forms.ListView();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
+            this.Title_Visible = new System.Windows.Forms.TextBox();
+            this.Parts_Visible = new System.Windows.Forms.TextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -76,8 +78,6 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.HTMLBtn = new System.Windows.Forms.Button();
             this.PreviewBtn = new System.Windows.Forms.Button();
-            this.Parts_Visible = new System.Windows.Forms.TextBox();
-            this.Title_Visible = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             oepn_Btn = new System.Windows.Forms.Button();
             this.PartsBox.SuspendLayout();
@@ -158,6 +158,26 @@
             this.imageList.Images.SetKeyName(7, "イメージ画像のアイコン素材 2.png");
             this.imageList.Images.SetKeyName(8, "読書のアイコン.png");
             // 
+            // Title_Visible
+            // 
+            this.Title_Visible.Location = new System.Drawing.Point(47, -25);
+            this.Title_Visible.Multiline = true;
+            this.Title_Visible.Name = "Title_Visible";
+            this.Title_Visible.ReadOnly = true;
+            this.Title_Visible.Size = new System.Drawing.Size(262, 19);
+            this.Title_Visible.TabIndex = 2;
+            this.Title_Visible.Text = "新規作成か開くをクリック後利用できます";
+            // 
+            // Parts_Visible
+            // 
+            this.Parts_Visible.Location = new System.Drawing.Point(6, 19);
+            this.Parts_Visible.Multiline = true;
+            this.Parts_Visible.Name = "Parts_Visible";
+            this.Parts_Visible.ReadOnly = true;
+            this.Parts_Visible.Size = new System.Drawing.Size(302, 218);
+            this.Parts_Visible.TabIndex = 1;
+            this.Parts_Visible.Text = "新規作成か開くを選択後,部品が選択できます";
+            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
@@ -169,7 +189,6 @@
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Size = new System.Drawing.Size(917, 757);
             this.webBrowser1.TabIndex = 1;
-    
             // 
             // menuStrip1
             // 
@@ -263,7 +282,7 @@
             this.HTMLBOX.Multiline = true;
             this.HTMLBOX.Name = "HTMLBOX";
             this.HTMLBOX.ReadOnly = true;
-            this.HTMLBOX.Size = new System.Drawing.Size(917, 763);
+            this.HTMLBOX.Size = new System.Drawing.Size(917, 757);
             this.HTMLBOX.TabIndex = 15;
             this.HTMLBOX.Visible = false;
             // 
@@ -588,26 +607,6 @@
             this.PreviewBtn.Visible = false;
             this.PreviewBtn.Click += new System.EventHandler(this.PreviewBtn_Click);
             // 
-            // Parts_Visible
-            // 
-            this.Parts_Visible.Location = new System.Drawing.Point(6, 19);
-            this.Parts_Visible.Multiline = true;
-            this.Parts_Visible.Name = "Parts_Visible";
-            this.Parts_Visible.ReadOnly = true;
-            this.Parts_Visible.Size = new System.Drawing.Size(302, 218);
-            this.Parts_Visible.TabIndex = 1;
-            this.Parts_Visible.Text = "新規作成か開くを選択後,部品が選択できます";
-            // 
-            // Title_Visible
-            // 
-            this.Title_Visible.Location = new System.Drawing.Point(47, -25);
-            this.Title_Visible.Multiline = true;
-            this.Title_Visible.Name = "Title_Visible";
-            this.Title_Visible.ReadOnly = true;
-            this.Title_Visible.Size = new System.Drawing.Size(262, 19);
-            this.Title_Visible.TabIndex = 2;
-            this.Title_Visible.Text = "新規作成か開くをクリック後利用できます";
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(59, 118);
@@ -621,7 +620,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
             this.ClientSize = new System.Drawing.Size(1302, 918);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Tutorial_btn);

@@ -17,7 +17,7 @@ namespace WindowsFormsApp1
     {
 
         //定義--------------------------------------------------------
-        const string ApplicationName = "かんたんWeb君(Ver.1)";//アプリケーション名
+        const string ApplicationName = "かんたんWeb君";//アプリケーション名
         private string FileName = ""; //ファイル名(フルパス)
         string result;//結果格納
         private bool Edited = false;
@@ -31,7 +31,6 @@ namespace WindowsFormsApp1
 
 
         //在間くん作成部分------------------------------------------------------
-
         //画面フラグ
         public int flg = 0;
         //入れ替え部品
@@ -485,6 +484,7 @@ namespace WindowsFormsApp1
         private void NewButton_Click(object sender, EventArgs e)
         {
             MenuItemFileNew_Click(sender, e);
+            //title += "（変更あり）";
             Start_Visible();
             create_new = true;
         }
@@ -504,8 +504,6 @@ namespace WindowsFormsApp1
             }
        
         }
-
-
         /*
          * ソースコード表示ボタン制御(かわが)
          */
