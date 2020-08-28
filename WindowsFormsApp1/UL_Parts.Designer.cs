@@ -34,6 +34,7 @@
             this.info_label = new System.Windows.Forms.Label();
             this.parts_name = new System.Windows.Forms.Label();
             this.AddConfirm = new System.Windows.Forms.Button();
+            this.cancel_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Add_Text
@@ -70,7 +71,6 @@
             this.info_label.Size = new System.Drawing.Size(156, 12);
             this.info_label.TabIndex = 13;
             this.info_label.Text = "挿入する項目を入力してください";
-            this.info_label.Click += new System.EventHandler(this.info_label_Click);
             // 
             // parts_name
             // 
@@ -92,17 +92,29 @@
             this.AddConfirm.UseVisualStyleBackColor = true;
             this.AddConfirm.Click += new System.EventHandler(this.AddConfirm_Click);
             // 
+            // cancel_btn
+            // 
+            this.cancel_btn.Location = new System.Drawing.Point(18, 263);
+            this.cancel_btn.Name = "cancel_btn";
+            this.cancel_btn.Size = new System.Drawing.Size(75, 23);
+            this.cancel_btn.TabIndex = 17;
+            this.cancel_btn.Text = "キャンセル";
+            this.cancel_btn.UseVisualStyleBackColor = true;
+            this.cancel_btn.Click += new System.EventHandler(this.cancel_btn_Click);
+            // 
             // UL_Parts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(366, 269);
+            this.ClientSize = new System.Drawing.Size(366, 297);
+            this.Controls.Add(this.cancel_btn);
             this.Controls.Add(this.Add_Text);
             this.Controls.Add(this.Add_button);
             this.Controls.Add(this.UL_box);
             this.Controls.Add(this.info_label);
             this.Controls.Add(this.parts_name);
             this.Controls.Add(this.AddConfirm);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "UL_Parts";
             this.Text = "UL_Parts";
             this.ResumeLayout(false);
@@ -118,5 +130,6 @@
         private System.Windows.Forms.Label info_label;
         private System.Windows.Forms.Label parts_name;
         private System.Windows.Forms.Button AddConfirm;
+        private System.Windows.Forms.Button cancel_btn;
     }
 }

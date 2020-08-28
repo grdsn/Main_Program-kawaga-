@@ -12,6 +12,7 @@ namespace WindowsFormsApp1
 {
     public partial class OL_Parts : Form
     {
+        bool cancel_flg = false; 
         public int RowCount { get; set; }
         int count;
         public OL_Parts()
@@ -31,12 +32,21 @@ namespace WindowsFormsApp1
             f.ShowDialog();
             f.Dispose();
             string[] add_list = f.OL_box.Items.Cast<string>().ToArray(); //追加するリスト項目を取得
-            receiveText = "<ol>"; //順序のあるリスト「開始」
-            for (int i = 0; i < f.count; i++)
+            
+            if (f.cancel_flg == false && add_list.Length > 0)
             {
-                receiveText += "<li>" + add_list[i] + "</li>"; //順序のあるリスト「項目」
+                receiveText = "  <ol>" + "\r\n"; //順序のあるリスト「開始」
+                for (int i = 0; i < f.count; i++)
+                {
+                    receiveText += "    <li>" + add_list[i] + "</li>" + "\r\n"; //順序のあるリスト「項目」
+                }
+                receiveText += "  </ol>";　//順序のあるリスト「終了」
             }
-            receiveText += "</ol>";　//順序のあるリスト「終了」
+            else
+            {
+                receiveText = "-1";
+            }
+            
             return receiveText; //HTML文を返す
 
 
@@ -55,7 +65,10 @@ namespace WindowsFormsApp1
          */
         private void Add_button_Click(object sender, EventArgs e)
         {
-            AddText();        
+            if(Add_Text.Text != "")
+            {
+                AddText();
+            }     
         }
 
         /*
@@ -65,6 +78,18 @@ namespace WindowsFormsApp1
         {
             OL_box.Items.Add(Add_Text.Text); //OL_box内に要素を追加
             count = OL_box.Items.Count; //要素数を取得
+            Add_Text.Text = "";
+        }
+
+        private void cancel_btn_Click(object sender, EventArgs e)
+        {
+            cancel_flg = true;
+            Close();
+        }
+
+        private void OL_box_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

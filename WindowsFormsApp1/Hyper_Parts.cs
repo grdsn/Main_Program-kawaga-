@@ -28,9 +28,16 @@ namespace WindowsFormsApp1
         public string ShowMiniForm()
         {
             Hyper_Parts f = new Hyper_Parts();
+            string receiveText;
             f.ShowDialog();
-
-            string receiveText = "<a href=\"" + f.TextAdd.Text+ "\">" + f.Title_Add.Text + "</a>";
+            if (f.TextAdd.Text != "")
+            {
+                receiveText = "<a href=\"" + f.TextAdd.Text + "\">" + f.Title_Add.Text + "</a>";
+            }
+            else
+            {
+                receiveText = "-1";
+            }
             f.Dispose();
             return receiveText;
         }
@@ -38,6 +45,12 @@ namespace WindowsFormsApp1
         private void AddConfirm_Click_1(object sender, EventArgs e)
         {
             Close();　//画面を閉じ反映させる
+        }
+
+        private void cancel_btn_Click(object sender, EventArgs e)
+        {
+            TextAdd.Text = "";
+            Close();
         }
     }
 }

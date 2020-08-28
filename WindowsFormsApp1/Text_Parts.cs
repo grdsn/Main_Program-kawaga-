@@ -12,8 +12,6 @@ namespace WindowsFormsApp1
 {
     public partial class Text_parts : Form
     {
-        int in_cnt = 0;
-        private string[] argumentValues;
         public static string text_return;
         main fm1 = new main();
         public Text_parts()
@@ -24,7 +22,7 @@ namespace WindowsFormsApp1
         private void Create_parts_Load(object sender, EventArgs e)
         {
             parts_name.Text = "テキストの追加";
-            
+ 
             info_label.Text = "テキストを追加してください。";
             TextAdd.Visible = true;
 
@@ -33,10 +31,17 @@ namespace WindowsFormsApp1
         
         public string ShowMiniForm()
         {
-
             Text_parts f = new Text_parts();
+            string receiveText;
             f.ShowDialog();
-            string receiveText = f.TextAdd.Text.Replace("\r\n", "<br>"); //HTML文
+            if (TextAdd.Text == "")
+            {
+                receiveText = f.TextAdd.Text.Replace("\r\n", "<br>"); //HTML文
+            }
+            else
+            {
+                receiveText = "-1"; //HTML文
+            }
             f.Dispose();
             return receiveText; //HTML文を返す
 
@@ -49,13 +54,11 @@ namespace WindowsFormsApp1
         {
             Close();　//画面を閉じ内容を反映
         }
-       
-               
-         
- 
-        private void Main_box_TextChanged(object sender, EventArgs e)
-        {
 
+        private void cancel_btn_Click(object sender, EventArgs e)
+        {
+            TextAdd.Text = "";
+            Close();
         }
     }
 }

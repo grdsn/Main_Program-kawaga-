@@ -32,6 +32,7 @@
             this.AddConfirm = new System.Windows.Forms.Button();
             this.info_label = new System.Windows.Forms.Label();
             this.parts_name = new System.Windows.Forms.Label();
+            this.cancel_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TextAdd
@@ -52,6 +53,7 @@
             this.AddConfirm.TabIndex = 9;
             this.AddConfirm.Text = "追加";
             this.AddConfirm.UseVisualStyleBackColor = true;
+            this.AddConfirm.Click += new System.EventHandler(this.AddConfirm_Click);
             // 
             // info_label
             // 
@@ -72,15 +74,27 @@
             this.parts_name.TabIndex = 7;
             this.parts_name.Text = "スクリプト追加";
             // 
+            // cancel_btn
+            // 
+            this.cancel_btn.Location = new System.Drawing.Point(12, 240);
+            this.cancel_btn.Name = "cancel_btn";
+            this.cancel_btn.Size = new System.Drawing.Size(101, 26);
+            this.cancel_btn.TabIndex = 11;
+            this.cancel_btn.Text = "キャンセル";
+            this.cancel_btn.UseVisualStyleBackColor = true;
+            this.cancel_btn.Click += new System.EventHandler(this.cancel_btn_Click);
+            // 
             // Script_Parts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(503, 248);
+            this.ClientSize = new System.Drawing.Size(503, 270);
+            this.Controls.Add(this.cancel_btn);
             this.Controls.Add(this.TextAdd);
             this.Controls.Add(this.AddConfirm);
             this.Controls.Add(this.info_label);
             this.Controls.Add(this.parts_name);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Script_Parts";
             this.Text = "Script_Parts";
             this.ResumeLayout(false);
@@ -94,5 +108,6 @@
         private System.Windows.Forms.Button AddConfirm;
         private System.Windows.Forms.Label info_label;
         private System.Windows.Forms.Label parts_name;
+        private System.Windows.Forms.Button cancel_btn;
     }
 }

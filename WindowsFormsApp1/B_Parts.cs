@@ -10,53 +10,44 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class EM_Parts : Form
+    public partial class B_Parts : Form
     {
-        public EM_Parts()
+        public B_Parts()
         {
             InitializeComponent();
         }
 
-        private void EM_Parts_Load(object sender, EventArgs e)
+        private void B_Parts_Load(object sender, EventArgs e)
         {
 
         }
 
         public string ShowMiniForm()
         {
-
-            EM_Parts f = new EM_Parts();
-            string receiveText;
+            B_Parts f = new B_Parts();
             f.ShowDialog();
-            if(f.TextAdd.Text != "")
+            string receiveText;
+            if (f.TextAdd.Text != "-1" && f.TextAdd.Text != "")
             {
-                receiveText = "<em>" + f.TextAdd.Text.Replace("\r\n", "<br>") + "</em>";　//HTML文
+                receiveText = "<b>" + f.TextAdd.Text + "</b>";
             }
             else
-            {
-                receiveText = "-1";
+            { 
+                receiveText = "-1";     
             }
+           
             f.Dispose();
-            return receiveText; //HTML文を返す
-
+            return receiveText;
         }
 
-        private void TextAdd_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        /*
-         * 追加ボタン処理
-         */
         private void AddConfirm_Click(object sender, EventArgs e)
         {
-            Close(); //画面を閉じ内容を反映
+            Close();
         }
 
         private void cancel_btn_Click(object sender, EventArgs e)
         {
-            TextAdd.Text = "";
+            TextAdd.Text = "-1";
             Close();
         }
     }
