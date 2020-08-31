@@ -52,22 +52,6 @@
             this.menuItemFileExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BackText = new System.Windows.Forms.ToolStripMenuItem();
             this.HTMLBOX = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button_edit = new System.Windows.Forms.Button();
-            this.group_tag = new System.Windows.Forms.GroupBox();
-            this.groupBody = new System.Windows.Forms.GroupBox();
-            this.button_body2 = new System.Windows.Forms.Button();
-            this.property_text = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupHead = new System.Windows.Forms.GroupBox();
-            this.button_head2 = new System.Windows.Forms.Button();
-            this.button_title = new System.Windows.Forms.Button();
-            this.button_swap = new System.Windows.Forms.Button();
-            this.button_delete = new System.Windows.Forms.Button();
-            this.button_head1 = new System.Windows.Forms.Button();
-            this.button_body1 = new System.Windows.Forms.Button();
-            this.button_html = new System.Windows.Forms.Button();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -79,14 +63,32 @@
             this.HTMLBtn = new System.Windows.Forms.Button();
             this.PreviewBtn = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.groupInput = new System.Windows.Forms.GroupBox();
+            this.groupBody = new System.Windows.Forms.GroupBox();
+            this.groupHead = new System.Windows.Forms.GroupBox();
+            this.button_title = new System.Windows.Forms.Button();
+            this.flowLayoutPanel_head = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel_body = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel_input = new System.Windows.Forms.FlowLayoutPanel();
+            this.button_Input = new System.Windows.Forms.Button();
+            this.button_head1 = new System.Windows.Forms.Button();
+            this.group_tag = new System.Windows.Forms.GroupBox();
+            this.button_swap = new System.Windows.Forms.Button();
+            this.button_edit = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button_delete = new System.Windows.Forms.Button();
+            this.button_body1 = new System.Windows.Forms.Button();
+            this.button_html = new System.Windows.Forms.Button();
+            this.button_body2 = new System.Windows.Forms.Button();
             oepn_Btn = new System.Windows.Forms.Button();
             this.PartsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            this.group_tag.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.groupInput.SuspendLayout();
             this.groupBody.SuspendLayout();
             this.groupHead.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.group_tag.SuspendLayout();
             this.SuspendLayout();
             // 
             // oepn_Btn
@@ -107,7 +109,7 @@
             // 
             this.Title.Location = new System.Drawing.Point(59, 118);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(262, 19);
+            this.Title.Size = new System.Drawing.Size(299, 19);
             this.Title.TabIndex = 3;
             this.Title.Visible = false;
             // 
@@ -127,7 +129,7 @@
             this.PartsBox.Controls.Add(this.Parts_Visible);
             this.PartsBox.Location = new System.Drawing.Point(12, 143);
             this.PartsBox.Name = "PartsBox";
-            this.PartsBox.Size = new System.Drawing.Size(318, 243);
+            this.PartsBox.Size = new System.Drawing.Size(355, 243);
             this.PartsBox.TabIndex = 10;
             this.PartsBox.TabStop = false;
             this.PartsBox.Text = "素材";
@@ -138,7 +140,7 @@
             this.partsList.LargeImageList = this.imageList;
             this.partsList.Location = new System.Drawing.Point(6, 18);
             this.partsList.Name = "partsList";
-            this.partsList.Size = new System.Drawing.Size(303, 219);
+            this.partsList.Size = new System.Drawing.Size(340, 219);
             this.partsList.TabIndex = 0;
             this.partsList.UseCompatibleStateImageBehavior = false;
             this.partsList.Visible = false;
@@ -286,212 +288,6 @@
             this.HTMLBOX.TabIndex = 15;
             this.HTMLBOX.Visible = false;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
-            this.label2.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(12, 400);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 16);
-            this.label2.TabIndex = 22;
-            this.label2.Text = "タグツリー";
-            // 
-            // button_edit
-            // 
-            this.button_edit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button_edit.FlatAppearance.BorderColor = System.Drawing.Color.Red;
-            this.button_edit.FlatAppearance.BorderSize = 0;
-            this.button_edit.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_edit.Location = new System.Drawing.Point(255, 393);
-            this.button_edit.Name = "button_edit";
-            this.button_edit.Size = new System.Drawing.Size(75, 23);
-            this.button_edit.TabIndex = 20;
-            this.button_edit.Text = "編集";
-            this.button_edit.UseVisualStyleBackColor = false;
-            this.button_edit.Click += new System.EventHandler(this.button_edit_Click);
-            // 
-            // group_tag
-            // 
-            this.group_tag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
-            this.group_tag.Controls.Add(this.groupBody);
-            this.group_tag.Controls.Add(this.groupHead);
-            this.group_tag.Controls.Add(this.button_swap);
-            this.group_tag.Controls.Add(this.button_delete);
-            this.group_tag.Controls.Add(this.button_head1);
-            this.group_tag.Controls.Add(this.button_body1);
-            this.group_tag.Controls.Add(this.button_html);
-            this.group_tag.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.group_tag.Location = new System.Drawing.Point(12, 409);
-            this.group_tag.Name = "group_tag";
-            this.group_tag.Size = new System.Drawing.Size(318, 507);
-            this.group_tag.TabIndex = 21;
-            this.group_tag.TabStop = false;
-            // 
-            // groupBody
-            // 
-            this.groupBody.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.groupBody.Controls.Add(this.button_body2);
-            this.groupBody.Controls.Add(this.property_text);
-            this.groupBody.Controls.Add(this.label3);
-            this.groupBody.Controls.Add(this.flowLayoutPanel1);
-            this.groupBody.Location = new System.Drawing.Point(0, 56);
-            this.groupBody.Name = "groupBody";
-            this.groupBody.Size = new System.Drawing.Size(309, 445);
-            this.groupBody.TabIndex = 2;
-            this.groupBody.TabStop = false;
-            this.groupBody.Visible = false;
-            // 
-            // button_body2
-            // 
-            this.button_body2.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button_body2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button_body2.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_body2.ForeColor = System.Drawing.Color.White;
-            this.button_body2.Location = new System.Drawing.Point(3, 21);
-            this.button_body2.Name = "button_body2";
-            this.button_body2.Size = new System.Drawing.Size(122, 54);
-            this.button_body2.TabIndex = 1;
-            this.button_body2.Text = "<BODY>";
-            this.button_body2.UseVisualStyleBackColor = false;
-            this.button_body2.Click += new System.EventHandler(this.button_body2_Click);
-            // 
-            // property_text
-            // 
-            this.property_text.BackColor = System.Drawing.Color.White;
-            this.property_text.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.property_text.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.property_text.Location = new System.Drawing.Point(167, 34);
-            this.property_text.Multiline = true;
-            this.property_text.Name = "property_text";
-            this.property_text.Size = new System.Drawing.Size(136, 401);
-            this.property_text.TabIndex = 4;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(166, 14);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 16);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "プロパティ";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 81);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(128, 354);
-            this.flowLayoutPanel1.TabIndex = 6;
-            // 
-            // groupHead
-            // 
-            this.groupHead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.groupHead.Controls.Add(this.button_head2);
-            this.groupHead.Controls.Add(this.button_title);
-            this.groupHead.Location = new System.Drawing.Point(0, 57);
-            this.groupHead.Name = "groupHead";
-            this.groupHead.Size = new System.Drawing.Size(309, 443);
-            this.groupHead.TabIndex = 2;
-            this.groupHead.TabStop = false;
-            this.groupHead.Visible = false;
-            // 
-            // button_head2
-            // 
-            this.button_head2.BackColor = System.Drawing.Color.Blue;
-            this.button_head2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button_head2.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_head2.ForeColor = System.Drawing.Color.White;
-            this.button_head2.Location = new System.Drawing.Point(0, 20);
-            this.button_head2.Name = "button_head2";
-            this.button_head2.Size = new System.Drawing.Size(122, 54);
-            this.button_head2.TabIndex = 1;
-            this.button_head2.Text = "<HEAD>";
-            this.button_head2.UseVisualStyleBackColor = false;
-            this.button_head2.Click += new System.EventHandler(this.button_head2_Click);
-            // 
-            // button_title
-            // 
-            this.button_title.BackColor = System.Drawing.Color.Blue;
-            this.button_title.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button_title.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_title.ForeColor = System.Drawing.Color.White;
-            this.button_title.Location = new System.Drawing.Point(0, 96);
-            this.button_title.Name = "button_title";
-            this.button_title.Size = new System.Drawing.Size(122, 54);
-            this.button_title.TabIndex = 1;
-            this.button_title.Text = "<TITLE>";
-            this.button_title.UseVisualStyleBackColor = false;
-            // 
-            // button_swap
-            // 
-            this.button_swap.Location = new System.Drawing.Point(162, 10);
-            this.button_swap.Name = "button_swap";
-            this.button_swap.Size = new System.Drawing.Size(75, 23);
-            this.button_swap.TabIndex = 4;
-            this.button_swap.Text = "並び替え";
-            this.button_swap.UseVisualStyleBackColor = true;
-            this.button_swap.Visible = false;
-            this.button_swap.Click += new System.EventHandler(this.button_swap_Click);
-            // 
-            // button_delete
-            // 
-            this.button_delete.BackColor = System.Drawing.Color.Red;
-            this.button_delete.FlatAppearance.BorderColor = System.Drawing.Color.Red;
-            this.button_delete.FlatAppearance.BorderSize = 0;
-            this.button_delete.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_delete.Location = new System.Drawing.Point(243, 10);
-            this.button_delete.Name = "button_delete";
-            this.button_delete.Size = new System.Drawing.Size(75, 23);
-            this.button_delete.TabIndex = 3;
-            this.button_delete.Text = "削除";
-            this.button_delete.UseVisualStyleBackColor = false;
-            this.button_delete.Visible = false;
-            this.button_delete.Click += new System.EventHandler(this.button_delete_Click);
-            // 
-            // button_head1
-            // 
-            this.button_head1.BackColor = System.Drawing.Color.Blue;
-            this.button_head1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button_head1.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_head1.ForeColor = System.Drawing.Color.White;
-            this.button_head1.Location = new System.Drawing.Point(0, 77);
-            this.button_head1.Name = "button_head1";
-            this.button_head1.Size = new System.Drawing.Size(122, 54);
-            this.button_head1.TabIndex = 1;
-            this.button_head1.Text = "<HEAD>";
-            this.button_head1.UseVisualStyleBackColor = false;
-            this.button_head1.Click += new System.EventHandler(this.button_head1_Click);
-            // 
-            // button_body1
-            // 
-            this.button_body1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button_body1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button_body1.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_body1.ForeColor = System.Drawing.Color.White;
-            this.button_body1.Location = new System.Drawing.Point(0, 152);
-            this.button_body1.Name = "button_body1";
-            this.button_body1.Size = new System.Drawing.Size(122, 54);
-            this.button_body1.TabIndex = 1;
-            this.button_body1.Text = "<BODY>";
-            this.button_body1.UseVisualStyleBackColor = false;
-            this.button_body1.Click += new System.EventHandler(this.button_body1_Click);
-            // 
-            // button_html
-            // 
-            this.button_html.BackColor = System.Drawing.Color.Yellow;
-            this.button_html.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button_html.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_html.Location = new System.Drawing.Point(3, 10);
-            this.button_html.Name = "button_html";
-            this.button_html.Size = new System.Drawing.Size(122, 41);
-            this.button_html.TabIndex = 1;
-            this.button_html.Text = "<HTML>";
-            this.button_html.UseVisualStyleBackColor = false;
-            this.button_html.Click += new System.EventHandler(this.button_html_Click);
-            // 
             // OpenFileDialog
             // 
             this.OpenFileDialog.FileName = "openFileDialog1";
@@ -502,9 +298,9 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.webBrowser1);
             this.panel1.Controls.Add(this.HTMLBOX);
-            this.panel1.Location = new System.Drawing.Point(345, 118);
+            this.panel1.Location = new System.Drawing.Point(373, 118);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(945, 798);
+            this.panel1.Size = new System.Drawing.Size(917, 798);
             this.panel1.TabIndex = 24;
             // 
             // label4
@@ -616,16 +412,252 @@
             this.textBox1.TabIndex = 27;
             this.textBox1.Text = "新規作成・開くを選択後利用できます";
             // 
+            // groupInput
+            // 
+            this.groupInput.BackColor = System.Drawing.Color.White;
+            this.groupInput.Controls.Add(this.flowLayoutPanel_input);
+            this.groupInput.Controls.Add(this.button_Input);
+            this.groupInput.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupInput.Location = new System.Drawing.Point(0, 0);
+            this.groupInput.Name = "groupInput";
+            this.groupInput.Size = new System.Drawing.Size(343, 398);
+            this.groupInput.TabIndex = 5;
+            this.groupInput.TabStop = false;
+            this.groupInput.Visible = false;
+            // 
+            // groupBody
+            // 
+            this.groupBody.BackColor = System.Drawing.Color.White;
+            this.groupBody.Controls.Add(this.groupInput);
+            this.groupBody.Controls.Add(this.flowLayoutPanel_body);
+            this.groupBody.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBody.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(106)))), ((int)(((byte)(34)))));
+            this.groupBody.Location = new System.Drawing.Point(6, 142);
+            this.groupBody.Name = "groupBody";
+            this.groupBody.Size = new System.Drawing.Size(343, 398);
+            this.groupBody.TabIndex = 2;
+            this.groupBody.TabStop = false;
+            this.groupBody.Visible = false;
+            // 
+            // groupHead
+            // 
+            this.groupHead.BackColor = System.Drawing.Color.White;
+            this.groupHead.Controls.Add(this.button_title);
+            this.groupHead.Controls.Add(this.flowLayoutPanel_head);
+            this.groupHead.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupHead.Location = new System.Drawing.Point(6, 142);
+            this.groupHead.Name = "groupHead";
+            this.groupHead.Size = new System.Drawing.Size(343, 398);
+            this.groupHead.TabIndex = 28;
+            this.groupHead.TabStop = false;
+            this.groupHead.Visible = false;
+            // 
+            // button_title
+            // 
+            this.button_title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(214)))), ((int)(((byte)(195)))));
+            this.button_title.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button_title.FlatAppearance.BorderSize = 0;
+            this.button_title.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_title.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(92)))), ((int)(((byte)(79)))));
+            this.button_title.Location = new System.Drawing.Point(3, 10);
+            this.button_title.Name = "button_title";
+            this.button_title.Size = new System.Drawing.Size(122, 51);
+            this.button_title.TabIndex = 1;
+            this.button_title.Text = "<TITLE>";
+            this.button_title.UseVisualStyleBackColor = false;
+            // 
+            // flowLayoutPanel_head
+            // 
+            this.flowLayoutPanel_head.AutoScroll = true;
+            this.flowLayoutPanel_head.Location = new System.Drawing.Point(0, 62);
+            this.flowLayoutPanel_head.Name = "flowLayoutPanel_head";
+            this.flowLayoutPanel_head.Size = new System.Drawing.Size(158, 327);
+            this.flowLayoutPanel_head.TabIndex = 8;
+            // 
+            // flowLayoutPanel_body
+            // 
+            this.flowLayoutPanel_body.AutoScroll = true;
+            this.flowLayoutPanel_body.Location = new System.Drawing.Point(0, 7);
+            this.flowLayoutPanel_body.Name = "flowLayoutPanel_body";
+            this.flowLayoutPanel_body.Size = new System.Drawing.Size(161, 382);
+            this.flowLayoutPanel_body.TabIndex = 6;
+            // 
+            // flowLayoutPanel_input
+            // 
+            this.flowLayoutPanel_input.AutoScroll = true;
+            this.flowLayoutPanel_input.Location = new System.Drawing.Point(3, 62);
+            this.flowLayoutPanel_input.Name = "flowLayoutPanel_input";
+            this.flowLayoutPanel_input.Size = new System.Drawing.Size(158, 327);
+            this.flowLayoutPanel_input.TabIndex = 8;
+            // 
+            // button_Input
+            // 
+            this.button_Input.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(214)))), ((int)(((byte)(195)))));
+            this.button_Input.FlatAppearance.BorderSize = 0;
+            this.button_Input.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Input.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_Input.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(92)))), ((int)(((byte)(79)))));
+            this.button_Input.Location = new System.Drawing.Point(3, 9);
+            this.button_Input.Name = "button_Input";
+            this.button_Input.Size = new System.Drawing.Size(122, 52);
+            this.button_Input.TabIndex = 7;
+            this.button_Input.Text = "<INPUT>";
+            this.button_Input.UseVisualStyleBackColor = false;
+            // 
+            // button_head1
+            // 
+            this.button_head1.BackColor = System.Drawing.Color.White;
+            this.button_head1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button_head1.FlatAppearance.BorderSize = 0;
+            this.button_head1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_head1.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_head1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(106)))), ((int)(((byte)(34)))));
+            this.button_head1.Location = new System.Drawing.Point(6, 90);
+            this.button_head1.Name = "button_head1";
+            this.button_head1.Size = new System.Drawing.Size(125, 54);
+            this.button_head1.TabIndex = 1;
+            this.button_head1.Text = "<HEAD>";
+            this.button_head1.UseVisualStyleBackColor = false;
+            this.button_head1.Click += new System.EventHandler(this.button_head1_Click_1);
+            // 
+            // group_tag
+            // 
+            this.group_tag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(106)))), ((int)(((byte)(34)))));
+            this.group_tag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.group_tag.Controls.Add(this.groupHead);
+            this.group_tag.Controls.Add(this.groupBody);
+            this.group_tag.Controls.Add(this.button_swap);
+            this.group_tag.Controls.Add(this.button_edit);
+            this.group_tag.Controls.Add(this.label2);
+            this.group_tag.Controls.Add(this.button_delete);
+            this.group_tag.Controls.Add(this.button_body1);
+            this.group_tag.Controls.Add(this.button_html);
+            this.group_tag.Controls.Add(this.button_head1);
+            this.group_tag.Controls.Add(this.button_body2);
+            this.group_tag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.group_tag.Location = new System.Drawing.Point(12, 392);
+            this.group_tag.Name = "group_tag";
+            this.group_tag.Size = new System.Drawing.Size(355, 546);
+            this.group_tag.TabIndex = 29;
+            this.group_tag.TabStop = false;
+            // 
+            // button_swap
+            // 
+            this.button_swap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(214)))), ((int)(((byte)(195)))));
+            this.button_swap.FlatAppearance.BorderSize = 0;
+            this.button_swap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_swap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(92)))), ((int)(((byte)(79)))));
+            this.button_swap.Location = new System.Drawing.Point(193, 9);
+            this.button_swap.Name = "button_swap";
+            this.button_swap.Size = new System.Drawing.Size(75, 23);
+            this.button_swap.TabIndex = 4;
+            this.button_swap.Text = "並び替え";
+            this.button_swap.UseVisualStyleBackColor = false;
+            this.button_swap.Visible = false;
+            this.button_swap.Click += new System.EventHandler(this.button_swap_Click_1);
+            // 
+            // button_edit
+            // 
+            this.button_edit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(214)))), ((int)(((byte)(195)))));
+            this.button_edit.FlatAppearance.BorderSize = 0;
+            this.button_edit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_edit.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_edit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(92)))), ((int)(((byte)(79)))));
+            this.button_edit.Location = new System.Drawing.Point(274, 9);
+            this.button_edit.Name = "button_edit";
+            this.button_edit.Size = new System.Drawing.Size(75, 23);
+            this.button_edit.TabIndex = 3;
+            this.button_edit.Text = "編集";
+            this.button_edit.UseVisualStyleBackColor = false;
+            this.button_edit.Click += new System.EventHandler(this.button_edit_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(106)))), ((int)(((byte)(34)))));
+            this.label2.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 16);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "タグツリー";
+            // 
+            // button_delete
+            // 
+            this.button_delete.BackColor = System.Drawing.Color.White;
+            this.button_delete.FlatAppearance.BorderSize = 0;
+            this.button_delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_delete.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_delete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(106)))), ((int)(((byte)(34)))));
+            this.button_delete.Location = new System.Drawing.Point(274, 38);
+            this.button_delete.Name = "button_delete";
+            this.button_delete.Size = new System.Drawing.Size(75, 23);
+            this.button_delete.TabIndex = 3;
+            this.button_delete.Text = "削除";
+            this.button_delete.UseVisualStyleBackColor = false;
+            this.button_delete.Visible = false;
+            this.button_delete.Click += new System.EventHandler(this.button_delete_Click_1);
+            // 
+            // button_body1
+            // 
+            this.button_body1.BackColor = System.Drawing.Color.White;
+            this.button_body1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button_body1.FlatAppearance.BorderSize = 0;
+            this.button_body1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_body1.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_body1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(106)))), ((int)(((byte)(34)))));
+            this.button_body1.Location = new System.Drawing.Point(6, 148);
+            this.button_body1.Name = "button_body1";
+            this.button_body1.Size = new System.Drawing.Size(125, 54);
+            this.button_body1.TabIndex = 1;
+            this.button_body1.Text = "<BODY>";
+            this.button_body1.UseVisualStyleBackColor = false;
+            this.button_body1.Click += new System.EventHandler(this.button_body1_Click_1);
+            // 
+            // button_html
+            // 
+            this.button_html.BackColor = System.Drawing.Color.White;
+            this.button_html.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button_html.FlatAppearance.BorderSize = 0;
+            this.button_html.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_html.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_html.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(106)))), ((int)(((byte)(34)))));
+            this.button_html.Location = new System.Drawing.Point(6, 29);
+            this.button_html.Name = "button_html";
+            this.button_html.Size = new System.Drawing.Size(125, 55);
+            this.button_html.TabIndex = 1;
+            this.button_html.Text = "<HTML>";
+            this.button_html.UseVisualStyleBackColor = false;
+            this.button_html.Click += new System.EventHandler(this.button_html_Click_1);
+            // 
+            // button_body2
+            // 
+            this.button_body2.BackColor = System.Drawing.Color.White;
+            this.button_body2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button_body2.FlatAppearance.BorderSize = 0;
+            this.button_body2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_body2.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_body2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(106)))), ((int)(((byte)(34)))));
+            this.button_body2.Location = new System.Drawing.Point(6, 90);
+            this.button_body2.Name = "button_body2";
+            this.button_body2.Size = new System.Drawing.Size(125, 54);
+            this.button_body2.TabIndex = 1;
+            this.button_body2.Text = "<BODY>";
+            this.button_body2.UseVisualStyleBackColor = false;
+            this.button_body2.Visible = false;
+            this.button_body2.Click += new System.EventHandler(this.button_body2_Click_1);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
             this.ClientSize = new System.Drawing.Size(1302, 918);
+            this.Controls.Add(this.group_tag);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Tutorial_btn);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.button_edit);
             this.Controls.Add(oepn_Btn);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.SaveAsButton);
@@ -634,7 +666,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Title);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.group_tag);
             this.Controls.Add(this.HTMLBtn);
             this.Controls.Add(this.PreviewBtn);
             this.Controls.Add(this.textBox1);
@@ -649,12 +680,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.group_tag.ResumeLayout(false);
-            this.groupBody.ResumeLayout(false);
-            this.groupBody.PerformLayout();
-            this.groupHead.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupInput.ResumeLayout(false);
+            this.groupBody.ResumeLayout(false);
+            this.groupHead.ResumeLayout(false);
+            this.group_tag.ResumeLayout(false);
+            this.group_tag.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -674,22 +706,6 @@
         private System.Windows.Forms.ToolStripMenuItem MenuItemFileOpen;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button SaveAsButton;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button_edit;
-        private System.Windows.Forms.GroupBox group_tag;
-        private System.Windows.Forms.Button button_swap;
-        private System.Windows.Forms.GroupBox groupBody;
-        private System.Windows.Forms.Button button_body2;
-        private System.Windows.Forms.TextBox property_text;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.GroupBox groupHead;
-        private System.Windows.Forms.Button button_head2;
-        private System.Windows.Forms.Button button_title;
-        private System.Windows.Forms.Button button_delete;
-        private System.Windows.Forms.Button button_head1;
-        private System.Windows.Forms.Button button_body1;
-        private System.Windows.Forms.Button button_html;
         private System.Windows.Forms.ToolStripMenuItem MenuItemFileNew;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem MenuItemFileSave;
@@ -709,6 +725,23 @@
         private System.Windows.Forms.TextBox Parts_Visible;
         private System.Windows.Forms.TextBox Title_Visible;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox group_tag;
+        private System.Windows.Forms.GroupBox groupBody;
+        private System.Windows.Forms.GroupBox groupHead;
+        private System.Windows.Forms.Button button_title;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_head;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_body;
+        private System.Windows.Forms.Button button_swap;
+        private System.Windows.Forms.Button button_edit;
+        private System.Windows.Forms.GroupBox groupInput;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_input;
+        private System.Windows.Forms.Button button_Input;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button_delete;
+        private System.Windows.Forms.Button button_body1;
+        private System.Windows.Forms.Button button_html;
+        private System.Windows.Forms.Button button_head1;
+        private System.Windows.Forms.Button button_body2;
     }
 }
 
