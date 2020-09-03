@@ -430,37 +430,43 @@ namespace WindowsFormsApp1
         }
 
         private void LoadFile(string value, string name) {
-            //変数の初期化
-            Reset();
-
-            //統合時関係ないかも
-            /*openFileDialog1.Filter = "CSVファイル | *.csv";
-            openFileDialog1.InitialDirectory = @"C:\Users\s3a2\Desktop";
-            openFileDialog1.FileName = "";
-            openFileDialog1.ShowDialog();
-            title = openFileDialog1.SafeFileName;
-            */
-            //---
-
-            // csvファイルのパス
-            //var filePath = openFileDialog1.FileName;
-            var filePath = Directory.GetCurrentDirectory() + "\\CSV\\" + name + ".csv";
-
-            // csvファイルの読込
-            StreamReader reader = new StreamReader(File.OpenRead(filePath));
-
-            while (!reader.EndOfStream)
+            try
             {
-                var line = reader.ReadLine();
-                var values = line.Split(',');
+                //変数の初期化
+                Reset();
+                Title.Text = "";
+                // csvファイルのパス
+                var filePath = Directory.GetCurrentDirectory() + "\\CSV\\" + name + ".csv";
 
-                listTag.Add(values[0]);
-                listName.Add(values[1]);
+                // csvファイルの読込
+                StreamReader reader = new StreamReader(File.OpenRead(filePath));
 
+                int tflg = 0;
+                //CSVファイルから取得後、配列に入れる
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    listTag.Add(values[0]);
+                    listName.Add(values[1]);
+
+                    //タイトルの取得
+                    if (tflg == 0)
+                    {
+                        listTitle.Add(values[2]);
+                        tflg++;
+                    }
+                }
+
+                reader.Close();
+                OpenProcess();
             }
-
-            reader.Close();
-            OpenProcess();
+            catch(Exception ex)
+            {
+                OutputErrorLog(ex);
+            }
+            
         }
 
         private void SaveAsButton_Click(object sender, EventArgs e)
@@ -488,32 +494,47 @@ namespace WindowsFormsApp1
 
         private void SaveFile(string value)
         {
-            //UTF-8で保存
-            System.IO.File.WriteAllText(value, HTMLBOX.Text, Encoding.GetEncoding("UTF-8"));
-
-            // ファイル名を保持する
-            this.FileName = value;
-            String path = Directory.GetCurrentDirectory();
-            //csv---
-            var filePath = path + "\\CSV\\" + value + ".csv";   //パスは変える (作業ファイル名.csv)
-            // csvに出力するデータ
-            for (int i = 0; i < OpenedTag.Count; i++)
+            try
             {
-                Array.Resize(ref csv1, csv1.Length + 1);
-                Array.Resize(ref csv2, csv2.Length + 1);
-                
-                csv1[i] = OpenedTag[i+1];
-                csv2[i] = OpenedName[i+1];
-            }
-            // csvファイルの書き込み
-            StreamWriter file = new StreamWriter(filePath, false, Encoding.UTF8);
-            for (int i = 0; i < csv1.Length; i++)
+                //UTF-8で保存
+                System.IO.File.WriteAllText(value, HTMLBOX.Text, Encoding.GetEncoding("UTF-8"));
 
-                file.WriteLine(string.Format("{0},{1}", csv1[i], csv2[i])); // データ部出力
+                // ファイル名を保持する
+                this.FileName = value;
+                String path = Directory.GetCurrentDirectory();
+                //csv---
+                var filePath = path + "\\CSV\\" + value + ".csv";   //パスは変える (作業ファイル名.csv)
+                                                                    // csvに出力するデータ
+                for (int i = 0; i < OpenedTag.Count; i++)
+                {
+                    Array.Resize(ref csv1, csv1.Length + 1);
+                    Array.Resize(ref csv2, csv2.Length + 1);
+
+                    csv1[i] = OpenedTag[i + 1];
+                    csv2[i] = OpenedName[i + 1];
+                }
+                // csvファイルの書き込み
+                StreamWriter file = new StreamWriter(filePath, false, Encoding.UTF8);
+                for (int i = 0; i < csv1.Length; i++)
+                {
+                    if (i == 0)
+                    {
+                        file.WriteLine(string.Format("{0},{1},{2}", csv1[i], csv2[i], Title.Text)); //1-3にタイトルのテキストボックスの値を保存
+                    }
+                    else
+                    {
+                        file.WriteLine(string.Format("{0},{1}", csv1[i], csv2[i])); // データ部出力
+                    }
+                }
+                file.Close();
+                //---csv
+                UpdateStatus(FileName, false);
+            }
+            catch(Exception ex)
+            {
+                OutputErrorLog(ex);
+            }
             
-            file.Close();
-            //---csv
-            UpdateStatus(FileName, false);
 
         }
        
@@ -601,6 +622,7 @@ namespace WindowsFormsApp1
          */
         private void NewButton_Click(object sender, EventArgs e)
         {
+            CheckFolder();
             MenuItemFileNew_Click(sender, e);
             //title += "（変更あり）";
             Start_Visible();
@@ -1236,6 +1258,7 @@ namespace WindowsFormsApp1
         //作業ファイルを開いたときの処理
         private void OpenProcess()
         {
+            Title.Text = listTitle[0];
             int lc = 0;
             while (lc != listTag.Count)
             {
