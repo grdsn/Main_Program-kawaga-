@@ -275,6 +275,7 @@
             this.BackText.Name = "BackText";
             this.BackText.Size = new System.Drawing.Size(40, 20);
             this.BackText.Text = "戻る";
+            this.BackText.Visible = false;
             this.BackText.Click += new System.EventHandler(this.BackText_Click);
             // 
             // HTMLBOX
@@ -302,6 +303,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(917, 814);
             this.panel1.TabIndex = 24;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label4
             // 
@@ -671,6 +673,8 @@
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximumSize = new System.Drawing.Size(1318, 982);
+            this.MinimumSize = new System.Drawing.Size(1318, 982);
             this.Name = "main";
             this.Text = "メインページ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);

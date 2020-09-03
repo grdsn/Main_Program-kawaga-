@@ -28,11 +28,11 @@ namespace WindowsFormsApp1
         string sel; //選択した部品の名前を格納
         Boolean create_new = false; //新規作成判定フラグ
         Boolean HTML_flg = false;//ソースコード表示判定用
-        //定義----------------------------------------------------------------
+                                 //定義----------------------------------------------------------------
 
         //在間定義------------------------------------------------------------
         //画面フラグ
-
+        bool parts_flg = false;
         bool open_flg = false; //ファイルを開くか判定
         public int flg = 0;
         //編集フラグ
@@ -57,23 +57,16 @@ namespace WindowsFormsApp1
         //追加部品のカウント
         public int addHeadCount = 1;
         public int addBodyCount = 0;
-        public int addH1Count = 0;
+        public int addHCount = 0;
         public int addDivCount = 0;
         public int addTableCount = 0;
         public int addImgCount = 0;
         public int addUrlCount = 0;
-        public int addTextboxCount = 0;
-        public int addButtonCount = 0;
-        public int addNavCount = 0;
-        public int addInputCount = 1;
-        public int addSmallCount = 0;
-        public int addLinkCount = 0;
-        public int inputedCount = 1;
-
-        //inputタグのフラグ
-        public int inputflg = 0;
-        public int inputedflg = 0;
-        public int inputeditflg = 0;
+        public int addPCount = 0;
+        public int addEmCount = 0;
+        public int addBCount = 0;
+        public int addOlCount = 0;
+        public int addUlCount = 0;
 
         //入れ替え時のインデックス保持用
         public int cont1 = 0;
@@ -85,11 +78,13 @@ namespace WindowsFormsApp1
         //作業状態系
         List<string> listTag = new List<string>();
         List<string> listName = new List<string>();
+        List<string> listTitle = new List<string>();
 
         //ボタンイベントの有無
         public Boolean button_event = false;
 
         private String FilePath = Directory.GetCurrentDirectory();
+        
         //在間定義------------------------------------------------------------
 
 
@@ -142,10 +137,6 @@ namespace WindowsFormsApp1
             lvi.ImageIndex = 4;
             partsList.Items.Add(lvi);
 
-            lvi = new ListViewItem("テーブル");
-            lvi.ImageIndex = 8;
-            partsList.Items.Add(lvi);
-
             lvi = new ListViewItem("順序のあるリスト");
             lvi.ImageIndex = 5;
             partsList.Items.Add(lvi);
@@ -158,6 +149,9 @@ namespace WindowsFormsApp1
             lvi.ImageIndex = 7;
             partsList.Items.Add(lvi);
 
+            lvi = new ListViewItem("テーブル");
+            lvi.ImageIndex = 8;
+            partsList.Items.Add(lvi);
             this.Text = ApplicationName;
 
             // 複数行入力を有効化
@@ -505,41 +499,18 @@ namespace WindowsFormsApp1
             // csvに出力するデータ
             for (int i = 0; i < OpenedTag.Count; i++)
             {
-                int keyflag = 0;
                 Array.Resize(ref csv1, csv1.Length + 1);
                 Array.Resize(ref csv2, csv2.Length + 1);
-                foreach (var key in OpenedTag.Keys)
-                {
-                    if (addLinkCount > 0)
-                    {
-                        keyflag = 1;
-                        int tmp = i;
-                        i += 1000;
-                        csv1[i - 1000] = OpenedTag[i];
-                        csv2[i - 1000] = OpenedName[i];
-                        i = tmp;
-                        addLinkCount--;
-                        break;
-                    }
-                }
-                if (keyflag == 0)
-                {
-                    csv1[i] = OpenedTag[i+1];
-                    csv2[i] = OpenedName[i+1];
-                }
-                else
-                {
-                    keyflag = 0;
-                }
-
+                
+                csv1[i] = OpenedTag[i+1];
+                csv2[i] = OpenedName[i+1];
             }
             // csvファイルの書き込み
             StreamWriter file = new StreamWriter(filePath, false, Encoding.UTF8);
             for (int i = 0; i < csv1.Length; i++)
 
                 file.WriteLine(string.Format("{0},{1}", csv1[i], csv2[i])); // データ部出力
-
-
+            
             file.Close();
             //---csv
             UpdateStatus(FileName, false);
@@ -709,63 +680,143 @@ namespace WindowsFormsApp1
             if (sel == "1") //テキスト
             {
                 result = tp.ShowMiniForm();
-                writer_html(result, 0);
-                cnt++; //次の行へ
+                if(result == "-1")
+                {
+                    parts_flg = true;
+                    Browser_show();
+                }
+                else
+                {
+                    writer_html(result, 0);
+                    parts_flg = false;
+                    cnt++; //次の行へ
+                }
             }
 
             if (sel == "2") //テキストの強調
             {
                 result = ep.ShowMiniForm();
-                writer_html(result, 0);
-                cnt++; //次の行へ
+                if (result == "-1")
+                {
+                    parts_flg = true;
+                }
+                else
+                {
+                    writer_html(result, 0);
+                    parts_flg = false;
+                    cnt++; //次の行へ
+                }
             }
 
             if (sel == "3") //ハイパーテキスト
             {
                 result = hpp.ShowMiniForm();
-                writer_html(result, 0);
-                cnt++; //次の行へ
+                if (result == "-1")
+                {
+                    parts_flg = true;
+                }
+                else
+                {
+                    writer_html(result, 0);
+                    parts_flg = false;
+                    cnt++; //次の行へ
+                }
+                
             }
 
             if (sel == "8")　//画像
             {
                 result = ip.ShowMiniForm();
-                writer_html(result, 0);
-                cnt++; //次の行へ
+                if (result == "-1")
+                {
+                    parts_flg = true;
+                }
+                else
+                {
+                    writer_html(result, 0);
+                    parts_flg = false;
+                    cnt++; //次の行へ
+                }
             }
 
             if (sel == "6") //順序のあるリスト
             {
                 result = op.ShowMiniForm();
-                writer_html(result, 0);
-                cnt++; //次の行へ
+                if (result == "-1")
+                {
+                    parts_flg = true;
+                }
+                else
+                {
+                    writer_html(result, 0);
+                    parts_flg = false;
+                    cnt++; //次の行へ
+                }
+             
             }
 
             if (sel == "7") //順序のないリスト
             {
                 result = up.ShowMiniForm();
-                writer_html(result, 0);
-                cnt++; //次の行へ
+                if (result == "-1")
+                {
+                    parts_flg = true;
+                }
+                else
+                {
+                    writer_html(result, 0);
+                    parts_flg = false;
+                    cnt++; //次の行へ
+                }
+                
             }
 
             if (sel == "0") //見出し
             {
                 result = hp.ShowMiniForm();
-                writer_html(result, 0);
-                cnt++; //次の行へ
+                if (result == "-1")
+                {
+                    parts_flg = true;
+                }
+                else
+                {
+                    writer_html(result, 0);
+                    parts_flg = false;
+                    cnt++; //次の行へ
+                }
+                
             }
             if (sel == "4") //太字
             {
                 result = bp.ShowMiniForm();
-                writer_html(result, 0);
-                cnt++; //次の行へ
+                if (result == "-1")
+                {
+                    parts_flg = true;
+
+                }
+                else
+                {
+                    writer_html(result, 0);
+                    parts_flg = false;
+                    cnt++; //次の行へ
+                }
             }
 
             if (sel == "5") //テーブル
             {
                 result = tbp.ShowMiniForm();
+                if (result == "-1")
+                {
+                    parts_flg = true;
+                }
                 writer_html(result, 0);
+                parts_flg = false;
                 cnt++; //次の行へ
+            }
+
+            if(parts_flg == false)
+            {
+                AddTag(int.Parse(Create_parts_num()));
             }
             //部品選択分岐-----------------------------------------------
         }
@@ -779,77 +830,74 @@ namespace WindowsFormsApp1
             // 選択されている部品の名前を取り込む
             insert_Parts(Create_parts_num()); //indexで判別し部品を挿入する
             Browser_show(); //結果を画面上に表示
-            AddTag(int.Parse(Create_parts_num()));
             UpdateStatus(FileName, true); //変更あり状態に変更する
 
             
         }
 
         //在間くん作成プログラム統合部分-----------------------------------------------
-        
+
         private void Reset()
         {
-            this.flowLayoutPanel_body.Controls.Clear();
-            this.flowLayoutPanel_head.Controls.Clear();
-            this.flowLayoutPanel_input.Controls.Clear();
+            try
+            {
+                this.flowLayoutPanel_body.Controls.Clear();
+                this.flowLayoutPanel_head.Controls.Clear();
+                this.flowLayoutPanel_input.Controls.Clear();
+                Title.Text = "";
 
-            //画面フラグ
-            flg = 0;
-            //編集フラグ
-            editflg = 0;
-            //入れ替え部品
-            contflg = 0;
-            BCount1 = 0;
-            BCount2 = 0;
-            ItemCount1 = 0;
-            ItemCount2 = 0;
-            dic.Clear();
-            dic2.Clear();
-            OpenedTag.Clear();
-            OpenedName.Clear();
+                //画面フラグ
+                flg = 0;
+                //編集フラグ
+                editflg = 0;
+                //入れ替え部品
+                contflg = 0;
+                BCount1 = 0;
+                BCount2 = 0;
+                ItemCount1 = 0;
+                ItemCount2 = 0;
+                dic.Clear();
+                dic2.Clear();
+                OpenedTag.Clear();
+                OpenedName.Clear();
 
-            name1 = null;
-            name2 = null;
+                name1 = null;
+                name2 = null;
 
-            var list = new List<string>();
-            list.AddRange(csv1);
-            list.Clear();
-            csv1 = list.ToArray();
+                var list = new List<string>();
+                list.AddRange(csv1);
+                list.Clear();
+                csv1 = list.ToArray();
 
-            list.AddRange(csv2);
-            list.Clear();
-            csv2 = list.ToArray();
+                list.AddRange(csv2);
+                list.Clear();
+                csv2 = list.ToArray();
 
-            //追加部品のカウント
-            addHeadCount = 1;
-            addBodyCount = 0;
-            addH1Count = 0;
-            addDivCount = 0;
-            addTableCount = 0;
-            addImgCount = 0;
-            addUrlCount = 0;
-            addTextboxCount = 0;
-            addButtonCount = 0;
-            addNavCount = 0;
-            addInputCount = 1;
-            addSmallCount = 0;
-            addLinkCount = 0;
-            inputedCount = 1;
+                //追加部品のカウント
+                addHeadCount = 1;
+                addBodyCount = 0;
+                addHCount = 0;
+                addPCount = 0;
+                addTableCount = 0;
+                addImgCount = 0;
+                addUrlCount = 0;
+                addPCount = 0;
+                addEmCount = 0;
+                addBCount = 0;
+                addOlCount = 0;
+                addUlCount = 0;
 
-            //inputタグのフラグ
-            inputflg = 0;
-            inputedflg = 0;
-            inputeditflg = 0;
-
-            //入れ替え時のインデックス保持用
-            cont1 = 0;
-            cont2 = 0;
-            //作業状態系
-            listTag.Clear();
-            listName.Clear();
-
-            //ボタンイベントの有無
-            button_event = false;
+                //入れ替え時のインデックス保持用
+                cont1 = 0;
+                cont2 = 0;
+                //作業状態系
+                listTag.Clear();
+                listName.Clear();
+            }
+            catch (Exception ex)
+            {
+                OutputErrorLog(ex);
+            }
 
         }
 
@@ -857,109 +905,118 @@ namespace WindowsFormsApp1
         //タグツリーのボタン表示の切り替え
         public void ButtonVisible()
         {
-            switch (flg)
+            try
             {
-                //HTMLボタン
-                case 0:
-                    this.button_body2.Visible = false;
-                    this.button_head1.Visible = true;
-                    this.group_tag.Visible = true;
-                    this.groupHead.Visible = false;
-                    this.groupBody.Visible = false;
-                    this.button_delete.Visible = false;
-                    this.button_swap.Visible = false;
-                    this.groupInput.Visible = false;
-                    this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
-                    this.label2.BackColor = Color.FromArgb(238, 106, 34);
-                    editflg = 0;
-                    contflg = 0;
-                    break;
-                //HEADボタン
-                case 1:
-                    this.groupHead.Visible = true;
-                    this.groupBody.Visible = false;
-                    this.button_delete.Visible = false;
-                    this.button_swap.Visible = false;
-                    this.groupInput.Visible = false;
-                    this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
-                    this.label2.BackColor = Color.FromArgb(238, 106, 34);
-                    editflg = 0;
-                    contflg = 0;
-                    break;
-                //BODYボタン
-                case 2:
-                    this.groupHead.Visible = false;
-                    this.groupBody.Visible = true;
-                    this.button_delete.Visible = false;
-                    this.button_swap.Visible = false;
-                    this.groupInput.Visible = false;
-                    this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
-                    this.label2.BackColor = Color.FromArgb(238, 106, 34);
-                    editflg = 0;
-                    contflg = 0;
-                    break;
-                //削除ボタン
-                case 5:
-                    if (inputeditflg == 1)
-                    {
+                switch (flg)
+                {
+                    //HTMLボタン
+                    case 0:
+                        this.button_body2.Visible = false;
+                        this.button_head1.Visible = true;
+                        this.group_tag.Visible = true;
+                        this.groupHead.Visible = false;
+                        this.groupBody.Visible = false;
+                        this.button_delete.Visible = false;
+                        this.button_swap.Visible = false;
+                        this.groupInput.Visible = false;
+                        this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
+                        this.label2.BackColor = Color.FromArgb(238, 106, 34);
+                        editflg = 0;
+                        contflg = 0;
                         break;
-                    }
-                    else
-                    {
+                    //HEADボタン
+                    case 1:
+                        this.groupHead.Visible = true;
+                        this.groupBody.Visible = false;
+                        this.button_delete.Visible = false;
+                        this.button_swap.Visible = false;
+                        this.groupInput.Visible = false;
+                        this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
+                        this.label2.BackColor = Color.FromArgb(238, 106, 34);
+                        editflg = 0;
+                        contflg = 0;
+                        break;
+                    //BODYボタン
+                    case 2:
                         this.groupHead.Visible = false;
                         this.groupBody.Visible = true;
+                        this.button_delete.Visible = false;
+                        this.button_swap.Visible = false;
                         this.groupInput.Visible = false;
+                        this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
+                        this.label2.BackColor = Color.FromArgb(238, 106, 34);
+                        editflg = 0;
+                        contflg = 0;
+                        break;
+                    //削除ボタン
+                    case 5:
+
+                        this.button_delete.Visible = true;
+                        this.button_swap.Visible = true;
                         this.group_tag.BackColor = Color.FromName("Brown");
                         this.label2.BackColor = Color.FromName("Brown");
                         contflg = 0;
                         break;
-                    }
-                //編集ボタン
-                case 6:
-                    this.button_delete.Visible = true;
-                    this.button_swap.Visible = true;
-                    this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
-                    this.label2.BackColor = Color.FromArgb(238, 106, 34);
-                    contflg = 0;
-                    break;
-                //入れ替え
-                case 7:
-                    this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
-                    this.label2.BackColor = Color.FromArgb(238, 106, 34);
-                    break;
-                //インプット
-                case 8:
-                    this.button_body2.Visible = true;
-                    this.button_head1.Visible = false;
-                    this.groupBody.Visible = false;
-                    this.groupHead.Visible = false;
-                    this.groupInput.Visible = true;
-                    this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
-                    this.label2.BackColor = Color.FromArgb(238, 106, 34);
-                    editflg = 0;
-                    break;
-                //例外
-                default:
-                    this.group_tag.Visible = true;
-                    this.groupHead.Visible = false;
-                    this.groupBody.Visible = false;
-                    this.groupInput.Visible = false;
-                    this.button_delete.Visible = false;
-                    this.button_swap.Visible = false;
-                    this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
-                    this.label2.BackColor = Color.FromArgb(238, 106, 34);
-                    editflg = 0;
-                    contflg = 0;
-                    break;
 
+                    //編集ボタン
+                    case 6:
+                        if (editflg == 0)
+                        {
+                            this.button_delete.Visible = true;
+                            this.button_swap.Visible = true;
+                        }
+                        else
+                        {
+                            this.button_delete.Visible = false;
+                            this.button_swap.Visible = false;
+                        }
+                        this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
+                        this.label2.BackColor = Color.FromArgb(238, 106, 34);
+                        contflg = 0;
+                        break;
+                    //入れ替え
+                    case 7:
+                        this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
+                        this.label2.BackColor = Color.FromArgb(238, 106, 34);
+                        break;
+                    //例外
+                    default:
+                        this.group_tag.Visible = true;
+                        this.groupHead.Visible = false;
+                        this.groupBody.Visible = false;
+                        this.groupInput.Visible = false;
+                        this.button_delete.Visible = false;
+                        this.button_swap.Visible = false;
+                        this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
+                        this.label2.BackColor = Color.FromArgb(238, 106, 34);
+                        editflg = 0;
+                        contflg = 0;
+                        break;
+
+                }
             }
+            catch (Exception ex)
+            {
+                OutputErrorLog(ex);
+            }
+
         }
 
         //---タグツリーのHEADボタン処理
         private void button_head1_Click_1(object sender, EventArgs e)
         {
-            flg = 1;
-            ButtonVisible();
+            if (flg == 5)
+            {
+                flg = 1;
+                ButtonVisible();
+                flg = 5;
+                ButtonVisible();
+            }
+            else
+            {
+                flg = 1;
+                ButtonVisible();
+            }
         }
 
        
@@ -968,16 +1025,42 @@ namespace WindowsFormsApp1
         //---タグツリーのタグツリーのBODYボタン処理
         private void button_body1_Click_1(object sender, EventArgs e)
         {
-            flg = 2;
-            button_head1.Visible = false;
-            button_body2.Visible = true;
-            ButtonVisible();
+            if (flg == 5)
+            {
+                flg = 2;
+                button_head1.Visible = false;
+                button_body2.Visible = true;
+                ButtonVisible();
+                flg = 5;
+                ButtonVisible();
+            }
+            else
+            {
+                flg = 2;
+                button_head1.Visible = false;
+                button_body2.Visible = true;
+                ButtonVisible();
+            }
         }
 
         private void button_body2_Click_1(object sender, EventArgs e)
         {
-            flg = 2;
-            ButtonVisible();
+            if (flg == 5)
+            {
+                flg = 2;
+                button_head1.Visible = false;
+                button_body2.Visible = true;
+                ButtonVisible();
+                flg = 5;
+                ButtonVisible();
+            }
+            else
+            {
+                flg = 2;
+                button_head1.Visible = false;
+                button_body2.Visible = true;
+                ButtonVisible();
+            }
         }
         //---
 
@@ -1002,15 +1085,15 @@ namespace WindowsFormsApp1
         {
             if (editflg == 0)
             {
-                editflg = 1;
                 flg = 6;
                 ButtonVisible();
+                editflg = 1;
             }
             else
             {
-                editflg = 0;
-                flg = 2;
+                flg = 6;
                 ButtonVisible();
+                editflg = 0;
             }
         }
         //---
@@ -1021,204 +1104,90 @@ namespace WindowsFormsApp1
             return delegate (object sender2, EventArgs e2)
             {
 
-                if (flg != 6 && flg != 5 && flg != 7)
-                {   //通常時の処理
+                try
+                {
+                    if (flg != 6 && flg != 5 && flg != 7)
+                    {   //通常時の処理
 
-                    //<input>のグループ化が行われているか
-                    if (inputedflg == 0)    //未グループ化
-                    {
+
                         switch (getkind)
                         {
-                            /* プロパティ系
+                            //プロパティ系
                             case "h1":
-                                property_text.Text = "class :" + name;
+                                
                                 break;
-                            case "div":
-                                property_text.Text = "class :" + name;
+                            case "p":
                                 break;
-                            case "table":
-                                property_text.Text = "class :" + name;
-                                break;
-                            case "img":
-                                property_text.Text = "class :" + name;
+                            case "em":
                                 break;
                             case "url":
-                                property_text.Text = "class :" + name;
                                 break;
-                            case "textbox":
-                                property_text.Text = "class :" + name;
+                            case "b":
+                                //urlの編集がしたい
                                 break;
-                            case "button":
-                                property_text.Text = "class :" + name;
+                            case "lo":
                                 break;
-                            case "nav":
-                                property_text.Text = "class :" + name;
-                                break;*/
-                            case "input":   //<input>部品を押したらgroup_inputに切り替え
-                                flg = 8;
-                                ButtonVisible();
+                            case "ul":
                                 break;
-                            /*case "small":
-                                property_text.Text = "class :" + name;
-                                break;*/
+                            case "img":
+                                break;
+                            case "table":
+                                break;
                             default:
                                 break;
                         }
-                    }
-                    else if (inputedflg == 1)   //グループ化
-                    {
-                        switch (getkind)
-                        {
-                            /*case "h1":
-                                property_text.Text = "class :" + name;
-                                break;
-                            case "div":
-                                property_text.Text = "class :" + name;
-                                break;
-                            case "table":
-                                property_text.Text = "class :" + name;
-                                break;
-                            case "img":
-                                property_text.Text = "class :" + name;
-                                break;
-                            case "url":
-                                property_text.Text = "class :" + name;
-                                break;
-                            case "textbox":     //inputグループ内の部品のプロパティをinput内テキストボックスに表示
-                                property_text2.Text = "class :" + name;
-                                break;
-                            case "button":      //inputグループ内の部品のプロパティをinput内テキストボックスに表示
-                                property_text2.Text = "class :" + name;
-                                break;*/
-                            case "input":   //<input>部品を押したらgroup_inputに切り替え
-                                flg = 8;
-                                ButtonVisible();
-                                break;
-                            /*case "nav":
-                                property_text.Text = "class :" + name;
-                                break;
-                            case "small":
-                                property_text.Text = "class :" + name;
-                                break;*/
-                            default:
-                                break;
-                        }
-                    }
-                }//通常時
-                else if (flg == 6)   //編集時
-                {
-                    switch (getkind)    //switch文にして、追加コンテンツ対策
-                    {
-                        case "input":   //inputグループ内の編集を可能にする
-                            flg = 8;
-                            ButtonVisible();
-                            flg = 6;
-                            break;
-                    }
-                }//flg==6編集時
-                else if (flg == 5)
-                {   //削除ボタン
 
-                    if (getkind == "input")
+                    }//通常時
+                    else if (flg == 6)   //編集時
                     {
-                        flg = 8;
                         ButtonVisible();
-                        flg = 5;
-                    }
-                    Control[] controls = Controls.Find(name, true);
-                    foreach (Control control in controls)
-                    {   //部品の削除処理
-                        if (control.Name == "input_" + addInputCount)
-                        {
-                            DialogResult result = MessageBox.Show("この部品を削除すると、中に入っている部品も消されますが、よろしいですか？", "注意！", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                            if (result == DialogResult.Yes)
-                            {
-                                inputedflg = 0;
-                                inputflg = 0;
-                                for (int i = inputedCount; i >= 1; i--)
-                                {
-                                    Control[] controls2 = Controls.Find("textbox_" + i, true);
-                                    foreach (Control control2 in controls2)
-                                    {
-                                        OpenedName.Remove(flowLayoutPanel_input.Controls.GetChildIndex(control2) + 1);
-                                        OpenedTag.Remove(flowLayoutPanel_input.Controls.GetChildIndex(control2) + 1);
-                                        this.Controls.Remove(control2);
-                                        control2.Dispose();
-                                    }
-                                    Control[] controls3 = Controls.Find("button_" + i, true);
-                                    foreach (Control control3 in controls3)
-                                    {
-                                        OpenedName.Remove(flowLayoutPanel_input.Controls.GetChildIndex(control3) + 1);
-                                        OpenedTag.Remove(flowLayoutPanel_input.Controls.GetChildIndex(control3) + 1);
-                                        this.Controls.Remove(control3);
-                                        control3.Dispose();
-                                    }
-                                }
-                                inputedCount = 1;
-                                flg = 5;
-                                ButtonVisible();
 
-                            }
-                            else if (result == DialogResult.No)
-                            {
-                                break;
-                            }
+                    }//flg==6編集時
+                    else if (flg == 5)
+                    {   //削除ボタン
+
+
+                        Control[] controls = Controls.Find(name, true);
+                        foreach (Control control in controls)
+                        {   //部品の削除処理
+                            this.Controls.Remove(control);
+                            OpenedName.Remove(dic[name]);
+                            OpenedTag.Remove(dic[name]);
+                            dic.Remove(name);
+                            control.Dispose();
+                            reset_cls();
                         }
-                        else if (control.Name == "link_" + addLinkCount)
-                        {
 
-                        }
-                        this.Controls.Remove(control);
-                        OpenedName.Remove(dic[name]);
-                        OpenedTag.Remove(dic[name]);
-                        dic.Remove(name);
-                        control.Dispose();
-                        reset_cls();
-                    }
-
-                }//flg==5削除
-                else if (flg == 7)
-                {
-
-
-                    //bodyグループ入れ替え処理
-                    switch (contflg)
-                    {   //選択回数
-                        //1回目
-                        case 0:
-                            name1 = name;   //一つ目の部品の名前を保持
-                            ctrl1 = cont;   //部品のコントロールを保持
-                            if (flowLayoutPanel_body.Visible == true)
-                            {
+                    }//flg==5削除
+                    else if (flg == 7)
+                    {//bodyグループ入れ替え処理
+                        switch (contflg)
+                        {   //選択回数
+                            //1回目
+                            case 0:
+                                name1 = name;   //一つ目の部品の名前を保持
+                                ctrl1 = cont;   //部品のコントロールを保持
                                 cont1 = flowLayoutPanel_body.Controls.GetChildIndex(cont);  //Body部品のFlowLayoutPanelのインデックスを保持
-                            }
-                            else if (flowLayoutPanel_input.Visible == true)
-                            {
-                                cont1 = flowLayoutPanel_input.Controls.GetChildIndex(cont);  //input部品のFlowLayoutPanelのインデックスを保持
-                            }
-
-                            contflg = 1;    //選択カウントを設定
-                            break;
-                        //二回目
-                        case 1:
-                            ctrl2 = cont;   //二つ目の部品の名前を保持
-                            if (flowLayoutPanel_body.Visible == true)
-                            {
+                                contflg = 1;    //選択カウントを設定
+                                break;
+                            //二回目
+                            case 1:
+                                ctrl2 = cont;   //二つ目の部品の名前を保持
                                 cont2 = flowLayoutPanel_body.Controls.GetChildIndex(cont);  //Body部品のFlowLayoutPanelのインデックスを保持
-                            }
-                            else if (flowLayoutPanel_input.Visible == true)
-                            {
-                                cont2 = flowLayoutPanel_input.Controls.GetChildIndex(cont);  //input部品のFlowLayoutPanelのインデックスを保持
-                            }
-                            SwapControls(cont1, cont2, ctrl1, ctrl2);       //入れ替えメソッドの実行
-                            contflg = 0;    //初期化
-                            break;
-                        default:
-                            break;
-                    }
+                                SwapControls(cont1, cont2, ctrl1, ctrl2);       //入れ替えメソッドの実行
+                                contflg = 0;    //初期化
+                                break;
+                            default:
+                                break;
+                        }
 
 
-                }//flg==7入れ替え
+                    }//flg==7入れ替え
+                }
+                catch (Exception ex)
+                {
+                    OutputErrorLog(ex);
+                }
             };
         }
         //---
@@ -1242,23 +1211,11 @@ namespace WindowsFormsApp1
         //---入れ替え処理メソッド
         private void SwapControls(int x, int y, Control ctrl1, Control ctrl2)
         {
-
-
-            //入れ替え処理
-            if (flowLayoutPanel_body.Visible == true)
-            {
                 flowLayoutPanel_body.SuspendLayout();
                 flowLayoutPanel_body.Controls.SetChildIndex(ctrl1, y);
                 flowLayoutPanel_body.Controls.SetChildIndex(ctrl2, x);
                 flowLayoutPanel_body.ResumeLayout();
-            }
-            else if (flowLayoutPanel_input.Visible == true)
-            {
-                flowLayoutPanel_input.SuspendLayout();
-                flowLayoutPanel_input.Controls.SetChildIndex(ctrl1, y);
-                flowLayoutPanel_input.Controls.SetChildIndex(ctrl2, x);
-                flowLayoutPanel_input.ResumeLayout();
-            }
+            
 
             //csv用入れ替え
             x++;
@@ -1274,53 +1231,6 @@ namespace WindowsFormsApp1
 
         }
         //---
-
-        //---インプット系部品のグループ化
-        private void GroupingInput(int textCount, int buttonCount)
-        {
-            DialogResult result = MessageBox.Show("ボタンやテキストボックスなどの部品をまとめますか？", "Inputへのグループ化", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
-            {
-                inputedflg = 1;
-                inputflg = 1;
-                flg = 8;
-                ButtonVisible();
-                contflg = 0;
-                try
-                {
-                    for (int i = textCount; i >= 1; i--)
-                    {
-                        Control[] controls1 = this.flowLayoutPanel_body.Controls.Find(dic2["textbox_" + i], true);
-                        foreach (Control control in controls1)
-                        {
-                            this.flowLayoutPanel_input.Controls.Add(control);
-                        }
-                        inputedCount++;
-                    }
-                    for (int i = buttonCount; i >= 1; i--)
-                    {
-                        Control[] controls2 = this.flowLayoutPanel_body.Controls.Find(dic2["button_" + i], true);
-                        foreach (Control control in controls2)
-                        {
-                            this.flowLayoutPanel_input.Controls.Add(control);
-                        }
-                        inputedCount++;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("対象部品が追加されていません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-
-
-            }
-            else if (result == DialogResult.No)
-            {
-                inputedflg = 0;
-                inputflg = 0;
-            }
-        }
 
         
         //作業ファイルを開いたときの処理
@@ -1375,517 +1285,422 @@ namespace WindowsFormsApp1
         //タグツリーの部品追加処理（通常時）
         private void AddTag(int Index)
         {
-            //タグツリーのBODYグループに部品のボタンを追加
-            switch (Index)
+            try
             {
-                //見出し
-                case 0:
-                    addH1Count++;                                                                   //見出し個数のカウント
-                    Button button_h1 = new Button();                                                //新規ボタンのインスタンス                    //ボタンの配置場所の設定
-                    button_h1.Size = new Size(122, 54);                                             //ボタンのサイズ
-                    button_h1.ForeColor = Color.FromArgb(90, 92, 79);                               //ボタンの文字色の設定
-                    button_h1.BackColor = Color.FromArgb(211, 214, 195);                              //ボタンの背景色の設定
-                    button_h1.FlatStyle = FlatStyle.Flat;                                           //枠のスタイルの設定
-                    button_h1.FlatAppearance.BorderSize = 0;                                        //枠なしに設定
-                    button_h1.Text = "<H1>";                                                        //ボタンのテキスト
-                    button_h1.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);                  //フォントの設定
-                    button_h1.Name = "h1_" + addH1Count;                                            //ボタンのNameの設定
-                    flowLayoutPanel_body.Controls.Add(button_h1);
-                    addBodyCount++;                                                                 //BODYの個数のカウント
-                    dic.Add(button_h1.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "h1");
-                    OpenedName.Add(addBodyCount, button_h1.Name.ToString());
-                    button_h1.Click += btnclick(button_h1.Name, "h1", dic[button_h1.Name], addH1Count, button_h1);                  //追加したボタンにイベントを追加
-                    break;
-                //文
-                case 1:
-                    addDivCount++;
-                    Button button_div = new Button();
-                    button_div.Size = new Size(122, 54);
-                    button_div.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_div.BackColor = Color.FromArgb(211, 214, 195);
-                    button_div.FlatStyle = FlatStyle.Flat;
-                    button_div.FlatAppearance.BorderSize = 0;
-                    button_div.Text = "TEXT";
-                    button_div.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_div.Name = "text_" + addDivCount;
-                    flowLayoutPanel_body.Controls.Add(button_div);
-                    addBodyCount++;
-                    dic.Add(button_div.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "text");
-                    OpenedName.Add(addBodyCount, button_div.Name.ToString());
-                    button_div.Click += btnclick(button_div.Name, "text", dic[button_div.Name], addDivCount, button_div);
-                    break;
-                //強調
-                case 2:
-                    addTableCount++;
-                    Button button_table = new Button();
-                    button_table.Size = new Size(122, 54);
-                    button_table.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_table.BackColor = Color.FromArgb(211, 214, 195);
-                    button_table.FlatStyle = FlatStyle.Flat;
-                    button_table.FlatAppearance.BorderSize = 0;
-                    button_table.Text = "<EM>";
-                    button_table.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_table.Name = "em_" + addTableCount;
-                    flowLayoutPanel_body.Controls.Add(button_table);
-                    addBodyCount++;
-                    dic.Add(button_table.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "em");
-                    OpenedName.Add(addBodyCount, button_table.Name.ToString());
-                    button_table.Click += btnclick(button_table.Name, "em", dic[button_table.Name], addTableCount, button_table);
-                    break;
-                //ハイパーリンク
-                case 3:
-                    addImgCount++;
-                    Button button_img = new Button();
-                    button_img.Size = new Size(122, 54);
-                    button_img.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_img.BackColor = Color.FromArgb(211, 214, 195);
-                    button_img.FlatStyle = FlatStyle.Flat;
-                    button_img.FlatAppearance.BorderSize = 0;
-                    button_img.Text = "<A>";
-                    button_img.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_img.Name = "a_" + addImgCount;
-                    flowLayoutPanel_body.Controls.Add(button_img);
-                    addBodyCount++;
-                    dic.Add(button_img.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "a");
-                    OpenedName.Add(addBodyCount, button_img.Name.ToString());
-                    button_img.Click += btnclick(button_img.Name, "a", dic[button_img.Name], addImgCount, button_img);
-                    break;
-                //太字
-                case 4:
-                    addUrlCount++;
-                    Button button_url = new Button();
-                    button_url.Size = new Size(122, 54);
-                    button_url.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_url.BackColor = Color.FromArgb(211, 214, 195);
-                    button_url.FlatStyle = FlatStyle.Flat;
-                    button_url.FlatAppearance.BorderSize = 0;
-                    button_url.Text = "<B>";
-                    button_url.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_url.Name = "b_" + addUrlCount;
-                    flowLayoutPanel_body.Controls.Add(button_url);
-                    addBodyCount++;
-                    dic.Add(button_url.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "b");
-                    OpenedName.Add(addBodyCount, button_url.Name.ToString());
-                    button_url.Click += btnclick(button_url.Name, "b", dic[button_url.Name], addUrlCount, button_url);
-                    break;
-                //テーブル
-                case 5:
-                    addTextboxCount++;
-                    Button button_textBox = new Button();
-                    button_textBox.Size = new Size(122, 54);
-                    button_textBox.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_textBox.BackColor = Color.FromArgb(211, 214, 195);
-                    button_textBox.FlatStyle = FlatStyle.Flat;
-                    button_textBox.FlatAppearance.BorderSize = 0;
-                    button_textBox.Text = "<TABLE>";
-                    button_textBox.Font = new Font("MS UI Gothic", 12, FontStyle.Bold);
-                    button_textBox.Name = "table_" + addTextboxCount;
-                    if (inputflg == 0)
-                    {
-                        flowLayoutPanel_body.Controls.Add(button_textBox);
-                        dic.Add(button_textBox.Name, addBodyCount);
-                    }
-                    else if (inputflg == 1)
-                    {
-                        flowLayoutPanel_input.Controls.Add(button_textBox);
-                        dic.Add(button_textBox.Name, flowLayoutPanel_input.Controls.GetChildIndex(button_textBox));
-                    }
-                    addBodyCount++;
-                    dic2.Add("table_" + addTextboxCount, button_textBox.Name);
-                    OpenedTag.Add(addBodyCount, "table");
-                    OpenedName.Add(addBodyCount, button_textBox.Name.ToString());
-                    button_textBox.Click += btnclick(button_textBox.Name, "table", dic[button_textBox.Name], addTextboxCount, button_textBox);
-                    break;
-                //順序のあるリスト
-                case 6:
-                    addButtonCount++;
-                    Button button_Button = new Button();
-                    button_Button.Size = new Size(122, 54);
-                    button_Button.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_Button.BackColor = Color.FromArgb(211, 214, 195);
-                    button_Button.FlatStyle = FlatStyle.Flat;
-                    button_Button.FlatAppearance.BorderSize = 0;
-                    button_Button.Text = "<OL>";
-                    button_Button.Font = new Font("MS UI Gothic", 12, FontStyle.Bold);
-                    button_Button.Name = "ol_" + addButtonCount;
-                    if (inputflg == 0)
-                    {
-                        flowLayoutPanel_body.Controls.Add(button_Button);
-                        dic.Add(button_Button.Name, addBodyCount);
-                    }
-                    else if (inputflg == 1)
-                    {
-                        flowLayoutPanel_input.Controls.Add(button_Button);
-                        dic.Add(button_Button.Name, flowLayoutPanel_input.Controls.GetChildIndex(button_Button));
-                    }
-                    addBodyCount++;
-                    dic2.Add("ol_" + addButtonCount, button_Button.Name);
-                    OpenedTag.Add(addBodyCount, "ol");
-                    OpenedName.Add(addBodyCount, button_Button.Name.ToString());
-                    button_Button.Click += btnclick(button_Button.Name, "ol", dic[button_Button.Name], addButtonCount, button_Button);
-                    break;
-                //順序のないリスト
-                case 7:
-                    addNavCount++;
-                    Button button_Nav = new Button();
-                    button_Nav.Size = new Size(122, 54);
-                    button_Nav.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_Nav.BackColor = Color.FromArgb(211, 214, 195);
-                    button_Nav.FlatStyle = FlatStyle.Flat;
-                    button_Nav.FlatAppearance.BorderSize = 0;
-                    button_Nav.Text = "<UL>";
-                    button_Nav.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_Nav.Name = "ul_" + addNavCount;
-                    flowLayoutPanel_body.Controls.Add(button_Nav);
-                    addBodyCount++;
-                    dic.Add(button_Nav.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "ul");
-                    OpenedName.Add(addBodyCount, button_Nav.Name.ToString());
-                    button_Nav.Click += btnclick(button_Nav.Name, "ul", dic[button_Nav.Name], addButtonCount, button_Nav);
-                    break;
-
-                //画像
-                case 8:
-                    Button button_Input = new Button();
-                    button_Input.Size = new Size(122, 54);
-                    button_Input.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_Input.BackColor = Color.FromArgb(211, 214, 195);
-                    button_Input.FlatStyle = FlatStyle.Flat;
-                    button_Input.FlatAppearance.BorderSize = 0;
-                    button_Input.Text = "<IMG>";
-                    button_Input.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_Input.Name = "img_" + addInputCount;
-                    if (inputedCount == 1)
-                    {
-                        if (inputedflg != 1)
-                        {
-                            flowLayoutPanel_body.Controls.Add(button_Input);
-                            addBodyCount++;
-                            dic.Add(button_Input.Name, addBodyCount);
-                            OpenedTag.Add(addBodyCount, "img");
-                            OpenedName.Add(addBodyCount, button_Input.Name.ToString());
-                            button_Input.Click += btnclick(button_Input.Name, "img", dic[button_Input.Name], addInputCount, button_Input);
-                            GroupingInput(addTextboxCount, addButtonCount);
-                            inputedCount++;
-                        }
-                    }
-                    else if (inputedCount >= 2 && inputedflg != 1)
-                    {
-                        GroupingInput(addTextboxCount, addButtonCount);
-                    }
-                    else
-                    {
-                        MessageBox.Show("すでに追加されています。");
+                //タグツリーのBODYグループに部品のボタンを追加
+                switch (Index)
+                {
+                    //見出し
+                    case 0:
+                        addHCount++;                                                                   //見出し個数のカウント
+                        Button button_h = new Button();                                                //新規ボタンのインスタンス                    //ボタンの配置場所の設定
+                        button_h.Size = new Size(122, 54);                                             //ボタンのサイズ
+                        button_h.ForeColor = Color.FromArgb(90, 92, 79);                               //ボタンの文字色の設定
+                        button_h.BackColor = Color.FromArgb(211, 214, 195);                              //ボタンの背景色の設定
+                        button_h.FlatStyle = FlatStyle.Flat;                                           //枠のスタイルの設定
+                        button_h.FlatAppearance.BorderSize = 0;                                        //枠なしに設定
+                        button_h.Text = "<H1>";                                                        //ボタンのテキスト
+                        button_h.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);                  //フォントの設定
+                        button_h.Name = "h1_" + addHCount;                                            //ボタンのNameの設定
+                        flowLayoutPanel_body.Controls.Add(button_h);
+                        addBodyCount++;                                                                 //BODYの個数のカウント
+                        dic.Add(button_h.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "h1");
+                        OpenedName.Add(addBodyCount, button_h.Name.ToString());
+                        button_h.Click += btnclick(button_h.Name, "h1", dic[button_h.Name], addHCount, button_h);                  //追加したボタンにイベントを追加
                         break;
-                    }
+                    //テキスト
+                    case 1:
+                        addPCount++;
+                        Button button_p = new Button();
+                        button_p.Size = new Size(122, 54);
+                        button_p.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_p.BackColor = Color.FromArgb(211, 214, 195);
+                        button_p.FlatStyle = FlatStyle.Flat;
+                        button_p.FlatAppearance.BorderSize = 0;
+                        button_p.Text = "<P>";
+                        button_p.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_p.Name = "p_" + addPCount;
+                        flowLayoutPanel_body.Controls.Add(button_p);
+                        addBodyCount++;
+                        dic.Add(button_p.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "p");
+                        OpenedName.Add(addBodyCount, button_p.Name.ToString());
+                        button_p.Click += btnclick(button_p.Name, "p", dic[button_p.Name], addPCount, button_p);
+                        break;
+                    //強調
+                    case 2:
+                        addEmCount++;
+                        Button button_em = new Button();
+                        button_em.Size = new Size(122, 54);
+                        button_em.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_em.BackColor = Color.FromArgb(211, 214, 195);
+                        button_em.FlatStyle = FlatStyle.Flat;
+                        button_em.FlatAppearance.BorderSize = 0;
+                        button_em.Text = "<EM>";
+                        button_em.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_em.Name = "em_" + addTableCount;
+                        flowLayoutPanel_body.Controls.Add(button_em);
+                        addBodyCount++;
+                        dic.Add(button_em.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "em");
+                        OpenedName.Add(addBodyCount, button_em.Name.ToString());
+                        button_em.Click += btnclick(button_em.Name, "em", dic[button_em.Name], addTableCount, button_em);
+                        break;
+                    //ハイパーテキスト
+                    case 3:
+                        addUrlCount++;
+                        Button button_url = new Button();
+                        button_url.Size = new Size(122, 54);
+                        button_url.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_url.BackColor = Color.FromArgb(211, 214, 195);
+                        button_url.FlatStyle = FlatStyle.Flat;
+                        button_url.FlatAppearance.BorderSize = 0;
+                        button_url.Text = "<URL>";
+                        button_url.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_url.Name = "url_" + addImgCount;
+                        flowLayoutPanel_body.Controls.Add(button_url);
+                        addBodyCount++;
+                        dic.Add(button_url.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "url");
+                        OpenedName.Add(addBodyCount, button_url.Name.ToString());
+                        button_url.Click += btnclick(button_url.Name, "url", dic[button_url.Name], addImgCount, button_url);
+                        break;
+                    //太字
+                    case 4:
+                        addBCount++;
+                        Button button_b = new Button();
+                        button_b.Size = new Size(122, 54);
+                        button_b.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_b.BackColor = Color.FromArgb(211, 214, 195);
+                        button_b.FlatStyle = FlatStyle.Flat;
+                        button_b.FlatAppearance.BorderSize = 0;
+                        button_b.Text = "<B>";
+                        button_b.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_b.Name = "b_" + addBCount;
+                        flowLayoutPanel_body.Controls.Add(button_b);
+                        addBodyCount++;
+                        dic.Add(button_b.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "b");
+                        OpenedName.Add(addBodyCount, button_b.Name.ToString());
+                        button_b.Click += btnclick(button_b.Name, "b", dic[button_b.Name], addBCount, button_b);
+                        break;
+                    //順序ありリスト
+                    case 5:
+                        addOlCount++;
+                        Button button_ol = new Button();
+                        button_ol.Size = new Size(122, 54);
+                        button_ol.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_ol.BackColor = Color.FromArgb(211, 214, 195);
+                        button_ol.FlatStyle = FlatStyle.Flat;
+                        button_ol.FlatAppearance.BorderSize = 0;
+                        button_ol.Text = "<OL>";
+                        button_ol.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_ol.Name = "ol_" + addOlCount;
+                        flowLayoutPanel_body.Controls.Add(button_ol);
+                        dic.Add(button_ol.Name, addBodyCount);
+                        addBodyCount++;
+                        dic2.Add("ol_" + addOlCount, button_ol.Name);
+                        OpenedTag.Add(addBodyCount, "ol");
+                        OpenedName.Add(addBodyCount, button_ol.Name.ToString());
+                        button_ol.Click += btnclick(button_ol.Name, "ol", dic[button_ol.Name], addOlCount, button_ol);
+                        break;
+                    //順序なしリスト
+                    case 6:
+                        addUlCount++;
+                        Button button_ul = new Button();
+                        button_ul.Size = new Size(122, 54);
+                        button_ul.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_ul.BackColor = Color.FromArgb(211, 214, 195);
+                        button_ul.FlatStyle = FlatStyle.Flat;
+                        button_ul.FlatAppearance.BorderSize = 0;
+                        button_ul.Text = "<UL>";
+                        button_ul.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_ul.Name = "ul_" + addUlCount;
+                        flowLayoutPanel_body.Controls.Add(button_ul);
+                        dic.Add(button_ul.Name, addBodyCount);
+                        addBodyCount++;
+                        dic2.Add("ul_" + addUlCount, button_ul.Name);
+                        OpenedTag.Add(addBodyCount, "ul");
+                        OpenedName.Add(addBodyCount, button_ul.Name.ToString());
+                        button_ul.Click += btnclick(button_ul.Name, "ul", dic[button_ul.Name], addUlCount, button_ul);
+                        break;
+                    //画像
+                    case 7:
+                        addImgCount++;
+                        Button button_img = new Button();
+                        button_img.Size = new Size(122, 54);
+                        button_img.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_img.BackColor = Color.FromArgb(211, 214, 195);
+                        button_img.FlatStyle = FlatStyle.Flat;
+                        button_img.FlatAppearance.BorderSize = 0;
+                        button_img.Text = "<IMG>";
+                        button_img.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_img.Name = "img_" + addImgCount;
+                        flowLayoutPanel_body.Controls.Add(button_img);
+                        addBodyCount++;
+                        dic.Add(button_img.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "img");
+                        OpenedName.Add(addBodyCount, button_img.Name.ToString());
+                        button_img.Click += btnclick(button_img.Name, "img", dic[button_img.Name], addImgCount, button_img);
+                        break;
 
-                    break;
-                //スモール
-                case 9:
-                    addSmallCount++;
-                    Button button_Small = new Button();
-                    button_Small.Size = new Size(122, 54);
-                    button_Small.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_Small.BackColor = Color.FromArgb(211, 214, 195);
-                    button_Small.FlatStyle = FlatStyle.Flat;
-                    button_Small.FlatAppearance.BorderSize = 0;
-                    button_Small.Text = "<SMALL>";
-                    button_Small.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_Small.Name = "small_" + addSmallCount;
-                    flowLayoutPanel_body.Controls.Add(button_Small);
-                    addBodyCount++;
-                    dic.Add(button_Small.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "small");
-                    OpenedName.Add(addBodyCount, button_Small.Name.ToString());
-                    button_Small.Click += btnclick(button_Small.Name, "small", dic[button_Small.Name], addButtonCount, button_Small);
-                    break;
-                //リンク
-                case 10:
-                    addLinkCount++;
-                    Button button_Link = new Button();
-                    button_Link.Size = new Size(122, 54);
-                    button_Link.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_Link.BackColor = Color.FromArgb(211, 214, 195);
-                    button_Link.FlatStyle = FlatStyle.Flat;
-                    button_Link.FlatAppearance.BorderSize = 0;
-                    button_Link.Text = "<LINK>";
-                    button_Link.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_Link.Name = "link_" + addLinkCount;
-                    flowLayoutPanel_head.Controls.Add(button_Link);
-                    addBodyCount++;
-                    dic.Add(button_Link.Name, addHeadCount + 999);
-                    OpenedTag.Add(addHeadCount + 999, "link");
-                    OpenedName.Add(addHeadCount + 999, button_Link.Name.ToString());
-                    button_Link.Click += btnclick(button_Link.Name, "link", dic[button_Link.Name], addButtonCount, button_Link);
-                    break;
-                default:
-                    break;
+                    //テーブル
+                    case 8:
+                        Button button_table = new Button();
+                        button_table.Size = new Size(122, 54);
+                        button_table.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_table.BackColor = Color.FromArgb(211, 214, 195);
+                        button_table.FlatStyle = FlatStyle.Flat;
+                        button_table.FlatAppearance.BorderSize = 0;
+                        button_table.Text = "<TABLE>";
+                        button_table.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_table.Name = "table_" + addTableCount;
+                        flowLayoutPanel_body.Controls.Add(button_table);
+                        addBodyCount++;
+                        dic.Add(button_table.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "table");
+                        OpenedName.Add(addBodyCount, button_table.Name.ToString());
+                        button_table.Click += btnclick(button_table.Name, "table", dic[button_table.Name], addTableCount, button_table);
+                        break;
+                    default:
+                        break;
+                }
             }
+            catch (Exception ex)
+            {
+                OutputErrorLog(ex);
+            }
+
         }
         //タグツリーの部品追加処理（作業ファイルを開いたとき）
         private void AddTag(int Index, String name)
         {
-            //タグツリーのBODYグループに部品のボタンを追加
-            switch (Index)
+            try
             {
-                //見出し
-                case 0:
-                    addH1Count++;                                                                   //見出し個数のカウント
-                    Button button_h1 = new Button();                                                //新規ボタンのインスタンス                    //ボタンの配置場所の設定
-                    button_h1.Size = new Size(122, 54);                                             //ボタンのサイズ
-                    button_h1.ForeColor = Color.FromArgb(90, 92, 79);                               //ボタンの文字色の設定
-                    button_h1.BackColor = Color.FromArgb(211, 214, 195);                            //ボタンの背景色の設定
-                    button_h1.FlatStyle = FlatStyle.Flat;                                           //枠のスタイルの設定
-                    button_h1.FlatAppearance.BorderSize = 0;                                        //枠なしに設定
-                    button_h1.Text = "<H1>";                                                        //ボタンのテキスト
-                    button_h1.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);                  //フォントの設定
-                    button_h1.Name = name;                                                          //ボタンのNameの設定
-                    flowLayoutPanel_body.Controls.Add(button_h1);
-                    addBodyCount++;                                                                 //BODYの個数のカウント
-                    dic.Add(button_h1.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "h1");
-                    OpenedName.Add(addBodyCount, button_h1.Name.ToString());
-                    button_h1.Click += btnclick(button_h1.Name, "h1", dic[button_h1.Name], addH1Count, button_h1);                  //追加したボタンにイベントを追加
-                    break;
-                //文
-                case 1:
-                    addDivCount++;
-                    Button button_div = new Button();
-                    button_div.Size = new Size(122, 54);
-                    button_div.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_div.BackColor = Color.FromArgb(211, 214, 195);
-                    button_div.FlatStyle = FlatStyle.Flat;
-                    button_div.FlatAppearance.BorderSize = 0;
-                    button_div.Text = "<DIV>";
-                    button_div.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_div.Name = name;
-                    flowLayoutPanel_body.Controls.Add(button_div);
-                    addBodyCount++;
-                    dic.Add(button_div.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "div");
-                    OpenedName.Add(addBodyCount, button_div.Name.ToString());
-                    button_div.Click += btnclick(button_div.Name, "div", dic[button_div.Name], addDivCount, button_div);
-                    break;
-                //表
-                case 2:
-                    addTableCount++;
-                    Button button_table = new Button();
-                    button_table.Size = new Size(122, 54);
-                    button_table.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_table.BackColor = Color.FromArgb(211, 214, 195);
-                    button_table.FlatStyle = FlatStyle.Flat;
-                    button_table.FlatAppearance.BorderSize = 0;
-                    button_table.Text = "<TABLE>";
-                    button_table.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_table.Name = name;
-                    flowLayoutPanel_body.Controls.Add(button_table);
-                    addBodyCount++;
-                    dic.Add(button_table.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "table");
-                    OpenedName.Add(addBodyCount, button_table.Name.ToString());
-                    button_table.Click += btnclick(button_table.Name, "table", dic[button_table.Name], addTableCount, button_table);
-                    break;
-                //画像
-                case 3:
-                    addImgCount++;
-                    Button button_img = new Button();
-                    button_img.Size = new Size(122, 54);
-                    button_img.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_img.BackColor = Color.FromArgb(211, 214, 195);
-                    button_img.FlatStyle = FlatStyle.Flat;
-                    button_img.FlatAppearance.BorderSize = 0;
-                    button_img.Text = "<IMG>";
-                    button_img.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_img.Name = name;
-                    flowLayoutPanel_body.Controls.Add(button_img);
-                    addBodyCount++;
-                    dic.Add(button_img.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "img");
-                    OpenedName.Add(addBodyCount, button_img.Name.ToString());
-                    button_img.Click += btnclick(button_img.Name, "img", dic[button_img.Name], addImgCount, button_img);
-                    break;
-                //URL
-                case 4:
-                    addUrlCount++;
-                    Button button_url = new Button();
-                    button_url.Size = new Size(122, 54);
-                    button_url.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_url.BackColor = Color.FromArgb(211, 214, 195);
-                    button_url.FlatStyle = FlatStyle.Flat;
-                    button_url.FlatAppearance.BorderSize = 0;
-                    button_url.Text = "<URL>";
-                    button_url.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_url.Name = name;
-                    flowLayoutPanel_body.Controls.Add(button_url);
-                    addBodyCount++;
-                    dic.Add(button_url.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "url");
-                    OpenedName.Add(addBodyCount, button_url.Name.ToString());
-                    button_url.Click += btnclick(button_url.Name, "url", dic[button_url.Name], addUrlCount, button_url);
-                    break;
-                //テキストボックス
-                case 5:
-                    addTextboxCount++;
-                    Button button_textBox = new Button();
-                    button_textBox.Size = new Size(122, 54);
-                    button_textBox.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_textBox.BackColor = Color.FromArgb(211, 214, 195);
-                    button_textBox.FlatStyle = FlatStyle.Flat;
-                    button_textBox.FlatAppearance.BorderSize = 0;
-                    button_textBox.Text = "<TEXTBOX>";
-                    button_textBox.Font = new Font("MS UI Gothic", 12, FontStyle.Bold);
-                    button_textBox.Name = name;
-                    if (inputflg == 0)
-                    {
-                        flowLayoutPanel_body.Controls.Add(button_textBox);
-                        dic.Add(button_textBox.Name, addBodyCount);
-                    }
-                    else if (inputflg == 1)
-                    {
-                        flowLayoutPanel_input.Controls.Add(button_textBox);
-                        dic.Add(button_textBox.Name, flowLayoutPanel_input.Controls.GetChildIndex(button_textBox));
-                    }
-                    addBodyCount++;
-                    dic2.Add("textbox_" + addTextboxCount, button_textBox.Name);
-                    OpenedTag.Add(addBodyCount, "textbox");
-                    OpenedName.Add(addBodyCount, button_textBox.Name.ToString());
-                    button_textBox.Click += btnclick(button_textBox.Name, "textbox", dic[button_textBox.Name], addTextboxCount, button_textBox);
-                    break;
-                //ボタン
-                case 6:
-                    addButtonCount++;
-                    Button button_Button = new Button();
-                    button_Button.Size = new Size(122, 54);
-                    button_Button.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_Button.BackColor = Color.FromArgb(211, 214, 195);
-                    button_Button.FlatStyle = FlatStyle.Flat;
-                    button_Button.FlatAppearance.BorderSize = 0;
-                    button_Button.Text = "<BUTTON>";
-                    button_Button.Font = new Font("MS UI Gothic", 12, FontStyle.Bold);
-                    button_Button.Name = name;
-                    if (inputflg == 0)
-                    {
-                        flowLayoutPanel_body.Controls.Add(button_Button);
-                        dic.Add(button_Button.Name, addBodyCount);
-                    }
-                    else if (inputflg == 1)
-                    {
-                        flowLayoutPanel_input.Controls.Add(button_Button);
-                        dic.Add(button_Button.Name, flowLayoutPanel_input.Controls.GetChildIndex(button_Button));
-                    }
-                    addBodyCount++;
-                    dic2.Add("button_" + addButtonCount, button_Button.Name);
-                    OpenedTag.Add(addBodyCount, "button");
-                    OpenedName.Add(addBodyCount, button_Button.Name.ToString());
-                    button_Button.Click += btnclick(button_Button.Name, "button", dic[button_Button.Name], addButtonCount, button_Button);
-                    break;
-                //ナビ
-                case 7:
-                    addNavCount++;
-                    Button button_Nav = new Button();
-                    button_Nav.Size = new Size(122, 54);
-                    button_Nav.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_Nav.BackColor = Color.FromArgb(211, 214, 195);
-                    button_Nav.FlatStyle = FlatStyle.Flat;
-                    button_Nav.FlatAppearance.BorderSize = 0;
-                    button_Nav.Text = "<NAV>";
-                    button_Nav.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_Nav.Name = name;
-                    flowLayoutPanel_body.Controls.Add(button_Nav);
-                    addBodyCount++;
-                    dic.Add(button_Nav.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "nav");
-                    OpenedName.Add(addBodyCount, button_Nav.Name.ToString());
-                    button_Nav.Click += btnclick(button_Nav.Name, "nav", dic[button_Nav.Name], addButtonCount, button_Nav);
-                    break;
-
-                //インプット
-                case 8:
-                    Button button_Input = new Button();
-                    button_Input.Size = new Size(122, 54);
-                    button_Input.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_Input.BackColor = Color.FromArgb(211, 214, 195);
-                    button_Input.FlatStyle = FlatStyle.Flat;
-                    button_Input.FlatAppearance.BorderSize = 0;
-                    button_Input.Text = "<INPUT>";
-                    button_Input.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_Input.Name = name;
-                    if (inputedCount == 1)
-                    {
-                        if (inputedflg != 1)
-                        {
-                            flowLayoutPanel_body.Controls.Add(button_Input);
-                            addBodyCount++;
-                            dic.Add(button_Input.Name, addBodyCount);
-                            OpenedTag.Add(addBodyCount, "input");
-                            OpenedName.Add(addBodyCount, button_Input.Name.ToString());
-                            button_Input.Click += btnclick(button_Input.Name, "input", dic[button_Input.Name], addInputCount, button_Input);
-                            GroupingInput(addTextboxCount, addButtonCount);
-                            inputedCount++;
-                        }
-                    }
-                    else if (inputedCount >= 2 && inputedflg != 1)
-                    {
-                        GroupingInput(addTextboxCount, addButtonCount);
-                    }
-                    else
-                    {
-                        MessageBox.Show("すでに追加されています。");
+                //タグツリーのBODYグループに部品のボタンを追加
+                switch (Index)
+                {
+                    //見出し
+                    case 0:
+                        addHCount++;                                                                   //見出し個数のカウント
+                        Button button_h = new Button();                                                //新規ボタンのインスタンス                    //ボタンの配置場所の設定
+                        button_h.Size = new Size(122, 54);                                             //ボタンのサイズ
+                        button_h.ForeColor = Color.FromArgb(90, 92, 79);                               //ボタンの文字色の設定
+                        button_h.BackColor = Color.FromArgb(211, 214, 195);                            //ボタンの背景色の設定
+                        button_h.FlatStyle = FlatStyle.Flat;                                           //枠のスタイルの設定
+                        button_h.FlatAppearance.BorderSize = 0;                                        //枠なしに設定
+                        button_h.Text = "<H>";                                                        //ボタンのテキスト
+                        button_h.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);                  //フォントの設定
+                        button_h.Name = name;                                                          //ボタンのNameの設定
+                        flowLayoutPanel_body.Controls.Add(button_h);
+                        addBodyCount++;                                                                 //BODYの個数のカウント
+                        dic.Add(button_h.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "h");
+                        OpenedName.Add(addBodyCount, button_h.Name.ToString());
+                        button_h.Click += btnclick(button_h.Name, "h", dic[button_h.Name], addHCount, button_h);                  //追加したボタンにイベントを追加
                         break;
-                    }
+                    //テキスト
+                    case 1:
+                        addPCount++;
+                        Button button_p = new Button();
+                        button_p.Size = new Size(122, 54);
+                        button_p.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_p.BackColor = Color.FromArgb(211, 214, 195);
+                        button_p.FlatStyle = FlatStyle.Flat;
+                        button_p.FlatAppearance.BorderSize = 0;
+                        button_p.Text = "<P>";
+                        button_p.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_p.Name = name;
+                        flowLayoutPanel_body.Controls.Add(button_p);
+                        addBodyCount++;
+                        dic.Add(button_p.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "p");
+                        OpenedName.Add(addBodyCount, button_p.Name.ToString());
+                        button_p.Click += btnclick(button_p.Name, "p", dic[button_p.Name], addPCount, button_p);
+                        break;
+                    //強調
+                    case 2:
+                        addEmCount++;
+                        Button button_em = new Button();
+                        button_em.Size = new Size(122, 54);
+                        button_em.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_em.BackColor = Color.FromArgb(211, 214, 195);
+                        button_em.FlatStyle = FlatStyle.Flat;
+                        button_em.FlatAppearance.BorderSize = 0;
+                        button_em.Text = "<EM>";
+                        button_em.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_em.Name = name;
+                        flowLayoutPanel_body.Controls.Add(button_em);
+                        addBodyCount++;
+                        dic.Add(button_em.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "em");
+                        OpenedName.Add(addBodyCount, button_em.Name.ToString());
+                        button_em.Click += btnclick(button_em.Name, "em", dic[button_em.Name], addEmCount, button_em);
+                        break;
+                    //ハイパーテキスト
+                    case 3:
+                        addUrlCount++;
+                        Button button_url = new Button();
+                        button_url.Size = new Size(122, 54);
+                        button_url.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_url.BackColor = Color.FromArgb(211, 214, 195);
+                        button_url.FlatStyle = FlatStyle.Flat;
+                        button_url.FlatAppearance.BorderSize = 0;
+                        button_url.Text = "<URL>";
+                        button_url.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_url.Name = name;
+                        flowLayoutPanel_body.Controls.Add(button_url);
+                        addBodyCount++;
+                        dic.Add(button_url.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "url");
+                        OpenedName.Add(addBodyCount, button_url.Name.ToString());
+                        button_url.Click += btnclick(button_url.Name, "url", dic[button_url.Name], addUrlCount, button_url);
+                        break;
+                    //太字
+                    case 4:
+                        addBCount++;
+                        Button button_b = new Button();
+                        button_b.Size = new Size(122, 54);
+                        button_b.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_b.BackColor = Color.FromArgb(211, 214, 195);
+                        button_b.FlatStyle = FlatStyle.Flat;
+                        button_b.FlatAppearance.BorderSize = 0;
+                        button_b.Text = "<B>";
+                        button_b.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_b.Name = name;
+                        flowLayoutPanel_body.Controls.Add(button_b);
+                        addBodyCount++;
+                        dic.Add(button_b.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "b");
+                        OpenedName.Add(addBodyCount, button_b.Name.ToString());
+                        button_b.Click += btnclick(button_b.Name, "b", dic[button_b.Name], addBCount, button_b);
+                        break;
+                    //順序ありリスト
+                    case 5:
+                        addOlCount++;
+                        Button button_ol = new Button();
+                        button_ol.Size = new Size(122, 54);
+                        button_ol.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_ol.BackColor = Color.FromArgb(211, 214, 195);
+                        button_ol.FlatStyle = FlatStyle.Flat;
+                        button_ol.FlatAppearance.BorderSize = 0;
+                        button_ol.Text = "<OL>";
+                        button_ol.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_ol.Name = name;
+                        flowLayoutPanel_body.Controls.Add(button_ol);
+                        dic.Add(button_ol.Name, addBodyCount);
+                        addBodyCount++;
+                        dic2.Add("ol_" + addOlCount, button_ol.Name);
+                        OpenedTag.Add(addBodyCount, "ol");
+                        OpenedName.Add(addBodyCount, button_ol.Name.ToString());
+                        button_ol.Click += btnclick(button_ol.Name, "ol", dic[button_ol.Name], addOlCount, button_ol);
+                        break;
+                    //順序なしリスト
+                    case 6:
+                        addUlCount++;
+                        Button button_ul = new Button();
+                        button_ul.Size = new Size(122, 54);
+                        button_ul.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_ul.BackColor = Color.FromArgb(211, 214, 195);
+                        button_ul.FlatStyle = FlatStyle.Flat;
+                        button_ul.FlatAppearance.BorderSize = 0;
+                        button_ul.Text = "<UL>";
+                        button_ul.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_ul.Name = name;
+                        flowLayoutPanel_body.Controls.Add(button_ul);
+                        dic.Add(button_ul.Name, addBodyCount);
+                        addBodyCount++;
+                        dic2.Add("ul_" + addUlCount, button_ul.Name);
+                        OpenedTag.Add(addBodyCount, "ul");
+                        OpenedName.Add(addBodyCount, button_ul.Name.ToString());
+                        button_ul.Click += btnclick(button_ul.Name, "ul", dic[button_ul.Name], addUlCount, button_ul);
+                        break;
+                    //画像
+                    case 7:
+                        addImgCount++;
+                        Button button_img = new Button();
+                        button_img.Size = new Size(122, 54);
+                        button_img.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_img.BackColor = Color.FromArgb(211, 214, 195);
+                        button_img.FlatStyle = FlatStyle.Flat;
+                        button_img.FlatAppearance.BorderSize = 0;
+                        button_img.Text = "<IMG>";
+                        button_img.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_img.Name = name;
+                        flowLayoutPanel_body.Controls.Add(button_img);
+                        addBodyCount++;
+                        dic.Add(button_img.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "img");
+                        OpenedName.Add(addBodyCount, button_img.Name.ToString());
+                        button_img.Click += btnclick(button_img.Name, "img", dic[button_img.Name], addImgCount, button_img);
+                        break;
 
-                    break;
-                //スモール
-                case 9:
-                    addSmallCount++;
-                    Button button_Small = new Button();
-                    button_Small.Size = new Size(122, 54);
-                    button_Small.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_Small.BackColor = Color.FromArgb(211, 214, 195);
-                    button_Small.FlatStyle = FlatStyle.Flat;
-                    button_Small.FlatAppearance.BorderSize = 0;
-                    button_Small.Text = "<SMALL>";
-                    button_Small.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_Small.Name = name;
-                    flowLayoutPanel_body.Controls.Add(button_Small);
-                    addBodyCount++;
-                    dic.Add(button_Small.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "small");
-                    OpenedName.Add(addBodyCount, button_Small.Name.ToString());
-                    button_Small.Click += btnclick(button_Small.Name, "small", dic[button_Small.Name], addButtonCount, button_Small);
-                    break;
-                //リンク
-                case 10:
-                    addLinkCount++;
-                    Button button_Link = new Button();
-                    button_Link.Size = new Size(122, 54);
-                    button_Link.ForeColor = Color.FromArgb(90, 92, 79);
-                    button_Link.BackColor = Color.FromArgb(211, 214, 195);
-                    button_Link.FlatStyle = FlatStyle.Flat;
-                    button_Link.FlatAppearance.BorderSize = 0;
-                    button_Link.Text = "<LINK>";
-                    button_Link.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_Link.Name = name;
-                    flowLayoutPanel_head.Controls.Add(button_Link);
-                    addHeadCount++;
-                    dic.Add(button_Link.Name, addHeadCount + 999);
-                    OpenedTag.Add(addHeadCount + 999, "link");
-                    OpenedName.Add(addHeadCount + 999, button_Link.Name.ToString());
-                    button_Link.Click += btnclick(button_Link.Name, "link", dic[button_Link.Name], addButtonCount, button_Link);
-                    break;
-                default:
-                    break;
+                    //テーブル
+                    case 8:
+                        Button button_table = new Button();
+                        button_table.Size = new Size(122, 54);
+                        button_table.ForeColor = Color.FromArgb(90, 92, 79);
+                        button_table.BackColor = Color.FromArgb(211, 214, 195);
+                        button_table.FlatStyle = FlatStyle.Flat;
+                        button_table.FlatAppearance.BorderSize = 0;
+                        button_table.Text = "<TABLE>";
+                        button_table.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                        button_table.Name = name;
+                        flowLayoutPanel_body.Controls.Add(button_table);
+                        addBodyCount++;
+                        dic.Add(button_table.Name, addBodyCount);
+                        OpenedTag.Add(addBodyCount, "table");
+                        OpenedName.Add(addBodyCount, button_table.Name.ToString());
+                        button_table.Click += btnclick(button_table.Name, "table", dic[button_table.Name], addTableCount, button_table);
+                        break;
+                    default:
+                        break;
+                }
             }
+            catch (Exception ex)
+            {
+                OutputErrorLog(ex);
+            }
+
         }
 
+        //ログ出力
+        private void OutputErrorLog(Exception ex)
+        {
+            // 書き込み設定
+            System.IO.StreamWriter sw = new StreamWriter(
+             this.FilePath + "\\log\\errorlog_" + DateTime.Now.ToString("yyyyMMdd") + ".txt",   // 出力先ファイル名
+             true,                                                           // 追加書き込み
+             System.Text.Encoding.GetEncoding("UTF-8"));                 // 文字コード
 
+            // ログ出力
+            //sw.SetOut(sw); // 出力先（Outプロパティ）を設定
+            sw.WriteLine("[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "] message: " + ex.Message);
+            sw.WriteLine("[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "] stack trace: " + ex.StackTrace);
+            sw.WriteLine(ex.StackTrace);
+            sw.WriteLine();
 
+            // ファイルを閉じる
+            sw.Dispose();
+        }
 
+        //フォルダの存在チェック　なければ作成
+        private void CheckFolder()
+        {
+            if (File.Exists(FilePath + "\\HTML") == false)
+            {
+                Directory.CreateDirectory(FilePath + "\\HTML");
+            }
+            if (File.Exists(FilePath + "\\CSV") == false)
+            {
+                Directory.CreateDirectory(FilePath + "\\CSV");
+            }
+            if (File.Exists(FilePath + "\\log") == false)
+            {
+                Directory.CreateDirectory(FilePath + "\\log");
+            }
+        }
 
         //在間くん作成プログラム統合部分-----------------------------------------------
 
@@ -1929,6 +1744,9 @@ namespace WindowsFormsApp1
             }
         }
 
-        
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

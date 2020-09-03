@@ -41,8 +41,15 @@ namespace WindowsFormsApp1
             {
                 //OKボタンがクリックされたとき、選択されたファイル名を表示する
                 img_name = ofd.FileName;
+                pcb_preview.Image = CreateThumbnail(img_name, 1);
             }
-            pcb_preview.Image = CreateThumbnail(img_name, 1);
+            else
+            {
+                img_name = "";
+                Close();
+            }
+            
+            
         }
         public string ShowMiniForm()
         {

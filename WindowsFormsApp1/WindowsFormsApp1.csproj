@@ -109,12 +109,6 @@
     <Compile Include="OL_Parts.Designer.cs">
       <DependentUpon>OL_Parts.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script_Parts.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Script_Parts.Designer.cs">
-      <DependentUpon>Script_Parts.cs</DependentUpon>
-    </Compile>
     <Compile Include="Table_Parts.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,9 +161,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OL_Parts.resx">
       <DependentUpon>OL_Parts.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Script_Parts.resx">
-      <DependentUpon>Script_Parts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Table_Parts.resx">
       <DependentUpon>Table_Parts.cs</DependentUpon>

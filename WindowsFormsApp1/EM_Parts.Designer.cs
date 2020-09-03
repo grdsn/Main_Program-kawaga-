@@ -43,7 +43,6 @@
             this.TextAdd.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.TextAdd.Size = new System.Drawing.Size(472, 179);
             this.TextAdd.TabIndex = 10;
-            this.TextAdd.UseWaitCursor = true;
             this.TextAdd.TextChanged += new System.EventHandler(this.TextAdd_TextChanged);
             // 
             // AddConfirm
