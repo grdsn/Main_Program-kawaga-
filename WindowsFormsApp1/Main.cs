@@ -211,7 +211,6 @@ namespace WindowsFormsApp1
             String destinationPath = get_Path(); //相対パスで指定
             if (flag == 0) //配列にデータを追加する
             {
-                MessageBox.Show(cnt.ToString());
                 text_box[cnt] = input;
                 writer = new System.IO.StreamWriter(destinationPath, false, System.Text.Encoding.UTF8);
                 writer.Write("<DOCTYPE! HTML>\r\n");
@@ -373,10 +372,13 @@ namespace WindowsFormsApp1
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
-                MessageBox.Show(line);
-                text_box[cnt] = line;
-                cnt++;
+                if(line != "")
+                {
+                    text_box[cnt] = line;
+                    cnt++;
+                }
             }
+            reader.Close();
         }
 
         /*
@@ -1927,9 +1929,6 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-
-        }
+        
     }
 }
