@@ -15,10 +15,11 @@ namespace WindowsFormsApp1
     
     public partial class main : Form
     {
-
+        
         //定義--------------------------------------------------------
         const string ApplicationName = "かんたんWeb君";//アプリケーション名
         private string FileName = ""; //ファイル名(フルパス)
+        private string name = "";
         string result;//結果格納
         private bool Edited = false;
         string adress; //アドレスの相対パス
@@ -31,6 +32,8 @@ namespace WindowsFormsApp1
 
         //在間定義------------------------------------------------------------
         //画面フラグ
+
+        bool open_flg = false; //ファイルを開くか判定
         public int flg = 0;
         //編集フラグ
         public int editflg = 0;
@@ -85,6 +88,8 @@ namespace WindowsFormsApp1
 
         //ボタンイベントの有無
         public Boolean button_event = false;
+
+        private String FilePath = Directory.GetCurrentDirectory();
         //在間定義------------------------------------------------------------
 
 
@@ -194,8 +199,8 @@ namespace WindowsFormsApp1
          * 相対パスでデスクトップを指定する
          */
         private string get_Path()
-        {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), FileName);
+        {  
+            return Directory.GetCurrentDirectory() + "\\HTML\\" + FileName;      
         }
 
         /*
@@ -203,9 +208,10 @@ namespace WindowsFormsApp1
          */
         public void writer_html(string input, int flag)
         {
-            String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
+            String destinationPath = get_Path(); //相対パスで指定
             if (flag == 0) //配列にデータを追加する
             {
+                MessageBox.Show(cnt.ToString());
                 text_box[cnt] = input;
                 writer = new System.IO.StreamWriter(destinationPath, false, System.Text.Encoding.UTF8);
                 writer.Write("<DOCTYPE! HTML>\r\n");
@@ -343,9 +349,34 @@ namespace WindowsFormsApp1
          */
         private void oepn_Btn_Click(object sender, EventArgs e)
         {
+            
             MenuItemFileOpen_Click(sender, e);
             create_new = true;
+            open_flg = true;
             Start_Visible();
+        }
+        /*
+         * TEXTファイルからHTMLデータを生成
+         */
+        private void TEXTToHTML(string name)
+        {
+            cnt = 0;
+            for (int i = 0; i < text_box.Length; i++)
+            {
+                text_box[i] = "";
+            }
+            var filePath = name + "TEMP" + ".txt"; //HTMLフォルダ内のTEMPファイルをパスに設定
+
+            // csvファイルの読込
+            StreamReader reader = new StreamReader(File.OpenRead(filePath));
+            
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                MessageBox.Show(line);
+                text_box[cnt] = line;
+                cnt++;
+            }
         }
 
         /*
@@ -358,7 +389,6 @@ namespace WindowsFormsApp1
             {
                 //テキストボックスの内容をクリア
                 HTMLBOX.Clear();
-
                 // ファイル名（フルパス）
                 this.FileName = fnp.ShowMiniForm() + ".html";　//ファイル名を指定させる
 
@@ -380,7 +410,6 @@ namespace WindowsFormsApp1
                 {
                     //テキストボックスの内容をクリア
                     HTMLBOX.Clear();
-
                     // ファイル名（フルパス）
                     this.FileName = fnp.ShowMiniForm() + ".html"; //ファイル名を指定させる
 
@@ -397,15 +426,14 @@ namespace WindowsFormsApp1
         {
             //UTF-8に変換してファイルを開く
             HTMLBOX.Text = System.IO.File.ReadAllText(value, Encoding.GetEncoding("UTF-8"));
-            this.FileName = value;
-
+            //this.FileName = value;
             UpdateStatus(FileName, false);
+            MessageBox.Show(value);
             Browser_show();
 
         }
 
         private void LoadFile(string value, string name) {
-
             //変数の初期化
             Reset();
 
@@ -420,7 +448,7 @@ namespace WindowsFormsApp1
 
             // csvファイルのパス
             //var filePath = openFileDialog1.FileName;
-            var filePath = value + ".csv";
+            var filePath = Directory.GetCurrentDirectory() + "\\CSV\\" + name + ".csv";
 
             // csvファイルの読込
             StreamReader reader = new StreamReader(File.OpenRead(filePath));
@@ -469,8 +497,9 @@ namespace WindowsFormsApp1
 
             // ファイル名を保持する
             this.FileName = value;
+            String path = Directory.GetCurrentDirectory();
             //csv---
-            var filePath = @"C:\Users\s3a2\Desktop\" + value + ".csv";   //パスは変える (作業ファイル名.csv)
+            var filePath = path + "\\CSV\\" + value + ".csv";   //パスは変える (作業ファイル名.csv)
             // csvに出力するデータ
             for (int i = 0; i < OpenedTag.Count; i++)
             {
@@ -537,8 +566,10 @@ namespace WindowsFormsApp1
             if (DialogResult.OK == OpenFileDialog.ShowDialog())
             {
                 // 「開く」ボタンがクリックされたとき
+                FileName = OpenFileDialog.SafeFileName;
                 LoadFile(OpenFileDialog.FileName);
-                LoadFile(OpenFileDialog.FileName, OpenFileDialog.SafeFileName);
+                LoadFile(OpenFileDialog.FileName, FileName);
+                TEXTToHTML(OpenFileDialog.FileName);
 
             }
         }
@@ -588,6 +619,7 @@ namespace WindowsFormsApp1
         private void Browser_show()
         {
             String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
+            //String destinationPath = FilePath + "\\HTML\\" + FileName;
             webBrowser1.Navigate(destinationPath);
         }
 
@@ -608,13 +640,12 @@ namespace WindowsFormsApp1
          */
         private void HTML_show()
         {
-            if(create_new == true)
-            {
+            
                 String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
                 StreamReader st = new StreamReader(destinationPath, Encoding.GetEncoding("UTF-8")); //StreamReaderでファイルの内容を読み込む
                 HTMLBOX.Text = st.ReadToEnd(); //streamReader内のテキストを書き込む
                 st.Close();//終了
-            }
+            
        
         }
         /*
@@ -622,30 +653,28 @@ namespace WindowsFormsApp1
          */
         private void HTMLBtn_Click(object sender, EventArgs e)
         {
-            if (HTML_flg == false)
-            {
+            
                 HTMLBtn.Visible = false;
                 PreviewBtn.Visible = true;
                 webBrowser1.Visible = false;
                 HTMLBOX.Visible = true; //HTMLソースコード用のテキストボックスを有効化
                 //HTMLBtn.Text = "プレビュー表示";
                 HTML_show(); //ソースコードを表示
-                HTML_flg = true; //次回クリック時にブラウザ画面にもどる
-            }
+                //HTML_flg = true; //次回クリック時にブラウザ画面にもどる
+            
            
         }
 
         private void PreviewBtn_Click(object sender, EventArgs e)
         {
-            if (HTML_flg == true)
-            {
+            
                 HTMLBtn.Visible = true;
                 PreviewBtn.Visible = false;
                 webBrowser1.Visible = true;
                 HTMLBOX.Visible = false;　//HTMLソースコード用のテキストボックスを無効化
                 //HTMLBtn.Text = "ソースコード表示";
-                HTML_flg = false; //再びソースコード表示可にする
-            }
+                //HTML_flg = false; //再びソースコード表示可にする
+            
         }
 
         /*
@@ -756,7 +785,6 @@ namespace WindowsFormsApp1
 
         //在間くん作成プログラム統合部分-----------------------------------------------
         
-
         private void Reset()
         {
             this.flowLayoutPanel_body.Controls.Clear();
@@ -1376,17 +1404,17 @@ namespace WindowsFormsApp1
                     button_div.BackColor = Color.FromArgb(211, 214, 195);
                     button_div.FlatStyle = FlatStyle.Flat;
                     button_div.FlatAppearance.BorderSize = 0;
-                    button_div.Text = "<DIV>";
+                    button_div.Text = "TEXT";
                     button_div.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_div.Name = "div_" + addDivCount;
+                    button_div.Name = "text_" + addDivCount;
                     flowLayoutPanel_body.Controls.Add(button_div);
                     addBodyCount++;
                     dic.Add(button_div.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "div");
+                    OpenedTag.Add(addBodyCount, "text");
                     OpenedName.Add(addBodyCount, button_div.Name.ToString());
-                    button_div.Click += btnclick(button_div.Name, "div", dic[button_div.Name], addDivCount, button_div);
+                    button_div.Click += btnclick(button_div.Name, "text", dic[button_div.Name], addDivCount, button_div);
                     break;
-                //表
+                //強調
                 case 2:
                     addTableCount++;
                     Button button_table = new Button();
@@ -1395,17 +1423,17 @@ namespace WindowsFormsApp1
                     button_table.BackColor = Color.FromArgb(211, 214, 195);
                     button_table.FlatStyle = FlatStyle.Flat;
                     button_table.FlatAppearance.BorderSize = 0;
-                    button_table.Text = "<TABLE>";
+                    button_table.Text = "<EM>";
                     button_table.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_table.Name = "table_" + addTableCount;
+                    button_table.Name = "em_" + addTableCount;
                     flowLayoutPanel_body.Controls.Add(button_table);
                     addBodyCount++;
                     dic.Add(button_table.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "table");
+                    OpenedTag.Add(addBodyCount, "em");
                     OpenedName.Add(addBodyCount, button_table.Name.ToString());
-                    button_table.Click += btnclick(button_table.Name, "table", dic[button_table.Name], addTableCount, button_table);
+                    button_table.Click += btnclick(button_table.Name, "em", dic[button_table.Name], addTableCount, button_table);
                     break;
-                //画像
+                //ハイパーリンク
                 case 3:
                     addImgCount++;
                     Button button_img = new Button();
@@ -1414,17 +1442,17 @@ namespace WindowsFormsApp1
                     button_img.BackColor = Color.FromArgb(211, 214, 195);
                     button_img.FlatStyle = FlatStyle.Flat;
                     button_img.FlatAppearance.BorderSize = 0;
-                    button_img.Text = "<IMG>";
+                    button_img.Text = "<A>";
                     button_img.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_img.Name = "img_" + addImgCount;
+                    button_img.Name = "a_" + addImgCount;
                     flowLayoutPanel_body.Controls.Add(button_img);
                     addBodyCount++;
                     dic.Add(button_img.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "img");
+                    OpenedTag.Add(addBodyCount, "a");
                     OpenedName.Add(addBodyCount, button_img.Name.ToString());
-                    button_img.Click += btnclick(button_img.Name, "img", dic[button_img.Name], addImgCount, button_img);
+                    button_img.Click += btnclick(button_img.Name, "a", dic[button_img.Name], addImgCount, button_img);
                     break;
-                //URL
+                //太字
                 case 4:
                     addUrlCount++;
                     Button button_url = new Button();
@@ -1433,17 +1461,17 @@ namespace WindowsFormsApp1
                     button_url.BackColor = Color.FromArgb(211, 214, 195);
                     button_url.FlatStyle = FlatStyle.Flat;
                     button_url.FlatAppearance.BorderSize = 0;
-                    button_url.Text = "<URL>";
+                    button_url.Text = "<B>";
                     button_url.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_url.Name = "url_" + addUrlCount;
+                    button_url.Name = "b_" + addUrlCount;
                     flowLayoutPanel_body.Controls.Add(button_url);
                     addBodyCount++;
                     dic.Add(button_url.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "url");
+                    OpenedTag.Add(addBodyCount, "b");
                     OpenedName.Add(addBodyCount, button_url.Name.ToString());
-                    button_url.Click += btnclick(button_url.Name, "url", dic[button_url.Name], addUrlCount, button_url);
+                    button_url.Click += btnclick(button_url.Name, "b", dic[button_url.Name], addUrlCount, button_url);
                     break;
-                //テキストボックス
+                //テーブル
                 case 5:
                     addTextboxCount++;
                     Button button_textBox = new Button();
@@ -1452,9 +1480,9 @@ namespace WindowsFormsApp1
                     button_textBox.BackColor = Color.FromArgb(211, 214, 195);
                     button_textBox.FlatStyle = FlatStyle.Flat;
                     button_textBox.FlatAppearance.BorderSize = 0;
-                    button_textBox.Text = "<TEXTBOX>";
+                    button_textBox.Text = "<TABLE>";
                     button_textBox.Font = new Font("MS UI Gothic", 12, FontStyle.Bold);
-                    button_textBox.Name = "textbox_" + addTextboxCount;
+                    button_textBox.Name = "table_" + addTextboxCount;
                     if (inputflg == 0)
                     {
                         flowLayoutPanel_body.Controls.Add(button_textBox);
@@ -1466,12 +1494,12 @@ namespace WindowsFormsApp1
                         dic.Add(button_textBox.Name, flowLayoutPanel_input.Controls.GetChildIndex(button_textBox));
                     }
                     addBodyCount++;
-                    dic2.Add("textbox_" + addTextboxCount, button_textBox.Name);
-                    OpenedTag.Add(addBodyCount, "textbox");
+                    dic2.Add("table_" + addTextboxCount, button_textBox.Name);
+                    OpenedTag.Add(addBodyCount, "table");
                     OpenedName.Add(addBodyCount, button_textBox.Name.ToString());
-                    button_textBox.Click += btnclick(button_textBox.Name, "textbox", dic[button_textBox.Name], addTextboxCount, button_textBox);
+                    button_textBox.Click += btnclick(button_textBox.Name, "table", dic[button_textBox.Name], addTextboxCount, button_textBox);
                     break;
-                //ボタン
+                //順序のあるリスト
                 case 6:
                     addButtonCount++;
                     Button button_Button = new Button();
@@ -1480,9 +1508,9 @@ namespace WindowsFormsApp1
                     button_Button.BackColor = Color.FromArgb(211, 214, 195);
                     button_Button.FlatStyle = FlatStyle.Flat;
                     button_Button.FlatAppearance.BorderSize = 0;
-                    button_Button.Text = "<BUTTON>";
+                    button_Button.Text = "<OL>";
                     button_Button.Font = new Font("MS UI Gothic", 12, FontStyle.Bold);
-                    button_Button.Name = "button_" + addButtonCount;
+                    button_Button.Name = "ol_" + addButtonCount;
                     if (inputflg == 0)
                     {
                         flowLayoutPanel_body.Controls.Add(button_Button);
@@ -1494,12 +1522,12 @@ namespace WindowsFormsApp1
                         dic.Add(button_Button.Name, flowLayoutPanel_input.Controls.GetChildIndex(button_Button));
                     }
                     addBodyCount++;
-                    dic2.Add("button_" + addButtonCount, button_Button.Name);
-                    OpenedTag.Add(addBodyCount, "button");
+                    dic2.Add("ol_" + addButtonCount, button_Button.Name);
+                    OpenedTag.Add(addBodyCount, "ol");
                     OpenedName.Add(addBodyCount, button_Button.Name.ToString());
-                    button_Button.Click += btnclick(button_Button.Name, "button", dic[button_Button.Name], addButtonCount, button_Button);
+                    button_Button.Click += btnclick(button_Button.Name, "ol", dic[button_Button.Name], addButtonCount, button_Button);
                     break;
-                //ナビ
+                //順序のないリスト
                 case 7:
                     addNavCount++;
                     Button button_Nav = new Button();
@@ -1508,18 +1536,18 @@ namespace WindowsFormsApp1
                     button_Nav.BackColor = Color.FromArgb(211, 214, 195);
                     button_Nav.FlatStyle = FlatStyle.Flat;
                     button_Nav.FlatAppearance.BorderSize = 0;
-                    button_Nav.Text = "<NAV>";
+                    button_Nav.Text = "<UL>";
                     button_Nav.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_Nav.Name = "nav_" + addNavCount;
+                    button_Nav.Name = "ul_" + addNavCount;
                     flowLayoutPanel_body.Controls.Add(button_Nav);
                     addBodyCount++;
                     dic.Add(button_Nav.Name, addBodyCount);
-                    OpenedTag.Add(addBodyCount, "nav");
+                    OpenedTag.Add(addBodyCount, "ul");
                     OpenedName.Add(addBodyCount, button_Nav.Name.ToString());
-                    button_Nav.Click += btnclick(button_Nav.Name, "nav", dic[button_Nav.Name], addButtonCount, button_Nav);
+                    button_Nav.Click += btnclick(button_Nav.Name, "ul", dic[button_Nav.Name], addButtonCount, button_Nav);
                     break;
 
-                //インプット
+                //画像
                 case 8:
                     Button button_Input = new Button();
                     button_Input.Size = new Size(122, 54);
@@ -1527,9 +1555,9 @@ namespace WindowsFormsApp1
                     button_Input.BackColor = Color.FromArgb(211, 214, 195);
                     button_Input.FlatStyle = FlatStyle.Flat;
                     button_Input.FlatAppearance.BorderSize = 0;
-                    button_Input.Text = "<INPUT>";
+                    button_Input.Text = "<IMG>";
                     button_Input.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_Input.Name = "input_" + addInputCount;
+                    button_Input.Name = "img_" + addInputCount;
                     if (inputedCount == 1)
                     {
                         if (inputedflg != 1)
@@ -1537,9 +1565,9 @@ namespace WindowsFormsApp1
                             flowLayoutPanel_body.Controls.Add(button_Input);
                             addBodyCount++;
                             dic.Add(button_Input.Name, addBodyCount);
-                            OpenedTag.Add(addBodyCount, "input");
+                            OpenedTag.Add(addBodyCount, "img");
                             OpenedName.Add(addBodyCount, button_Input.Name.ToString());
-                            button_Input.Click += btnclick(button_Input.Name, "input", dic[button_Input.Name], addInputCount, button_Input);
+                            button_Input.Click += btnclick(button_Input.Name, "img", dic[button_Input.Name], addInputCount, button_Input);
                             GroupingInput(addTextboxCount, addButtonCount);
                             inputedCount++;
                         }
@@ -1862,6 +1890,19 @@ namespace WindowsFormsApp1
         private void SaveButton_Click(object sender, EventArgs e)
         {
             SaveFile(this.FileName);
+            SaveToTEXT(this.FileName);
+        }
+
+        private void SaveToTEXT(string fn)
+        {
+            string path = Directory.GetCurrentDirectory() + "\\HTML\\" + fn + "TEMP" + ".txt"; 
+            StreamWriter file = new StreamWriter(path, false, Encoding.UTF8);
+            for (int i = 0; i < text_box.Length ; i++)
+            {
+                file.WriteLine(string.Format("{0}", text_box[i]));
+
+            }
+            file.Close();
         }
 
         private Tutorial_Parts tuto = null;
@@ -1886,11 +1927,9 @@ namespace WindowsFormsApp1
             }
         }
 
-        
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
 
-        
-
-        
-
+        }
     }
 }
