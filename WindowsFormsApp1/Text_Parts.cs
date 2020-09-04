@@ -26,6 +26,7 @@ namespace WindowsFormsApp1
             info_label.Text = "テキストを追加してください。";
             TextAdd.Visible = true;
 
+            TextAdd.KeyDown += new KeyEventHandler(TextAdd_KeyDown);
         }
 
         
@@ -59,6 +60,18 @@ namespace WindowsFormsApp1
         {
             TextAdd.Text = "";
             Close();
+        }
+        //エンターキー、エスケープキー対応
+        private void TextAdd_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Return)
+            {
+                AddConfirm_Click(this, new EventArgs());
+            }
+            if(e.KeyCode == Keys.Escape)
+            {
+                cancel_btn_Click(this, new EventArgs());
+            }
         }
     }
 }

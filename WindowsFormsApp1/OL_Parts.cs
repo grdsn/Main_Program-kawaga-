@@ -22,7 +22,7 @@ namespace WindowsFormsApp1
 
         private void OL_Parts_Load(object sender, EventArgs e)
         {
-            
+            Add_Text.KeyDown += new KeyEventHandler(Add_Text_KeyDown);
         }
 
         public string ShowMiniForm()
@@ -90,6 +90,19 @@ namespace WindowsFormsApp1
         private void OL_box_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        //エンターキー、エスケープキー対応
+        private void Add_Text_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                Add_button_Click(this, new EventArgs());
+            }
+            if (e.KeyCode == Keys.Escape)
+            {
+                cancel_btn_Click(this, new EventArgs());
+            }
         }
     }
 }

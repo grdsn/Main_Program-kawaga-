@@ -21,7 +21,7 @@ namespace WindowsFormsApp1
 
         private void H_Parts_Load(object sender, EventArgs e)
         {
-
+            this.Title_Add.KeyDown += new KeyEventHandler(Title_Add_KeyDown);
         }
 
         public string ShowMiniForm()
@@ -62,6 +62,18 @@ namespace WindowsFormsApp1
         {
             Title_Add.Text = "";
             Close();
+        }
+
+        private void Title_Add_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                AddConfirm_Click(this, new EventArgs());
+            }
+            if (e.KeyCode == Keys.Escape)
+            {
+                cancel_btn_Click(this, new EventArgs());
+            }
         }
     }
 }

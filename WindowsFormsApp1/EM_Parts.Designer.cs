@@ -60,9 +60,9 @@
             this.info_label.AutoSize = true;
             this.info_label.Location = new System.Drawing.Point(26, 42);
             this.info_label.Name = "info_label";
-            this.info_label.Size = new System.Drawing.Size(66, 12);
+            this.info_label.Size = new System.Drawing.Size(80, 12);
             this.info_label.TabIndex = 8;
-            this.info_label.Text = "入力しなさい";
+            this.info_label.Text = "入力してください";
             // 
             // parts_name
             // 

@@ -58,7 +58,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.Tutorial_btn = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
-            this.SaveAsButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.HTMLBtn = new System.Windows.Forms.Button();
             this.PreviewBtn = new System.Windows.Forms.Button();
@@ -69,6 +68,7 @@
             this.groupBody = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel_body = new System.Windows.Forms.FlowLayoutPanel();
             this.groupHead = new System.Windows.Forms.GroupBox();
+            this.label_pro = new System.Windows.Forms.Label();
             this.button_title = new System.Windows.Forms.Button();
             this.flowLayoutPanel_head = new System.Windows.Forms.FlowLayoutPanel();
             this.button_head1 = new System.Windows.Forms.Button();
@@ -344,21 +344,6 @@
             this.NewButton.UseVisualStyleBackColor = true;
             this.NewButton.Click += new System.EventHandler(this.NewButton_Click);
             // 
-            // SaveAsButton
-            // 
-            this.SaveAsButton.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.SaveAs;
-            this.SaveAsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.SaveAsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveAsButton.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
-            this.SaveAsButton.ForeColor = System.Drawing.Color.White;
-            this.SaveAsButton.Location = new System.Drawing.Point(379, 32);
-            this.SaveAsButton.Name = "SaveAsButton";
-            this.SaveAsButton.Size = new System.Drawing.Size(124, 67);
-            this.SaveAsButton.TabIndex = 18;
-            this.SaveAsButton.UseVisualStyleBackColor = true;
-            this.SaveAsButton.Visible = false;
-            this.SaveAsButton.Click += new System.EventHandler(this.SaveAsButton_Click);
-            // 
             // SaveButton
             // 
             this.SaveButton.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Save;
@@ -366,7 +351,7 @@
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold);
             this.SaveButton.ForeColor = System.Drawing.Color.White;
-            this.SaveButton.Location = new System.Drawing.Point(509, 31);
+            this.SaveButton.Location = new System.Drawing.Point(379, 31);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(122, 68);
             this.SaveButton.TabIndex = 17;
@@ -381,7 +366,7 @@
             this.HTMLBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.HTMLBtn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.HTMLBtn.ForeColor = System.Drawing.Color.White;
-            this.HTMLBtn.Location = new System.Drawing.Point(637, 30);
+            this.HTMLBtn.Location = new System.Drawing.Point(507, 32);
             this.HTMLBtn.Name = "HTMLBtn";
             this.HTMLBtn.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.HTMLBtn.Size = new System.Drawing.Size(120, 69);
@@ -397,7 +382,7 @@
             this.PreviewBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PreviewBtn.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.PreviewBtn.ForeColor = System.Drawing.Color.White;
-            this.PreviewBtn.Location = new System.Drawing.Point(637, 30);
+            this.PreviewBtn.Location = new System.Drawing.Point(507, 32);
             this.PreviewBtn.Name = "PreviewBtn";
             this.PreviewBtn.Size = new System.Drawing.Size(120, 69);
             this.PreviewBtn.TabIndex = 26;
@@ -474,6 +459,7 @@
             // groupHead
             // 
             this.groupHead.BackColor = System.Drawing.Color.White;
+            this.groupHead.Controls.Add(this.label_pro);
             this.groupHead.Controls.Add(this.button_title);
             this.groupHead.Controls.Add(this.flowLayoutPanel_head);
             this.groupHead.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -483,6 +469,15 @@
             this.groupHead.TabIndex = 28;
             this.groupHead.TabStop = false;
             this.groupHead.Visible = false;
+            // 
+            // label_pro
+            // 
+            this.label_pro.AutoSize = true;
+            this.label_pro.Location = new System.Drawing.Point(187, 19);
+            this.label_pro.Name = "label_pro";
+            this.label_pro.Size = new System.Drawing.Size(35, 12);
+            this.label_pro.TabIndex = 9;
+            this.label_pro.Text = "label3";
             // 
             // button_title
             // 
@@ -662,7 +657,6 @@
             this.Controls.Add(this.Tutorial_btn);
             this.Controls.Add(oepn_Btn);
             this.Controls.Add(this.NewButton);
-            this.Controls.Add(this.SaveAsButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.PartsBox);
             this.Controls.Add(this.label1);
@@ -689,6 +683,7 @@
             this.groupInput.ResumeLayout(false);
             this.groupBody.ResumeLayout(false);
             this.groupHead.ResumeLayout(false);
+            this.groupHead.PerformLayout();
             this.group_tag.ResumeLayout(false);
             this.group_tag.PerformLayout();
             this.ResumeLayout(false);
@@ -709,7 +704,6 @@
         private System.Windows.Forms.ListView partsList;
         private System.Windows.Forms.ToolStripMenuItem MenuItemFileOpen;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Button SaveAsButton;
         private System.Windows.Forms.ToolStripMenuItem MenuItemFileNew;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem MenuItemFileSave;
@@ -746,6 +740,7 @@
         private System.Windows.Forms.Button button_html;
         private System.Windows.Forms.Button button_head1;
         private System.Windows.Forms.Button button_body2;
+        private System.Windows.Forms.Label label_pro;
     }
 }
 

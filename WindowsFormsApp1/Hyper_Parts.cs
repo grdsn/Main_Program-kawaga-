@@ -14,6 +14,7 @@ namespace WindowsFormsApp1
     {
         private string[] argumentValues;
         public static string text_return;
+        private int count = 0;
 
         public Hyper_Parts()
         {
@@ -22,7 +23,8 @@ namespace WindowsFormsApp1
 
         private void Hyper_Parts_Load(object sender, EventArgs e)
         {
-
+            TextAdd.KeyDown += new KeyEventHandler(TextAdd_KeyDown);
+            Title_Add.KeyDown += new KeyEventHandler(Title_Add_KeyDown);
         }
 
         public string ShowMiniForm()
@@ -51,6 +53,31 @@ namespace WindowsFormsApp1
         {
             TextAdd.Text = "";
             Close();
+        }
+
+        //エンターキー、エスケープキー対応
+        private void TextAdd_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                 ProcessTabKey(true);
+            }
+            if (e.KeyCode == Keys.Escape)
+            {
+                cancel_btn_Click(this, new EventArgs());
+            }
+        }
+
+        private void Title_Add_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                AddConfirm_Click_1(this, new EventArgs());
+            }
+            if (e.KeyCode == Keys.Escape)
+            {
+                cancel_btn_Click(this, new EventArgs());
+            }
         }
     }
 }

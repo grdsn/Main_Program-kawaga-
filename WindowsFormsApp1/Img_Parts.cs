@@ -59,7 +59,7 @@ namespace WindowsFormsApp1
             f.ShowDialog();
             if (f.img_name != "")
             {
-                receiveText = "<img src=\"" + f.img_name + "\">"; //画像HTML
+                receiveText = "<img src=\"" + f.img_name + "\" width=\"250dp\" height=\"auto \" >"; //画像HTML
             }
             else
             {

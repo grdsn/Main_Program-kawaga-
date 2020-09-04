@@ -12,7 +12,7 @@ namespace WindowsFormsApp1
 {
     public partial class Table_Parts : Form
     {
-
+        bool exit_flg = false;
         int tr_num; //列の指定
         int td_num = 0; //行の指定
         
@@ -25,14 +25,19 @@ namespace WindowsFormsApp1
         {
             Table_Parts f = new Table_Parts();
             f.ShowDialog();
+            string receiveText = null;
             string work = ""; //文字格納用
             int cnt = 1; //テキストボックス用カウント
             int row = int.Parse(f.row_Box.Text);
-            int col = int.Parse(f.col_Box.Text);
+            int col = int.Parse(f.col_box.Text);
             try
             {
-                string receiveText = "<table border=\"1\">" + "\r\n";
-                if (row <= 4 && col <= 9) //列が４行以下行が９行以下
+                if (f.exit_flg == false)
+                {
+                    receiveText = "<table border=\"1\">" + "\r\n";
+                }
+        
+                if (row <= 4 && col <= 9 && f.exit_flg == false) //列が４行以下行が９行以下
                 {
                     for (int i = 0; i < col; i++)
                     {
@@ -48,6 +53,10 @@ namespace WindowsFormsApp1
                         receiveText += "  </tr>" + "\r\n";
                     }
                     receiveText += "</table>";
+                }
+                else
+                {
+                    receiveText = "";
                 }
                 f.Dispose();
                 return receiveText;
@@ -66,8 +75,35 @@ namespace WindowsFormsApp1
 
         private void Table_Parts_Load(object sender, EventArgs e)
         {
+            
+        }
+
+        private void cancel_btn_Click(object sender, EventArgs e)
+        {
+            exit_flg = true;
+            Close();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
 
         }
-    
+
+        private void Col_box_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ctrl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Return)
+            {
+                ProcessTabKey(true);
+            }
+            if(e.KeyCode == Keys.Escape)
+            {
+                cancel_btn_Click(this, new EventArgs());
+            }
+        }
     }
 }

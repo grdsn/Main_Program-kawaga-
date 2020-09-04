@@ -66,11 +66,14 @@
             this.tb35 = new System.Windows.Forms.TextBox();
             this.tb34 = new System.Windows.Forms.TextBox();
             this.tb33 = new System.Windows.Forms.TextBox();
-            this.row_Box = new System.Windows.Forms.TextBox();
-            this.col_Box = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.cancel_btn = new System.Windows.Forms.Button();
+            this.row_Box = new System.Windows.Forms.NumericUpDown();
+            this.col_box = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.row_Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.col_box)).BeginInit();
             this.SuspendLayout();
             // 
             // AddConfirm
@@ -345,22 +348,6 @@
             this.tb33.Size = new System.Drawing.Size(90, 19);
             this.tb33.TabIndex = 41;
             // 
-            // row_Box
-            // 
-            this.row_Box.Location = new System.Drawing.Point(411, 76);
-            this.row_Box.Name = "row_Box";
-            this.row_Box.Size = new System.Drawing.Size(90, 19);
-            this.row_Box.TabIndex = 48;
-            this.row_Box.Text = "1";
-            // 
-            // col_Box
-            // 
-            this.col_Box.Location = new System.Drawing.Point(411, 123);
-            this.col_Box.Name = "col_Box";
-            this.col_Box.Size = new System.Drawing.Size(90, 19);
-            this.col_Box.TabIndex = 47;
-            this.col_Box.Text = "1";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -373,7 +360,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(411, 108);
+            this.label2.Location = new System.Drawing.Point(411, 98);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 12);
             this.label2.TabIndex = 50;
@@ -388,16 +375,63 @@
             this.label3.TabIndex = 51;
             this.label3.Text = "挿入したい要素を右から左にそのまま入力してください";
             // 
+            // cancel_btn
+            // 
+            this.cancel_btn.Location = new System.Drawing.Point(409, 234);
+            this.cancel_btn.Name = "cancel_btn";
+            this.cancel_btn.Size = new System.Drawing.Size(101, 21);
+            this.cancel_btn.TabIndex = 52;
+            this.cancel_btn.Text = "キャンセル";
+            this.cancel_btn.UseVisualStyleBackColor = true;
+            this.cancel_btn.Click += new System.EventHandler(this.cancel_btn_Click);
+            // 
+            // row_Box
+            // 
+            this.row_Box.Location = new System.Drawing.Point(413, 76);
+            this.row_Box.Maximum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.row_Box.Name = "row_Box";
+            this.row_Box.Size = new System.Drawing.Size(101, 19);
+            this.row_Box.TabIndex = 53;
+            this.row_Box.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.row_Box.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // col_box
+            // 
+            this.col_box.Location = new System.Drawing.Point(413, 113);
+            this.col_box.Maximum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.col_box.Name = "col_box";
+            this.col_box.Size = new System.Drawing.Size(101, 19);
+            this.col_box.TabIndex = 54;
+            this.col_box.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.col_box.ValueChanged += new System.EventHandler(this.Col_box_ValueChanged);
+            // 
             // Table_Parts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(522, 268);
+            this.Controls.Add(this.col_box);
+            this.Controls.Add(this.row_Box);
+            this.Controls.Add(this.cancel_btn);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.row_Box);
-            this.Controls.Add(this.col_Box);
             this.Controls.Add(this.tb36);
             this.Controls.Add(this.tb35);
             this.Controls.Add(this.tb34);
@@ -436,9 +470,12 @@
             this.Controls.Add(this.tb1);
             this.Controls.Add(this.AddConfirm);
             this.Controls.Add(this.parts_name);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Table_Parts";
             this.Text = "Table_Parts";
             this.Load += new System.EventHandler(this.Table_Parts_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.row_Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.col_box)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -484,10 +521,11 @@
         private System.Windows.Forms.TextBox tb35;
         private System.Windows.Forms.TextBox tb34;
         private System.Windows.Forms.TextBox tb33;
-        private System.Windows.Forms.TextBox row_Box;
-        private System.Windows.Forms.TextBox col_Box;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button cancel_btn;
+        private System.Windows.Forms.NumericUpDown row_Box;
+        private System.Windows.Forms.NumericUpDown col_box;
     }
 }

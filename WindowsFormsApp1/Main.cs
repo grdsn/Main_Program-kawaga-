@@ -17,73 +17,72 @@ namespace WindowsFormsApp1
     {
         
         //定義--------------------------------------------------------
-        const string ApplicationName = "かんたんWeb君";//アプリケーション名
-        private string FileName = ""; //ファイル名(フルパス)
-        private string name = "";
-        string result;//結果格納
-        private bool Edited = false;
-        string adress; //アドレスの相対パス
-        string[] text_box = new string[10000]; //HTMLタグ格納用
-        int cnt = 0; //タグ数カウント
-        string sel; //選択した部品の名前を格納
-        Boolean create_new = false; //新規作成判定フラグ
-        Boolean HTML_flg = false;//ソースコード表示判定用
-                                 //定義----------------------------------------------------------------
+            const string ApplicationName = "かんたんWeb君";//アプリケーション名
+            private string FileName = ""; //ファイル名(フルパス)
+            //private string name = "";
+            string result;//結果格納
+            private bool Edited = false;
+            string adress; //アドレスの相対パス
+            string[] text_box = new string[10000]; //HTMLタグ格納用
+            int cnt = 0; //タグ数カウント
+            string sel; //選択した部品の名前を格納
+            Boolean create_new = false; //新規作成判定フラグ
+            Boolean HTML_flg = false;//ソースコード表示判定用
+        //定義----------------------------------------------------------------
 
         //在間定義------------------------------------------------------------
         //画面フラグ
-        bool parts_flg = false;
-        bool open_flg = false; //ファイルを開くか判定
-        public int flg = 0;
+            bool parts_flg = false;
+            bool open_flg = false; //ファイルを開くか判定
+            public int flg = 0;
         //編集フラグ
-        public int editflg = 0;
+            public int editflg = 0;
         //入れ替え部品
-        public int contflg = 0;
-        public int BCount1 = 0;
-        public int BCount2 = 0;
-        public int ItemCount1 = 0;
-        public int ItemCount2 = 0;
-        public Dictionary<String, int> dic = new Dictionary<string, int>();
-        public Dictionary<String, String> dic2 = new Dictionary<string, string>() { { "", "" } };
-        public Dictionary<int, String> OpenedTag = new Dictionary<int, string>();
-        public Dictionary<int, String> OpenedName = new Dictionary<int, string>();
+            public int contflg = 0;
+            public int BCount1 = 0;
+            public int BCount2 = 0;
+            public int ItemCount1 = 0;
+            public int ItemCount2 = 0;
+            public Dictionary<String, int> dic = new Dictionary<string, int>();
+            public Dictionary<int, String> OpenedTag = new Dictionary<int, string>();
+            public Dictionary<int, String> OpenedName = new Dictionary<int, string>();
 
-        public String name1 = "";
-        public String name2 = "";
-        public String title = "新規作成";
+            public String name1 = "";
+            public String name2 = "";
+            public String title = "新規作成";
 
-        public String[] csv1 = new String[0];
-        public String[] csv2 = new String[0];
+            public String[] csv1 = new String[0];
+            public String[] csv2 = new String[0];
         //追加部品のカウント
-        public int addHeadCount = 1;
-        public int addBodyCount = 0;
-        public int addHCount = 0;
-        public int addDivCount = 0;
-        public int addTableCount = 0;
-        public int addImgCount = 0;
-        public int addUrlCount = 0;
-        public int addPCount = 0;
-        public int addEmCount = 0;
-        public int addBCount = 0;
-        public int addOlCount = 0;
-        public int addUlCount = 0;
+            public int addHeadCount = 1;
+            public int addBodyCount = 0;
+            public int addHCount = 0;
+            public int addDivCount = 0;
+            public int addTableCount = 0;
+            public int addImgCount = 0;
+            public int addUrlCount = 0;
+            public int addPCount = 0;
+            public int addEmCount = 0;
+            public int addBCount = 0;
+            public int addOlCount = 0;
+            public int addUlCount = 0;
 
         //入れ替え時のインデックス保持用
-        public int cont1 = 0;
-        public int cont2 = 0;
+            public int cont1 = 0;
+            public int cont2 = 0;
         //入れ替え時の部品コントロール保持用
-        Control ctrl1;
-        Control ctrl2;
+            Control ctrl1;
+            Control ctrl2;
 
         //作業状態系
-        List<string> listTag = new List<string>();
-        List<string> listName = new List<string>();
-        List<string> listTitle = new List<string>();
+            List<string> listTag = new List<string>();
+            List<string> listName = new List<string>();
+            List<string> listTitle = new List<string>();
 
         //ボタンイベントの有無
-        public Boolean button_event = false;
+            public Boolean button_event = false;
 
-        private String FilePath = Directory.GetCurrentDirectory();
+            private String FilePath = Directory.GetCurrentDirectory();
         
         //在間定義------------------------------------------------------------
 
@@ -99,79 +98,86 @@ namespace WindowsFormsApp1
          */
         private void Form1_Load(object sender, EventArgs e)
         {
-            //////////////////////////////////////////////////////////////////
-            //---タグツリーグループのスクロール
-            this.flowLayoutPanel_body.VerticalScroll.Visible = true;
-            this.flowLayoutPanel_input.VerticalScroll.Visible = true;
-            this.flowLayoutPanel_head.VerticalScroll.Visible = true;
-            //---
-            ToolTip tt = new ToolTip();
-            tt.SetToolTip(button_html, "全体");
-            tt.SetToolTip(button_head1, "<head>部分");
-            tt.SetToolTip(button_body1, "<body>部分");
+            try
+            {
+                //////////////////////////////////////////////////////////////////
+                //---タグツリーグループのスクロール
+                this.flowLayoutPanel_body.VerticalScroll.Visible = true;
+                this.flowLayoutPanel_input.VerticalScroll.Visible = true;
+                this.flowLayoutPanel_head.VerticalScroll.Visible = true;
+                //---
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(button_html, "全体");
+                tt.SetToolTip(button_head1, "<head>部分");
+                tt.SetToolTip(button_body1, "<body>部分");
 
-            //////////////////////////////////////////////////////////////////
+                //////////////////////////////////////////////////////////////////
 
-            MessageBox.Show("まず新規作成でファイルを作成するか\n開くボタンでファイルを開いてください\n" +
-                            "ファイルはデスクトップ上に作成されます");
-            ListViewItem lvi = new ListViewItem();
-            
-            lvi.Text = "見出し";
-            lvi.ImageIndex = 0;
-            partsList.Items.Add(lvi);
+                MessageBox.Show("まず新規作成でファイルを作成するか\n開くボタンでファイルを開いてください\n" +
+                                "ファイルはデスクトップ上に作成されます");
+                ListViewItem lvi = new ListViewItem();
 
-            lvi = new ListViewItem("テキスト");
-            lvi.ImageIndex = 1;
-            lvi.Name = "parts_Text";
-            partsList.Items.Add(lvi);
+                lvi.Text = "見出し";
+                lvi.ImageIndex = 0;
+                partsList.Items.Add(lvi);
 
-            lvi = new ListViewItem("テキストの強調");
-            lvi.ImageIndex = 2;
-            partsList.Items.Add(lvi);
+                lvi = new ListViewItem("テキスト");
+                lvi.ImageIndex = 1;
+                lvi.Name = "parts_Text";
+                partsList.Items.Add(lvi);
 
-            lvi = new ListViewItem("ハイパーテキスト");
-            lvi.ImageIndex = 3;
-            partsList.Items.Add(lvi);
+                lvi = new ListViewItem("テキストの強調");
+                lvi.ImageIndex = 2;
+                partsList.Items.Add(lvi);
 
-            lvi = new ListViewItem("太字");
-            lvi.ImageIndex = 4;
-            partsList.Items.Add(lvi);
+                lvi = new ListViewItem("ハイパーテキスト");
+                lvi.ImageIndex = 3;
+                partsList.Items.Add(lvi);
 
-            lvi = new ListViewItem("順序のあるリスト");
-            lvi.ImageIndex = 5;
-            partsList.Items.Add(lvi);
+                lvi = new ListViewItem("太字");
+                lvi.ImageIndex = 4;
+                partsList.Items.Add(lvi);
 
-            lvi = new ListViewItem("順序のないリスト");
-            lvi.ImageIndex = 6;
-            partsList.Items.Add(lvi);
+                lvi = new ListViewItem("順序のあるリスト");
+                lvi.ImageIndex = 5;
+                partsList.Items.Add(lvi);
 
-            lvi = new ListViewItem("画像");
-            lvi.ImageIndex = 7;
-            partsList.Items.Add(lvi);
+                lvi = new ListViewItem("順序のないリスト");
+                lvi.ImageIndex = 6;
+                partsList.Items.Add(lvi);
 
-            lvi = new ListViewItem("テーブル");
-            lvi.ImageIndex = 8;
-            partsList.Items.Add(lvi);
-            this.Text = ApplicationName;
+                lvi = new ListViewItem("画像");
+                lvi.ImageIndex = 7;
+                partsList.Items.Add(lvi);
 
-            // 複数行入力を有効化
-            HTMLBOX.Multiline = true;
+                lvi = new ListViewItem("テーブル");
+                lvi.ImageIndex = 8;
+                partsList.Items.Add(lvi);
+                this.Text = ApplicationName;
 
-            // 垂直方向スクロールバー表示を有効化
-            HTMLBOX.ScrollBars = ScrollBars.Vertical;
+                // 複数行入力を有効化
+                HTMLBOX.Multiline = true;
 
-            // フォーム全体にテキストボックスを表示
-            //textBox.Dock = DockStyle.Fill;
+                // 垂直方向スクロールバー表示を有効化
+                HTMLBOX.ScrollBars = ScrollBars.Vertical;
 
-            // 「名前を付けて保存」ダイアログで「ファイル種類」を選択させる
-            SaveFileDialog.Filter = "HTML|*.html|CSS|*.css";
+                // フォーム全体にテキストボックスを表示
+                //textBox.Dock = DockStyle.Fill;
 
-            UpdateStatus("", false);        
+                // 「名前を付けて保存」ダイアログで「ファイル種類」を選択させる
+                SaveFileDialog.Filter = "HTML|*.html|CSS|*.css";
+
+                UpdateStatus("", false);
+            }
+            catch(Exception ex)
+            {
+                OutputErrorLog(ex);
+            }   
         }
 
         private void Start_Visible()
         {
-            SaveAsButton.Visible = true; //名前を付けて保存ボタン
+          
             SaveButton.Visible = true; //上書き保存ボタン
             HTMLBtn.Visible = true; //ソースコード表示ボタン
             partsList.Visible = true; //部品リスト
@@ -202,38 +208,44 @@ namespace WindowsFormsApp1
          */
         public void writer_html(string input, int flag)
         {
-            String destinationPath = get_Path(); //相対パスで指定
-            if (flag == 0) //配列にデータを追加する
+            try
             {
-                text_box[cnt] = input;
-                writer = new System.IO.StreamWriter(destinationPath, false, System.Text.Encoding.UTF8);
-                writer.Write("<DOCTYPE! HTML>\r\n");
-                writer.Write("<HTML>\r\n"); //HTML開始
-                writer.Write("<head>\r\n" + "<title>" + Title.Text + "</title>\r\n</head>\r\n"); //タイトルの定義
-                writer.Write("<body>\r\n");
-                for (int i = 0; i <= cnt; i++)
+                String destinationPath = get_Path(); //相対パスで指定
+                if (flag == 0) //配列にデータを追加する
                 {
-                    if(text_box[i] != "-1")
+                    text_box[cnt] = input;
+                    writer = new System.IO.StreamWriter(destinationPath, false, System.Text.Encoding.UTF8);
+                    writer.Write("<DOCTYPE! HTML>\r\n");
+                    writer.Write("<HTML>\r\n"); //HTML開始
+                    writer.Write("<head>\r\n" + "<title>" + Title.Text + "</title>\r\n</head>\r\n"); //タイトルの定義
+                    writer.Write("<body>\r\n");
+                    for (int i = 0; i <= cnt; i++)
                     {
-                        writer.Write("<div class=\"" + (i + 1) + "\">\r\n" + text_box[i] + "\r\n</div>\r\n"); //HTMLコードを追加する
+                        if (text_box[i] != "-1")
+                        {
+                            writer.Write("<div class=\"" + (i + 1) + "\">\r\n" + text_box[i] + "\r\n</div>\r\n"); //HTMLコードを追加する
+                        }
                     }
+                    writer.Write("</body>\r\n");
+                    writer.Write("</HTML>"); //HTML終了
+                    writer.Close();
                 }
-                writer.Write("</body>\r\n");
-                writer.Write("</HTML>"); //HTML終了
-                writer.Close();
-            }
-            else if (flg == 1) //配列内のデータを初期化
-            {
-                for (int i = 0; i <= cnt; i++)
+                else if (flg == 1) //配列内のデータを初期化
                 {
-                    text_box[cnt] = "";
+                    for (int i = 0; i <= cnt; i++)
+                    {
+                        text_box[cnt] = "";
+                    }
+                    writer = new System.IO.StreamWriter(destinationPath, false, System.Text.Encoding.UTF8);
+                    writer.Write("");
+                    cnt = 0;
+                    writer.Close(); //閉じる
                 }
-                writer = new System.IO.StreamWriter(destinationPath, false, System.Text.Encoding.UTF8);
-                writer.Write("");
-                cnt = 0;
-                writer.Close(); //閉じる
             }
-
+            catch(Exception ex)
+            {
+                OutputErrorLog(ex);
+            }
         }
 
         /*
@@ -262,57 +274,64 @@ namespace WindowsFormsApp1
          */
         private void UpdateStatus(string Name, bool Edited)
         {
-            // ファイル名を保持する
-            this.FileName = Name;
-
-            // 編集状態を保持する
-            this.Edited = Edited;
-
-            // タイトルバー表示名
-            string title = ApplicationName + " - " + this.FileName;
-
-            if (FileName != "")
+            try
             {
-                // タイトルバーにファイル名を表示する
-                this.Text = ApplicationName + " - " + this.FileName;
+                // ファイル名を保持する
+                this.FileName = Name;
+
+                // 編集状態を保持する
+                this.Edited = Edited;
+
+                // タイトルバー表示名
+                string title = ApplicationName + " - " + this.FileName;
+
+                if (FileName != "")
+                {
+                    // タイトルバーにファイル名を表示する
+                    this.Text = ApplicationName + " - " + this.FileName;
+                }
+
+                if (Edited)
+                {
+                    // 編集中があれば「（変更あり）」をタイトル名に付ける
+                    title += "（変更あり）";
+                }
+
+                // タイトルバー表示名を設定する
+                this.Text = title;
+
+                if (FileName == "")
+                {
+                    // ファイル名が未設定
+                    // 「上書き保存」を無効
+                    MenuItemFileSave.Enabled = false;
+                    SaveButton.Enabled = false;
+                }
+                else
+                {
+                    // 「上書き保存」を有効
+                    MenuItemFileSave.Enabled = true;
+                    SaveButton.Enabled = true;
+                }
+
+                if (!Edited)
+                {
+                    // 編集前
+                    // 「名前を付けて保存」を無効
+                    MenuItemFileSaveAs.Enabled = false;
+                    //SaveAsButton.Enabled = false;
+                }
+                else
+                {
+                    // 編集中
+                    // 「名前を付けて保存」を有効
+                    MenuItemFileSaveAs.Enabled = true;
+                   // SaveAsButton.Enabled = true;
+                }
             }
-
-            if (Edited)
+            catch(Exception ex)
             {
-                // 編集中があれば「（変更あり）」をタイトル名に付ける
-                title += "（変更あり）";
-            }
-
-            // タイトルバー表示名を設定する
-            this.Text = title;
-
-            if (FileName == "")
-            {
-                // ファイル名が未設定
-                // 「上書き保存」を無効
-                MenuItemFileSave.Enabled = false;
-                SaveButton.Enabled = false;
-            }
-            else
-            {
-                // 「上書き保存」を有効
-                MenuItemFileSave.Enabled = true;
-                SaveButton.Enabled = true;
-            }
-
-            if (!Edited)
-            {
-                // 編集前
-                // 「名前を付けて保存」を無効
-                MenuItemFileSaveAs.Enabled = false;
-                SaveAsButton.Enabled = false;
-            }
-            else
-            {
-                // 編集中
-                // 「名前を付けて保存」を有効
-                MenuItemFileSaveAs.Enabled = true;
-                SaveAsButton.Enabled = true;
+                OutputErrorLog(ex);
             }
         }
         /*
@@ -320,20 +339,27 @@ namespace WindowsFormsApp1
          */
         private void main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!Edited)
+            try
             {
-                // テキストが「未編集」の場合はそのまま終了
-                return;
+                if (!Edited)
+                {
+                    // テキストが「未編集」の場合はそのまま終了
+                    return;
+                }
+
+                // 終了確認ダイアログを表示
+                bool result = ShowDiscardDialog();
+
+                if (!result)
+                {
+                    // 「はい」以外が選択された場合は
+                    // アプリケーション終了をキャンセルする
+                    e.Cancel = true;
+                }
             }
-
-            // 終了確認ダイアログを表示
-            bool result = ShowDiscardDialog();
-
-            if (!result)
+            catch(Exception ex)
             {
-                // 「はい」以外が選択された場合は
-                // アプリケーション終了をキャンセルする
-                e.Cancel = true;
+                OutputErrorLog(ex);
             }
         }
 
@@ -353,26 +379,33 @@ namespace WindowsFormsApp1
          */
         private void TEXTToHTML(string name)
         {
-            cnt = 0;
-            for (int i = 0; i < text_box.Length; i++)
+            try
             {
-                text_box[i] = "";
-            }
-            var filePath = name + "TEMP" + ".txt"; //HTMLフォルダ内のTEMPファイルをパスに設定
-
-            // csvファイルの読込
-            StreamReader reader = new StreamReader(File.OpenRead(filePath));
-            
-            while (!reader.EndOfStream)
-            {
-                var line = reader.ReadLine();
-                if(line != "")
+                cnt = 0;
+                for (int i = 0; i < text_box.Length; i++)
                 {
-                    text_box[cnt] = line;
-                    cnt++;
+                    text_box[i] = "";
                 }
+                var filePath = name + "TEMP" + ".txt"; //HTMLフォルダ内のTEMPファイルをパスに設定
+
+                // csvファイルの読込
+                StreamReader reader = new StreamReader(File.OpenRead(filePath));
+
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    if (line != "")
+                    {
+                        text_box[cnt] = line;
+                        cnt++;
+                    }
+                }
+                reader.Close();
             }
-            reader.Close();
+            catch(Exception ex)
+            {
+                OutputErrorLog(ex);
+            }
         }
 
         /*
@@ -380,29 +413,10 @@ namespace WindowsFormsApp1
          */
         private void MenuItemFileNew_Click(object sender, EventArgs e)
         {
-            FileName_Parts fnp = new FileName_Parts();
-            if (!Edited)
+            try
             {
-                //テキストボックスの内容をクリア
-                HTMLBOX.Clear();
-                // ファイル名（フルパス）
-                this.FileName = fnp.ShowMiniForm() + ".html";　//ファイル名を指定させる
-
-                //ファイル名保持
-                this.Text = ApplicationName + " - " + this.FileName;
-            }
-            else
-            {
-                // テキストが「編集中」
-                // 終了確認ダイアログを表示
-                bool result = ShowDiscardDialog();
-
-                if (!result)
-                {
-                    // 「OK」ボタン以外がクリックされた場合は処理を中断
-                    return;
-                }
-                else
+                FileName_Parts fnp = new FileName_Parts();
+                if (!Edited)
                 {
                     //テキストボックスの内容をクリア
                     HTMLBOX.Clear();
@@ -412,6 +426,32 @@ namespace WindowsFormsApp1
                     //ファイル名保持
                     this.Text = ApplicationName + " - " + this.FileName;
                 }
+                else
+                {
+                    // テキストが「編集中」
+                    // 終了確認ダイアログを表示
+                    bool result = ShowDiscardDialog();
+
+                    if (!result)
+                    {
+                        // 「OK」ボタン以外がクリックされた場合は処理を中断
+                        return;
+                    }
+                    else
+                    {
+                        //テキストボックスの内容をクリア
+                        HTMLBOX.Clear();
+                        // ファイル名（フルパス）
+                        this.FileName = fnp.ShowMiniForm() + ".html"; //ファイル名を指定させる
+
+                        //ファイル名保持
+                        this.Text = ApplicationName + " - " + this.FileName;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                OutputErrorLog(ex);
             }
         }
 
@@ -626,6 +666,10 @@ namespace WindowsFormsApp1
             MenuItemFileNew_Click(sender, e);
             //title += "（変更あり）";
             Start_Visible();
+            for (int i = 0; i < text_box.Length; i++)
+            {
+                text_box[i] = "";
+            }
             create_new = true;
         }
 
@@ -746,7 +790,7 @@ namespace WindowsFormsApp1
                 
             }
 
-            if (sel == "8")　//画像
+            if (sel == "7")　//画像
             {
                 result = ip.ShowMiniForm();
                 if (result == "-1")
@@ -761,7 +805,7 @@ namespace WindowsFormsApp1
                 }
             }
 
-            if (sel == "6") //順序のあるリスト
+            if (sel == "5") //順序のあるリスト
             {
                 result = op.ShowMiniForm();
                 if (result == "-1")
@@ -777,7 +821,7 @@ namespace WindowsFormsApp1
              
             }
 
-            if (sel == "7") //順序のないリスト
+            if (sel == "6") //順序のないリスト
             {
                 result = up.ShowMiniForm();
                 if (result == "-1")
@@ -824,7 +868,7 @@ namespace WindowsFormsApp1
                 }
             }
 
-            if (sel == "5") //テーブル
+            if (sel == "8") //テーブル
             {
                 result = tbp.ShowMiniForm();
                 if (result == "-1")
@@ -879,7 +923,6 @@ namespace WindowsFormsApp1
                 ItemCount1 = 0;
                 ItemCount2 = 0;
                 dic.Clear();
-                dic2.Clear();
                 OpenedTag.Clear();
                 OpenedName.Clear();
 
@@ -1125,35 +1168,39 @@ namespace WindowsFormsApp1
         {
             return delegate (object sender2, EventArgs e2)
             {
-
                 try
                 {
                     if (flg != 6 && flg != 5 && flg != 7)
                     {   //通常時の処理
-
-
                         switch (getkind)
                         {
                             //プロパティ系
-                            case "h1":
-                                
+                            case "h":
+                                label_pro.Text = "見出しです";
                                 break;
                             case "p":
+                                label_pro.Text = "テキストです";
                                 break;
                             case "em":
+                                label_pro.Text = "強調されて表示します";
                                 break;
-                            case "url":
+                            case "url"://urlの編集がしたい
+                                label_pro.Text = "指定したサイトが開きます";
                                 break;
                             case "b":
-                                //urlの編集がしたい
+                                label_pro.Text = "太字で表示します";
                                 break;
                             case "lo":
+                                label_pro.Text = "順序なしリストです";
                                 break;
                             case "ul":
+                                label_pro.Text = "順序ありリストです";
                                 break;
                             case "img":
+                                label_pro.Text = "指定した画像を表示します";
                                 break;
                             case "table":
+                                label_pro.Text = "テーブルです";
                                 break;
                             default:
                                 break;
@@ -1167,8 +1214,6 @@ namespace WindowsFormsApp1
                     }//flg==6編集時
                     else if (flg == 5)
                     {   //削除ボタン
-
-
                         Control[] controls = Controls.Find(name, true);
                         foreach (Control control in controls)
                         {   //部品の削除処理
@@ -1202,8 +1247,6 @@ namespace WindowsFormsApp1
                             default:
                                 break;
                         }
-
-
                     }//flg==7入れ替え
                 }
                 catch (Exception ex)
@@ -1233,24 +1276,28 @@ namespace WindowsFormsApp1
         //---入れ替え処理メソッド
         private void SwapControls(int x, int y, Control ctrl1, Control ctrl2)
         {
+            try
+            {
                 flowLayoutPanel_body.SuspendLayout();
                 flowLayoutPanel_body.Controls.SetChildIndex(ctrl1, y);
                 flowLayoutPanel_body.Controls.SetChildIndex(ctrl2, x);
                 flowLayoutPanel_body.ResumeLayout();
-            
 
-            //csv用入れ替え
-            x++;
-            y++;
-            var tmp = OpenedTag[x];
-            OpenedTag[x] = OpenedTag[y];
-            OpenedTag[y] = tmp;
-            //csv用入れ替え
-            tmp = OpenedName[x];
-            OpenedName[x] = OpenedName[y];
-            OpenedName[y] = tmp;
-
-
+                //csv用入れ替え
+                x++;
+                y++;
+                var tmp = OpenedTag[x];
+                OpenedTag[x] = OpenedTag[y];
+                OpenedTag[y] = tmp;
+                //csv用入れ替え
+                tmp = OpenedName[x];
+                OpenedName[x] = OpenedName[y];
+                OpenedName[y] = tmp;
+            }
+            catch(Exception ex)
+            {
+                OutputErrorLog(ex);
+            }
         }
         //---
 
@@ -1258,51 +1305,57 @@ namespace WindowsFormsApp1
         //作業ファイルを開いたときの処理
         private void OpenProcess()
         {
-            Title.Text = listTitle[0];
-            int lc = 0;
-            while (lc != listTag.Count)
+            try
             {
-                //読み込んだcsvファイルを元にタグツリーの部品の生成
-                switch (listTag[lc])
+                Title.Text = listTitle[0];
+                int lc = 0;
+                while (lc != listTag.Count)
                 {
-                    //
-                    case "h1":
-                        AddTag(0, listName[lc]);
-                        break;
-                    case "div":
-                        AddTag(1, listName[lc]);
-                        break;
-                    case "table":
-                        AddTag(2, listName[lc]);
-                        break;
-                    case "img":
-                        AddTag(3, listName[lc]);
-                        break;
-                    case "url":
-                        AddTag(4, listName[lc]);
-                        break;
-                    case "textbox":
-                        AddTag(5, listName[lc]);
-                        break;
-                    case "button":
-                        AddTag(6, listName[lc]);
-                        break;
-                    case "nav":
-                        AddTag(7, listName[lc]);
-                        break;
-                    case "input":
-                        AddTag(8, listName[lc]);
-                        break;
-                    case "small":
-                        AddTag(9, listName[lc]);
-                        break;
-                    case "link":
-                        AddTag(10, listName[lc]);
-                        break;
+                    //読み込んだcsvファイルを元にタグツリーの部品の生成
+                    switch (listTag[lc])
+                    {
+                        //
+                        case "h1":
+                            AddTag(0, listName[lc]);
+                            break;
+                        case "div":
+                            AddTag(1, listName[lc]);
+                            break;
+                        case "table":
+                            AddTag(2, listName[lc]);
+                            break;
+                        case "img":
+                            AddTag(3, listName[lc]);
+                            break;
+                        case "url":
+                            AddTag(4, listName[lc]);
+                            break;
+                        case "textbox":
+                            AddTag(5, listName[lc]);
+                            break;
+                        case "button":
+                            AddTag(6, listName[lc]);
+                            break;
+                        case "nav":
+                            AddTag(7, listName[lc]);
+                            break;
+                        case "input":
+                            AddTag(8, listName[lc]);
+                            break;
+                        case "small":
+                            AddTag(9, listName[lc]);
+                            break;
+                        case "link":
+                            AddTag(10, listName[lc]);
+                            break;
+                    }
+                    lc++;
                 }
-                lc++;
             }
-
+            catch(Exception ex)
+            {
+                OutputErrorLog(ex);
+            }
         }
 
         //タグツリーの部品追加処理（通常時）
@@ -1423,7 +1476,6 @@ namespace WindowsFormsApp1
                         flowLayoutPanel_body.Controls.Add(button_ol);
                         dic.Add(button_ol.Name, addBodyCount);
                         addBodyCount++;
-                        dic2.Add("ol_" + addOlCount, button_ol.Name);
                         OpenedTag.Add(addBodyCount, "ol");
                         OpenedName.Add(addBodyCount, button_ol.Name.ToString());
                         button_ol.Click += btnclick(button_ol.Name, "ol", dic[button_ol.Name], addOlCount, button_ol);
@@ -1443,7 +1495,6 @@ namespace WindowsFormsApp1
                         flowLayoutPanel_body.Controls.Add(button_ul);
                         dic.Add(button_ul.Name, addBodyCount);
                         addBodyCount++;
-                        dic2.Add("ul_" + addUlCount, button_ul.Name);
                         OpenedTag.Add(addBodyCount, "ul");
                         OpenedName.Add(addBodyCount, button_ul.Name.ToString());
                         button_ul.Click += btnclick(button_ul.Name, "ul", dic[button_ul.Name], addUlCount, button_ul);
@@ -1614,7 +1665,6 @@ namespace WindowsFormsApp1
                         flowLayoutPanel_body.Controls.Add(button_ol);
                         dic.Add(button_ol.Name, addBodyCount);
                         addBodyCount++;
-                        dic2.Add("ol_" + addOlCount, button_ol.Name);
                         OpenedTag.Add(addBodyCount, "ol");
                         OpenedName.Add(addBodyCount, button_ol.Name.ToString());
                         button_ol.Click += btnclick(button_ol.Name, "ol", dic[button_ol.Name], addOlCount, button_ol);
@@ -1634,7 +1684,6 @@ namespace WindowsFormsApp1
                         flowLayoutPanel_body.Controls.Add(button_ul);
                         dic.Add(button_ul.Name, addBodyCount);
                         addBodyCount++;
-                        dic2.Add("ul_" + addUlCount, button_ul.Name);
                         OpenedTag.Add(addBodyCount, "ul");
                         OpenedName.Add(addBodyCount, button_ul.Name.ToString());
                         button_ul.Click += btnclick(button_ul.Name, "ul", dic[button_ul.Name], addUlCount, button_ul);
@@ -1711,18 +1760,26 @@ namespace WindowsFormsApp1
         //フォルダの存在チェック　なければ作成
         private void CheckFolder()
         {
-            if (File.Exists(FilePath + "\\HTML") == false)
+            try
             {
-                Directory.CreateDirectory(FilePath + "\\HTML");
+                if (File.Exists(FilePath + "\\HTML") == false)
+                {
+                    Directory.CreateDirectory(FilePath + "\\HTML");
+                }
+                if (File.Exists(FilePath + "\\CSV") == false)
+                {
+                    Directory.CreateDirectory(FilePath + "\\CSV");
+                }
+                if (File.Exists(FilePath + "\\log") == false)
+                {
+                    Directory.CreateDirectory(FilePath + "\\log");
+                }
             }
-            if (File.Exists(FilePath + "\\CSV") == false)
+            catch(Exception ex)
             {
-                Directory.CreateDirectory(FilePath + "\\CSV");
+                OutputErrorLog(ex);
             }
-            if (File.Exists(FilePath + "\\log") == false)
-            {
-                Directory.CreateDirectory(FilePath + "\\log");
-            }
+            
         }
 
         //在間くん作成プログラム統合部分-----------------------------------------------

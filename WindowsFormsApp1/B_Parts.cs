@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
 
         private void B_Parts_Load(object sender, EventArgs e)
         {
-
+            TextAdd.KeyDown += new KeyEventHandler(TextAdd_KeyDown);
         }
 
         public string ShowMiniForm()
@@ -49,6 +49,18 @@ namespace WindowsFormsApp1
         {
             TextAdd.Text = "-1";
             Close();
+        }
+
+        private void TextAdd_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                AddConfirm_Click(this, new EventArgs());
+            }
+            if (e.KeyCode == Keys.Escape)
+            {
+                cancel_btn_Click(this, new EventArgs());
+            }
         }
     }
 }
