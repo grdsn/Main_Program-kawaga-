@@ -692,13 +692,17 @@ namespace WindowsFormsApp1
          */
         private void HTMLBtn_Click(object sender, EventArgs e)
         {
-            
+                
                 HTMLBtn.Visible = false;
                 PreviewBtn.Visible = true;
                 webBrowser1.Visible = false;
                 HTMLBOX.Visible = true; //HTMLソースコード用のテキストボックスを有効化
                 //HTMLBtn.Text = "プレビュー表示";
+                if(create_new == true)
+                {
                 HTML_show(); //ソースコードを表示
+            }
+                
                 //HTML_flg = true; //次回クリック時にブラウザ画面にもどる
             
            
