@@ -28,6 +28,7 @@ namespace WindowsFormsApp1
             string sel; //選択した部品の名前を格納
             Boolean create_new = false; //新規作成判定フラグ
             Boolean HTML_flg = false;//ソースコード表示判定用
+
         //定義----------------------------------------------------------------
 
         //在間定義------------------------------------------------------------
@@ -98,6 +99,9 @@ namespace WindowsFormsApp1
          */
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.Left = 180;
+            this.Top = 15;
+            
             try
             {
                 //////////////////////////////////////////////////////////////////
@@ -420,6 +424,8 @@ namespace WindowsFormsApp1
                 {
                     //テキストボックスの内容をクリア
                     HTMLBOX.Clear();
+                    webBrowser1.Navigate("about:blank");
+                    Reset();
                     // ファイル名（フルパス）
                     this.FileName = fnp.ShowMiniForm() + ".html"; //ファイル名を指定させる
 
@@ -441,6 +447,7 @@ namespace WindowsFormsApp1
                     {
                         //テキストボックスの内容をクリア
                         HTMLBOX.Clear();
+                        html_delete();
                         // ファイル名（フルパス）
                         this.FileName = fnp.ShowMiniForm() + ".html"; //ファイル名を指定させる
 
@@ -595,7 +602,7 @@ namespace WindowsFormsApp1
                     return;
                 }
             }
-
+            OpenFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\HTML\\";
             OpenFileDialog.FileName = "";
             if (DialogResult.OK == OpenFileDialog.ShowDialog())
             {
@@ -619,6 +626,7 @@ namespace WindowsFormsApp1
             if (DialogResult.OK == result)
             {
                 // 「OK」
+                html_delete();
                 return true;
             }
             else
@@ -664,6 +672,7 @@ namespace WindowsFormsApp1
         {
             CheckFolder();
             MenuItemFileNew_Click(sender, e);
+            html_delete();
             //title += "（変更あり）";
             Start_Visible();
             for (int i = 0; i < text_box.Length; i++)
@@ -679,13 +688,17 @@ namespace WindowsFormsApp1
          */
         private void HTML_show()
         {
-            
+            try
+            {
                 String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
                 StreamReader st = new StreamReader(destinationPath, Encoding.GetEncoding("UTF-8")); //StreamReaderでファイルの内容を読み込む
                 HTMLBOX.Text = st.ReadToEnd(); //streamReader内のテキストを書き込む
                 st.Close();//終了
-            
-       
+            }
+            catch(Exception e)
+            {
+                
+            }
         }
         /*
          * ソースコード表示ボタン制御(かわが)
@@ -986,7 +999,6 @@ namespace WindowsFormsApp1
                         this.groupHead.Visible = false;
                         this.groupBody.Visible = false;
                         this.button_delete.Visible = false;
-                        this.button_swap.Visible = false;
                         this.groupInput.Visible = false;
                         this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
                         this.label2.BackColor = Color.FromArgb(238, 106, 34);
@@ -998,7 +1010,6 @@ namespace WindowsFormsApp1
                         this.groupHead.Visible = true;
                         this.groupBody.Visible = false;
                         this.button_delete.Visible = false;
-                        this.button_swap.Visible = false;
                         this.groupInput.Visible = false;
                         this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
                         this.label2.BackColor = Color.FromArgb(238, 106, 34);
@@ -1010,7 +1021,6 @@ namespace WindowsFormsApp1
                         this.groupHead.Visible = false;
                         this.groupBody.Visible = true;
                         this.button_delete.Visible = false;
-                        this.button_swap.Visible = false;
                         this.groupInput.Visible = false;
                         this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
                         this.label2.BackColor = Color.FromArgb(238, 106, 34);
@@ -1021,7 +1031,6 @@ namespace WindowsFormsApp1
                     case 5:
 
                         this.button_delete.Visible = true;
-                        this.button_swap.Visible = true;
                         this.group_tag.BackColor = Color.FromName("Brown");
                         this.label2.BackColor = Color.FromName("Brown");
                         contflg = 0;
@@ -1032,12 +1041,10 @@ namespace WindowsFormsApp1
                         if (editflg == 0)
                         {
                             this.button_delete.Visible = true;
-                            this.button_swap.Visible = true;
                         }
                         else
                         {
                             this.button_delete.Visible = false;
-                            this.button_swap.Visible = false;
                         }
                         this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
                         this.label2.BackColor = Color.FromArgb(238, 106, 34);
@@ -1055,7 +1062,6 @@ namespace WindowsFormsApp1
                         this.groupBody.Visible = false;
                         this.groupInput.Visible = false;
                         this.button_delete.Visible = false;
-                        this.button_swap.Visible = false;
                         this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
                         this.label2.BackColor = Color.FromArgb(238, 106, 34);
                         editflg = 0;
@@ -1216,7 +1222,7 @@ namespace WindowsFormsApp1
                         ButtonVisible();
 
                     }//flg==6編集時
-                    else if (flg == 5)
+                    /*else if (flg == 5)
                     {   //削除ボタン
                         Control[] controls = Controls.Find(name, true);
                         foreach (Control control in controls)
@@ -1230,7 +1236,8 @@ namespace WindowsFormsApp1
                         }
 
                     }//flg==5削除
-                    else if (flg == 7)
+                    */
+                    /*else if (flg == 7)
                     {//bodyグループ入れ替え処理
                         switch (contflg)
                         {   //選択回数
@@ -1252,6 +1259,7 @@ namespace WindowsFormsApp1
                                 break;
                         }
                     }//flg==7入れ替え
+                    */
                 }
                 catch (Exception ex)
                 {
@@ -1264,8 +1272,24 @@ namespace WindowsFormsApp1
         //削除ボタン
         private void button_delete_Click_1(object sender, EventArgs e)
         {
-            flg = 5;
-            ButtonVisible();
+            try
+            {
+                flg = 5;
+                int count = flowLayoutPanel_body.Controls.Count;
+                if (count != 0)
+                {
+                    dic.Remove(OpenedName[count]);
+                    OpenedName.Remove(count);
+                    OpenedTag.Remove(count);
+                    flowLayoutPanel_body.Controls.RemoveAt(count - 1);
+                    reset_cls();
+                }
+            }
+            catch(Exception ex)
+            {
+                OutputErrorLog(ex);
+            }
+            
         }
         //---
 
@@ -1278,7 +1302,7 @@ namespace WindowsFormsApp1
         //---
 
         //---入れ替え処理メソッド
-        private void SwapControls(int x, int y, Control ctrl1, Control ctrl2)
+        /*private void SwapControls(int x, int y, Control ctrl1, Control ctrl2)
         {
             try
             {
@@ -1304,7 +1328,7 @@ namespace WindowsFormsApp1
             }
         }
         //---
-
+        */
         
         //作業ファイルを開いたときの処理
         private void OpenProcess()
@@ -1319,38 +1343,32 @@ namespace WindowsFormsApp1
                     switch (listTag[lc])
                     {
                         //
-                        case "h1":
+                        case "h":
                             AddTag(0, listName[lc]);
                             break;
-                        case "div":
+                        case "p":
                             AddTag(1, listName[lc]);
                             break;
-                        case "table":
+                        case "em":
                             AddTag(2, listName[lc]);
                             break;
-                        case "img":
+                        case "url":
                             AddTag(3, listName[lc]);
                             break;
-                        case "url":
+                        case "b":
                             AddTag(4, listName[lc]);
                             break;
-                        case "textbox":
+                        case "ol":
                             AddTag(5, listName[lc]);
                             break;
-                        case "button":
+                        case "ul":
                             AddTag(6, listName[lc]);
                             break;
-                        case "nav":
+                        case "img":
                             AddTag(7, listName[lc]);
                             break;
-                        case "input":
+                        case "table":
                             AddTag(8, listName[lc]);
-                            break;
-                        case "small":
-                            AddTag(9, listName[lc]);
-                            break;
-                        case "link":
-                            AddTag(10, listName[lc]);
                             break;
                     }
                     lc++;
@@ -1379,15 +1397,15 @@ namespace WindowsFormsApp1
                         button_h.BackColor = Color.FromArgb(211, 214, 195);                              //ボタンの背景色の設定
                         button_h.FlatStyle = FlatStyle.Flat;                                           //枠のスタイルの設定
                         button_h.FlatAppearance.BorderSize = 0;                                        //枠なしに設定
-                        button_h.Text = "<H1>";                                                        //ボタンのテキスト
+                        button_h.Text = "<H>";                                                        //ボタンのテキスト
                         button_h.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);                  //フォントの設定
-                        button_h.Name = "h1_" + addHCount;                                            //ボタンのNameの設定
+                        button_h.Name = "h_" + addHCount;                                            //ボタンのNameの設定
                         flowLayoutPanel_body.Controls.Add(button_h);
                         addBodyCount++;                                                                 //BODYの個数のカウント
                         dic.Add(button_h.Name, addBodyCount);
-                        OpenedTag.Add(addBodyCount, "h1");
+                        OpenedTag.Add(addBodyCount, "h");
                         OpenedName.Add(addBodyCount, button_h.Name.ToString());
-                        button_h.Click += btnclick(button_h.Name, "h1", dic[button_h.Name], addHCount, button_h);                  //追加したボタンにイベントを追加
+                        button_h.Click += btnclick(button_h.Name, "h", dic[button_h.Name], addHCount, button_h);                  //追加したボタンにイベントを追加
                         break;
                     //テキスト
                     case 1:
@@ -1829,6 +1847,22 @@ namespace WindowsFormsApp1
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void html_delete()
+        {
+            //CSVが保存されていない場合の処理
+            if (File.Exists(this.FilePath + "\\CSV\\" + FileName) == false)
+            {
+                webBrowser1.Navigate("about:blank");
+                Reset();
+                //File.Delete(this.FilePath + "\\HTML\\" + FileName);          //新規作成したHTMLを破棄する
+            }
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
         }

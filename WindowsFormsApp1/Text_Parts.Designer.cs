@@ -72,6 +72,7 @@
             this.TextAdd.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.TextAdd.Size = new System.Drawing.Size(450, 179);
             this.TextAdd.TabIndex = 6;
+            this.TextAdd.TextChanged += new System.EventHandler(this.TextAdd_TextChanged);
             // 
             // cancel_btn
             // 

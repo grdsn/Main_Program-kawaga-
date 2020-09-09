@@ -73,7 +73,6 @@
             this.flowLayoutPanel_head = new System.Windows.Forms.FlowLayoutPanel();
             this.button_head1 = new System.Windows.Forms.Button();
             this.group_tag = new System.Windows.Forms.GroupBox();
-            this.button_swap = new System.Windows.Forms.Button();
             this.button_edit = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.button_delete = new System.Windows.Forms.Button();
@@ -202,6 +201,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(1302, 24);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // ファイルToolStripMenuItem
             // 
@@ -478,6 +478,7 @@
             this.label_pro.Size = new System.Drawing.Size(35, 12);
             this.label_pro.TabIndex = 9;
             this.label_pro.Text = "label3";
+            this.label_pro.Visible = false;
             // 
             // button_title
             // 
@@ -524,7 +525,6 @@
             this.group_tag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.group_tag.Controls.Add(this.groupHead);
             this.group_tag.Controls.Add(this.groupBody);
-            this.group_tag.Controls.Add(this.button_swap);
             this.group_tag.Controls.Add(this.button_edit);
             this.group_tag.Controls.Add(this.label2);
             this.group_tag.Controls.Add(this.button_delete);
@@ -538,21 +538,6 @@
             this.group_tag.Size = new System.Drawing.Size(355, 546);
             this.group_tag.TabIndex = 29;
             this.group_tag.TabStop = false;
-            // 
-            // button_swap
-            // 
-            this.button_swap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(214)))), ((int)(((byte)(195)))));
-            this.button_swap.FlatAppearance.BorderSize = 0;
-            this.button_swap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_swap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(92)))), ((int)(((byte)(79)))));
-            this.button_swap.Location = new System.Drawing.Point(193, 9);
-            this.button_swap.Name = "button_swap";
-            this.button_swap.Size = new System.Drawing.Size(75, 23);
-            this.button_swap.TabIndex = 4;
-            this.button_swap.Text = "並び替え";
-            this.button_swap.UseVisualStyleBackColor = false;
-            this.button_swap.Visible = false;
-            this.button_swap.Click += new System.EventHandler(this.button_swap_Click_1);
             // 
             // button_edit
             // 
@@ -729,7 +714,6 @@
         private System.Windows.Forms.Button button_title;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_head;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_body;
-        private System.Windows.Forms.Button button_swap;
         private System.Windows.Forms.Button button_edit;
         private System.Windows.Forms.GroupBox groupInput;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_input;

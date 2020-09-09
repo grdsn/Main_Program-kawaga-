@@ -97,5 +97,10 @@ namespace WindowsFormsApp1
                 cancel_btn_Click(this, new EventArgs());
             }
         }
+
+        private void UL_Parts_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

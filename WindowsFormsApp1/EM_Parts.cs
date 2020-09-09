@@ -20,6 +20,7 @@ namespace WindowsFormsApp1
         private void EM_Parts_Load(object sender, EventArgs e)
         {
             TextAdd.KeyDown += new KeyEventHandler(TextAdd_KeyDown);
+            this.ActiveControl = this.TextAdd;
         }
 
         public string ShowMiniForm()

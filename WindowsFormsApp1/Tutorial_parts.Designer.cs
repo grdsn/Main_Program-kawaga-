@@ -40,12 +40,15 @@
             this.mnI05 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnI06 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnI07 = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblBar = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(436, 179);
+            this.btnNext.Location = new System.Drawing.Point(457, 152);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(88, 46);
             this.btnNext.TabIndex = 6;
@@ -146,11 +149,45 @@
             this.mnI07.Text = "7.終了";
             this.mnI07.Click += new System.EventHandler(this.mnI07_Click);
             // 
+            // lblBar
+            // 
+            this.lblBar.AutoSize = true;
+            this.lblBar.Font = new System.Drawing.Font("メイリオ", 12F);
+            this.lblBar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblBar.Location = new System.Drawing.Point(114, 204);
+            this.lblBar.Name = "lblBar";
+            this.lblBar.Size = new System.Drawing.Size(37, 24);
+            this.lblBar.TabIndex = 13;
+            this.lblBar.Text = "0%";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("メイリオ", 12F);
+            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label1.Location = new System.Drawing.Point(14, 204);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 24);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "進行状況:";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.progressBar1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.progressBar1.Location = new System.Drawing.Point(157, 204);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(388, 24);
+            this.progressBar1.TabIndex = 11;
+            // 
             // Tutorial_Parts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(555, 237);
+            this.Controls.Add(this.lblBar);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.labelText);
             this.Controls.Add(this.btnNext);
@@ -159,6 +196,7 @@
             this.Name = "Tutorial_Parts";
             this.Text = "Tutorial";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Tutorial_Parts_FormClosing);
+            this.Load += new System.EventHandler(this.Tutorial_Parts_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -180,5 +218,8 @@
         private System.Windows.Forms.ToolStripMenuItem mnI05;
         private System.Windows.Forms.ToolStripMenuItem mnI06;
         private System.Windows.Forms.ToolStripMenuItem mnI07;
+        private System.Windows.Forms.Label lblBar;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.ProgressBar progressBar1;
     }
 }

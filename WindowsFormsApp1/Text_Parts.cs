@@ -27,6 +27,7 @@ namespace WindowsFormsApp1
             TextAdd.Visible = true;
 
             TextAdd.KeyDown += new KeyEventHandler(TextAdd_KeyDown);
+            this.ActiveControl = this.TextAdd;
         }
 
         
@@ -72,6 +73,11 @@ namespace WindowsFormsApp1
             {
                 cancel_btn_Click(this, new EventArgs());
             }
+        }
+
+        private void TextAdd_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

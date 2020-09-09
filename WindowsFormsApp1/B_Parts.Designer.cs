@@ -62,6 +62,7 @@
             this.TextAdd.Name = "TextAdd";
             this.TextAdd.Size = new System.Drawing.Size(410, 28);
             this.TextAdd.TabIndex = 8;
+            this.TextAdd.TextChanged += new System.EventHandler(this.TextAdd_TextChanged);
             // 
             // parts_name
             // 

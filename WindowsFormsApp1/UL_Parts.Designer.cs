@@ -56,6 +56,7 @@
             // 
             // UL_box
             // 
+            this.UL_box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.UL_box.FormattingEnabled = true;
             this.UL_box.ItemHeight = 12;
             this.UL_box.Location = new System.Drawing.Point(18, 61);
@@ -117,6 +118,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "UL_Parts";
             this.Text = "UL_Parts";
+            this.Load += new System.EventHandler(this.UL_Parts_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

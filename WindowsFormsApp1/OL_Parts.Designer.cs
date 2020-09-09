@@ -68,6 +68,7 @@
             // 
             // OL_box
             // 
+            this.OL_box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.OL_box.FormattingEnabled = true;
             this.OL_box.ItemHeight = 12;
             this.OL_box.Location = new System.Drawing.Point(14, 61);

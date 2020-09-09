@@ -62,5 +62,10 @@ namespace WindowsFormsApp1
                 cancel_btn_Click(this, new EventArgs());
             }
         }
+
+        private void TextAdd_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
