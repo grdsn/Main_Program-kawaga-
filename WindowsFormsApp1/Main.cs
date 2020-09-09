@@ -169,7 +169,7 @@ namespace WindowsFormsApp1
                 //textBox.Dock = DockStyle.Fill;
 
                 // 「名前を付けて保存」ダイアログで「ファイル種類」を選択させる
-                SaveFileDialog.Filter = "HTML|*.html|CSS|*.css";
+                SaveFileDialog.Filter = "HTML|*.html";
 
                 UpdateStatus("", false);
             }
@@ -471,7 +471,6 @@ namespace WindowsFormsApp1
             HTMLBOX.Text = System.IO.File.ReadAllText(value, Encoding.GetEncoding("UTF-8"));
             //this.FileName = value;
             UpdateStatus(FileName, false);
-            MessageBox.Show(value);
             Browser_show();
 
         }
@@ -544,11 +543,12 @@ namespace WindowsFormsApp1
             try
             {
                 //UTF-8で保存
-                System.IO.File.WriteAllText(value, HTMLBOX.Text, Encoding.GetEncoding("UTF-8"));
+                System.IO.File.WriteAllText(FilePath  + "\\HTML" + value, HTMLBOX.Text, Encoding.GetEncoding("UTF-8"));
 
                 // ファイル名を保持する
                 this.FileName = value;
                 String path = Directory.GetCurrentDirectory();
+                String textTitle = Title.Text;
                 //csv---
                 var filePath = path + "\\CSV\\" + value + ".csv";   //パスは変える (作業ファイル名.csv)
                                                                     // csvに出力するデータ
@@ -566,7 +566,7 @@ namespace WindowsFormsApp1
                 {
                     if (i == 0)
                     {
-                        file.WriteLine(string.Format("{0},{1},{2}", csv1[i], csv2[i], Title.Text)); //1-3にタイトルのテキストボックスの値を保存
+                        file.WriteLine(string.Format("{0},{1},{2}", csv1[i], csv2[i], textTitle)); //1-3にタイトルのテキストボックスの値を保存
                     }
                     else
                     {
@@ -604,6 +604,7 @@ namespace WindowsFormsApp1
             }
             OpenFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\HTML\\";
             OpenFileDialog.FileName = "";
+            OpenFileDialog.Filter = "HTMLファイル | *.html";
             if (DialogResult.OK == OpenFileDialog.ShowDialog())
             {
                 // 「開く」ボタンがクリックされたとき
@@ -975,6 +976,7 @@ namespace WindowsFormsApp1
                 //作業状態系
                 listTag.Clear();
                 listName.Clear();
+                listTitle.Clear();
             }
             catch (Exception ex)
             {
@@ -1858,7 +1860,7 @@ namespace WindowsFormsApp1
             {
                 webBrowser1.Navigate("about:blank");
                 Reset();
-                //File.Delete(this.FilePath + "\\HTML\\" + FileName);          //新規作成したHTMLを破棄する
+                File.Delete(this.FilePath+ FileName);          //新規作成したHTMLを破棄する
             }
         }
 
