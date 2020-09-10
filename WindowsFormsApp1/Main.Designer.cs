@@ -40,17 +40,6 @@
             this.Parts_Visible = new System.Windows.Forms.TextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemFileNew = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemFileOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.MenuItemFileSave = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemFileSaveAs = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemFileExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.BackText = new System.Windows.Forms.ToolStripMenuItem();
             this.HTMLBOX = new System.Windows.Forms.TextBox();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -66,9 +55,9 @@
             this.flowLayoutPanel_input = new System.Windows.Forms.FlowLayoutPanel();
             this.button_Input = new System.Windows.Forms.Button();
             this.groupBody = new System.Windows.Forms.GroupBox();
+            this.label_pro = new System.Windows.Forms.Label();
             this.flowLayoutPanel_body = new System.Windows.Forms.FlowLayoutPanel();
             this.groupHead = new System.Windows.Forms.GroupBox();
-            this.label_pro = new System.Windows.Forms.Label();
             this.button_title = new System.Windows.Forms.Button();
             this.flowLayoutPanel_head = new System.Windows.Forms.FlowLayoutPanel();
             this.button_head1 = new System.Windows.Forms.Button();
@@ -82,7 +71,6 @@
             oepn_Btn = new System.Windows.Forms.Button();
             this.PartsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupInput.SuspendLayout();
             this.groupBody.SuspendLayout();
@@ -193,85 +181,6 @@
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Size = new System.Drawing.Size(892, 783);
             this.webBrowser1.TabIndex = 1;
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ファイルToolStripMenuItem,
-            this.BackText});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1302, 24);
-            this.menuStrip1.TabIndex = 13;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // ファイルToolStripMenuItem
-            // 
-            this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemFileNew,
-            this.MenuItemFileOpen,
-            this.toolStripSeparator1,
-            this.MenuItemFileSave,
-            this.MenuItemFileSaveAs,
-            this.toolStripSeparator2,
-            this.終了XToolStripMenuItem});
-            this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
-            this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.ファイルToolStripMenuItem.Text = "ファイル";
-            this.ファイルToolStripMenuItem.Visible = false;
-            // 
-            // MenuItemFileNew
-            // 
-            this.MenuItemFileNew.Name = "MenuItemFileNew";
-            this.MenuItemFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.MenuItemFileNew.Size = new System.Drawing.Size(181, 22);
-            this.MenuItemFileNew.Text = "新規作成(&N)";
-            this.MenuItemFileNew.Click += new System.EventHandler(this.MenuItemFileNew_Click);
-            // 
-            // MenuItemFileOpen
-            // 
-            this.MenuItemFileOpen.Name = "MenuItemFileOpen";
-            this.MenuItemFileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.MenuItemFileOpen.Size = new System.Drawing.Size(181, 22);
-            this.MenuItemFileOpen.Text = "開く(&O)";
-            this.MenuItemFileOpen.Click += new System.EventHandler(this.MenuItemFileOpen_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
-            // 
-            // MenuItemFileSave
-            // 
-            this.MenuItemFileSave.Name = "MenuItemFileSave";
-            this.MenuItemFileSave.Size = new System.Drawing.Size(181, 22);
-            this.MenuItemFileSave.Text = "上書き保存(&S)";
-            // 
-            // MenuItemFileSaveAs
-            // 
-            this.MenuItemFileSaveAs.Name = "MenuItemFileSaveAs";
-            this.MenuItemFileSaveAs.Size = new System.Drawing.Size(181, 22);
-            this.MenuItemFileSaveAs.Text = "名前を付けて保存(&A)";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
-            // 
-            // 終了XToolStripMenuItem
-            // 
-            this.終了XToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuItemFileExitToolStripMenuItem});
-            this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
-            this.終了XToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.終了XToolStripMenuItem.Text = "終了(&X)";
-            // 
-            // menuItemFileExitToolStripMenuItem
-            // 
-            this.menuItemFileExitToolStripMenuItem.Name = "menuItemFileExitToolStripMenuItem";
-            this.menuItemFileExitToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.menuItemFileExitToolStripMenuItem.Text = "MenuItemFileExit";
-            this.menuItemFileExitToolStripMenuItem.Click += new System.EventHandler(this.menuItemFileExitToolStripMenuItem_Click);
             // 
             // HTMLBOX
             // 
@@ -444,6 +353,16 @@
             this.groupBody.TabStop = false;
             this.groupBody.Visible = false;
             // 
+            // label_pro
+            // 
+            this.label_pro.AutoSize = true;
+            this.label_pro.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label_pro.Location = new System.Drawing.Point(167, 15);
+            this.label_pro.Name = "label_pro";
+            this.label_pro.Size = new System.Drawing.Size(0, 16);
+            this.label_pro.TabIndex = 9;
+            this.label_pro.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // flowLayoutPanel_body
             // 
             this.flowLayoutPanel_body.AutoScroll = true;
@@ -464,16 +383,6 @@
             this.groupHead.TabIndex = 28;
             this.groupHead.TabStop = false;
             this.groupHead.Visible = false;
-            // 
-            // label_pro
-            // 
-            this.label_pro.AutoSize = true;
-            this.label_pro.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label_pro.Location = new System.Drawing.Point(167, 15);
-            this.label_pro.Name = "label_pro";
-            this.label_pro.Size = new System.Drawing.Size(0, 16);
-            this.label_pro.TabIndex = 9;
-            this.label_pro.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // button_title
             // 
@@ -641,12 +550,10 @@
             this.Controls.Add(this.PartsBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Title);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.HTMLBtn);
             this.Controls.Add(this.PreviewBtn);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MainMenuStrip = this.menuStrip1;
             this.MaximumSize = new System.Drawing.Size(1318, 982);
             this.MinimumSize = new System.Drawing.Size(1318, 982);
             this.Name = "main";
@@ -656,8 +563,6 @@
             this.PartsBox.ResumeLayout(false);
             this.PartsBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupInput.ResumeLayout(false);
@@ -677,21 +582,10 @@
         private System.Windows.Forms.Button NewButton;
         private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem ファイルToolStripMenuItem;
         private System.Windows.Forms.Button HTMLBtn;
         private System.Windows.Forms.TextBox HTMLBOX;
         private System.Windows.Forms.ListView partsList;
-        private System.Windows.Forms.ToolStripMenuItem MenuItemFileOpen;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.ToolStripMenuItem MenuItemFileNew;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem MenuItemFileSave;
-        private System.Windows.Forms.ToolStripMenuItem MenuItemFileSaveAs;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem 終了XToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem BackText;
-        private System.Windows.Forms.ToolStripMenuItem menuItemFileExitToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog SaveFileDialog;
         private System.Windows.Forms.OpenFileDialog OpenFileDialog;
         private System.Windows.Forms.Button Tutorial_btn;

@@ -21,7 +21,7 @@ namespace WindowsFormsApp1
             private string FileName = ""; //ファイル名(フルパス)
             string result;//結果格納
             private bool Edited = false;
-            string[] text_box = new string[10000]; //HTMLタグ格納用
+            string[] text_box = new string[1]; //HTMLタグ格納用
             int cnt = 0; //タグ数カウント
             Boolean create_new = false; //新規作成判定フラグ
 
@@ -95,7 +95,6 @@ namespace WindowsFormsApp1
          */
         private void Form1_Load(object sender, EventArgs e)
         {
-            menuStrip1.Visible = false;
             this.Left = 180;
             this.Top = 15;
             
@@ -211,6 +210,7 @@ namespace WindowsFormsApp1
                 String destinationPath = get_Path(); //相対パスで指定
                 if (flag == 0) //配列にデータを追加する
                 {
+                    Array.Resize(ref text_box, cnt+1);
                     text_box[cnt] = input;
                     writer = new System.IO.StreamWriter(destinationPath, false, System.Text.Encoding.UTF8);
                     writer.Write("<DOCTYPE! HTML>\r\n");
@@ -221,7 +221,10 @@ namespace WindowsFormsApp1
                     {
                         if (text_box[i] != "-1")
                         {
-                            writer.Write("<div class=\"" + (i + 1) + "\">\r\n" + text_box[i] + "\r\n</div>\r\n"); //HTMLコードを追加する
+                            if(text_box[i] != "")//削除処理じゃなかったら記述
+                            {
+                                writer.Write("<div class=\"" + (i + 1) + "\">\r\n" + text_box[i] + "\r\n</div>\r\n"); //HTMLコードを追加する
+                            }//削除処理の場合記述しない
                         }
                     }
                     writer.Write("</body>\r\n");
@@ -230,10 +233,11 @@ namespace WindowsFormsApp1
                 }
                 else if (flg == 1) //配列内のデータを初期化
                 {
-                    for (int i = 0; i <= cnt; i++)
-                    {
-                        text_box[cnt] = "";
-                    }
+                    Array.Resize(ref text_box, 0);
+                    //for (int i = 0; i <= cnt; i++)
+                    //{
+                    //    text_box[cnt] = "";
+                    //}
                     writer = new System.IO.StreamWriter(destinationPath, false, System.Text.Encoding.UTF8);
                     writer.Write("");
                     cnt = 0;
@@ -259,13 +263,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        /*
-         *　終了がクリックされたとき 
-         */
-        private void menuItemFileExitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        
 
         /*
          * アプリケーションを更新する
@@ -302,29 +300,12 @@ namespace WindowsFormsApp1
                 {
                     // ファイル名が未設定
                     // 「上書き保存」を無効
-                    MenuItemFileSave.Enabled = false;
                     SaveButton.Enabled = false;
                 }
                 else
                 {
                     // 「上書き保存」を有効
-                    MenuItemFileSave.Enabled = true;
                     SaveButton.Enabled = true;
-                }
-
-                if (Edited == false)
-                {
-                    // 編集前
-                    // 「名前を付けて保存」を無効
-                    MenuItemFileSaveAs.Enabled = false;
-                    //SaveAsButton.Enabled = false;
-                }
-                else
-                {
-                    // 編集中
-                    // 「名前を付けて保存」を有効
-                    MenuItemFileSaveAs.Enabled = true;
-                   // SaveAsButton.Enabled = true;
                 }
             }
             catch(Exception ex)
@@ -339,7 +320,7 @@ namespace WindowsFormsApp1
         {
             try
             {
-                if (!Edited)
+                if (Edited == false)
                 {
                     // テキストが「未編集」の場合はそのまま終了
                     return;
@@ -405,56 +386,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        /*
-         * ファイル新規作成
-         */
-        private void MenuItemFileNew_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                FileName_Parts fnp = new FileName_Parts();
-                if (!Edited)
-                {
-                    //テキストボックスの内容をクリア
-                    HTMLBOX.Clear();
-                    webBrowser1.Navigate("about:blank");
-                    Reset();
-                    // ファイル名（フルパス）
-                    this.FileName = fnp.ShowMiniForm() + ".html"; //ファイル名を指定させる
-
-                    //ファイル名保持
-                    this.Text = ApplicationName + " - " + this.FileName;
-                }
-                else
-                {
-                    // テキストが「編集中」
-                    // 終了確認ダイアログを表示
-                    bool result = ShowDiscardDialog();
-
-                    if (!result)
-                    {
-                        // 「OK」ボタン以外がクリックされた場合は処理を中断
-                        return;
-                    }
-                    else
-                    {
-                        //テキストボックスの内容をクリア
-                        HTMLBOX.Clear();
-                        html_delete();
-                        // ファイル名（フルパス）
-                        this.FileName = fnp.ShowMiniForm() + ".html"; //ファイル名を指定させる
-
-                        //ファイル名保持
-                        this.Text = ApplicationName + " - " + this.FileName;
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                OutputErrorLog(ex);
-            }
-        }
-
+        
         /*
          *テキストファイルの内容をテキストボックスに格納する 
          */
@@ -508,30 +440,7 @@ namespace WindowsFormsApp1
             
         }
 
-        private void SaveAsButton_Click(object sender, EventArgs e)
-        {
-            HTML_show();
-            MenuItemSaveAs_Click(sender, e);
-        }
-
-        private void MenuItemSaveAs_Click(object sender, EventArgs e)
-        {
-            // ファイル名を初期入力させておく
-            SaveFileDialog.FileName = System.IO.Path.GetFileName(this.FileName);
-
-            if (DialogResult.OK == SaveFileDialog.ShowDialog())
-            {
-                // 「開く」ボタンがクリックされたとき
-                SaveFile(SaveFileDialog.FileName);
-            }
-        }
-
-        private void MenuItemSave_Click(object sender, EventArgs e)
-        {
-            //ファイルを保存する
-            SaveFile(this.FileName);
-        }
-
+        
         private void SaveFile(string value)
         {
             try
@@ -545,12 +454,13 @@ namespace WindowsFormsApp1
                 String textTitle = Title.Text;
                 //csv---
                 var filePath = path + "\\CSV\\" + value + ".csv";   //パスは変える (作業ファイル名.csv)
-                                                                    // csvに出力するデータ
+                
+                // csvに出力するデータ
                 for (int i = 0; i < OpenedTag.Count; i++)
                 {
                     Array.Resize(ref csv1, csv1.Length + 1);
                     Array.Resize(ref csv2, csv2.Length + 1);
-
+                    
                     csv1[i] = OpenedTag[i + 1];
                     csv2[i] = OpenedName[i + 1];
                 }
@@ -567,6 +477,9 @@ namespace WindowsFormsApp1
                         file.WriteLine(string.Format("{0},{1}", csv1[i], csv2[i])); // データ部出力
                     }
                 }
+                //書き込み後、編集続行の為初期化
+                Array.Resize(ref csv1, 0);
+                Array.Resize(ref csv2, 0);
                 file.Close();
                 //---csv
                 UpdateStatus(FileName, false);
@@ -634,11 +547,7 @@ namespace WindowsFormsApp1
         /*
          *  最下部のHTMLタグを削除する(かわが)
          */
-        private void Reset_Btn_Click(object sender, EventArgs e)
-        {
-            reset_cls();
-
-        }
+        
         private void reset_cls()
             {
                 if (cnt > 0)
@@ -664,18 +573,64 @@ namespace WindowsFormsApp1
         private void NewButton_Click(object sender, EventArgs e)
         {
             CheckFolder();
-            MenuItemFileNew_Click(sender, e);
+            CreateNew();
             html_delete();
-            //title += "（変更あり）";
             Start_Visible();
-            for (int i = 0; i < text_box.Length; i++)
-            {
-                text_box[i] = "";
-            }
+            Array.Resize(ref text_box, 0);
+            //for (int i = 0; i < text_box.Length; i++)
+            //{
+            //    text_box[i] = "";
+            //}
             create_new = true;
             
         }
+        //新規追加メソッド
+        private void CreateNew()
+        {
+            try
+            {
+                FileName_Parts fnp = new FileName_Parts();
+                if (Edited == false)
+                {
+                    //テキストボックスの内容をクリア
+                    HTMLBOX.Clear();
+                    webBrowser1.Navigate("about:blank");
+                    Reset();
+                    // ファイル名（フルパス）
+                    this.FileName = fnp.ShowMiniForm() + ".html"; //ファイル名を指定させる
 
+                    //ファイル名保持
+                    this.Text = ApplicationName + " - " + this.FileName;
+                }
+                else
+                {
+                    // テキストが「編集中」
+                    // 終了確認ダイアログを表示
+                    bool result = ShowDiscardDialog();
+
+                    if (result == false)
+                    {
+                        // 「OK」ボタン以外がクリックされた場合は処理を中断
+                        return;
+                    }
+                    else
+                    {
+                        //テキストボックスの内容をクリア
+                        HTMLBOX.Clear();
+                        html_delete();
+                        // ファイル名（フルパス）
+                        this.FileName = fnp.ShowMiniForm() + ".html"; //ファイル名を指定させる
+
+                        //ファイル名保持
+                        this.Text = ApplicationName + " - " + this.FileName;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                OutputErrorLog(ex);
+            }
+        }
 
         /*
          * HTMLソースコードを表示する(かわが)
@@ -1241,9 +1196,9 @@ namespace WindowsFormsApp1
                 {
                     flowLayoutPanel_body.Controls.RemoveAt(count - 1);
                     reset_cls();
-                    dic.Remove(OpenedName[count-1]);
-                    OpenedName.Remove(count-1);
-                    OpenedTag.Remove(count-1);
+                    dic.Remove(OpenedName[count]);
+                    OpenedName.Remove(count);
+                    OpenedTag.Remove(count);
                     UpdateStatus(FileName, true);
                 }
             }
@@ -1301,6 +1256,9 @@ namespace WindowsFormsApp1
                     }
                     lc++;
                 }
+                listName.Clear();
+                listTag.Clear();
+                listTitle.Clear();
             }
             catch(Exception ex)
             {
@@ -1365,13 +1323,13 @@ namespace WindowsFormsApp1
                         button_em.FlatAppearance.BorderSize = 0;
                         button_em.Text = "<EM>";
                         button_em.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                        button_em.Name = "em_" + addTableCount;
+                        button_em.Name = "em_" + addEmCount;
                         flowLayoutPanel_body.Controls.Add(button_em);
                         addBodyCount++;
                         dic.Add(button_em.Name, addBodyCount);
                         OpenedTag.Add(addBodyCount, "em");
                         OpenedName.Add(addBodyCount, button_em.Name.ToString());
-                        button_em.Click += btnclick(button_em.Name, "em", dic[button_em.Name], addTableCount, button_em);
+                        button_em.Click += btnclick(button_em.Name, "em", dic[button_em.Name], addEmCount, button_em);
                         break;
                     //ハイパーテキスト
                     case 3:
@@ -1384,13 +1342,13 @@ namespace WindowsFormsApp1
                         button_url.FlatAppearance.BorderSize = 0;
                         button_url.Text = "<URL>";
                         button_url.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                        button_url.Name = "url_" + addImgCount;
+                        button_url.Name = "url_" + addUrlCount;
                         flowLayoutPanel_body.Controls.Add(button_url);
                         addBodyCount++;
                         dic.Add(button_url.Name, addBodyCount);
                         OpenedTag.Add(addBodyCount, "url");
                         OpenedName.Add(addBodyCount, button_url.Name.ToString());
-                        button_url.Click += btnclick(button_url.Name, "url", dic[button_url.Name], addImgCount, button_url);
+                        button_url.Click += btnclick(button_url.Name, "url", dic[button_url.Name], addUrlCount, button_url);
                         break;
                     //太字
                     case 4:
@@ -1471,6 +1429,7 @@ namespace WindowsFormsApp1
 
                     //テーブル
                     case 8:
+                        addTableCount++;
                         Button button_table = new Button();
                         button_table.Size = new Size(122, 54);
                         button_table.ForeColor = Color.FromArgb(90, 92, 79);
