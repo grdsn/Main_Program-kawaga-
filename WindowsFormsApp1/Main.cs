@@ -98,6 +98,7 @@ namespace WindowsFormsApp1
          */
         private void Form1_Load(object sender, EventArgs e)
         {
+            menuStrip1.Visible = false;
             this.Left = 180;
             this.Top = 15;
             
@@ -185,6 +186,15 @@ namespace WindowsFormsApp1
             HTMLBtn.Visible = true; //ソースコード表示ボタン
             partsList.Visible = true; //部品リスト
             Title.Visible = true;  //タイトル
+
+            //プレビューの拡大表示
+            var w = (mshtml.IHTMLWindow2)webBrowser1.Document.Window.DomWindow;
+            var s = (mshtml.IHTMLScreen2)w.screen;
+            int zoom = s.deviceXDPI * 100 / 96;
+            // 30%拡大する
+            zoom += 30;
+            ((SHDocVw.WebBrowser)webBrowser1.ActiveXInstance).ExecWB(
+            SHDocVw.OLECMDID.OLECMDID_OPTICAL_ZOOM, SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, zoom, IntPtr.Zero);
         }
 
         /*
@@ -680,6 +690,7 @@ namespace WindowsFormsApp1
                 text_box[i] = "";
             }
             create_new = true;
+            
         }
 
 
@@ -710,6 +721,7 @@ namespace WindowsFormsApp1
                 PreviewBtn.Visible = true;
                 webBrowser1.Visible = false;
                 HTMLBOX.Visible = true; //HTMLソースコード用のテキストボックスを有効化
+                label4.Text = "ソースコード";
                 //HTMLBtn.Text = "プレビュー表示";
                 if(create_new == true)
                 {
@@ -728,9 +740,10 @@ namespace WindowsFormsApp1
                 PreviewBtn.Visible = false;
                 webBrowser1.Visible = true;
                 HTMLBOX.Visible = false;　//HTMLソースコード用のテキストボックスを無効化
+                label4.Text = "プレビュー";
                 //HTMLBtn.Text = "ソースコード表示";
                 //HTML_flg = false; //再びソースコード表示可にする
-            
+
         }
 
         /*

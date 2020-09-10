@@ -66,6 +66,7 @@
             // 
             // TextAdd
             // 
+            this.TextAdd.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.TextAdd.Location = new System.Drawing.Point(12, 55);
             this.TextAdd.Multiline = true;
             this.TextAdd.Name = "TextAdd";

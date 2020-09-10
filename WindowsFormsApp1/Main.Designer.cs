@@ -106,18 +106,20 @@
             // 
             // Title
             // 
+            this.Title.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Title.Location = new System.Drawing.Point(59, 118);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(299, 19);
+            this.Title.Size = new System.Drawing.Size(299, 23);
             this.Title.TabIndex = 3;
             this.Title.Visible = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 121);
+            this.label1.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label1.Location = new System.Drawing.Point(4, 120);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 12);
+            this.label1.Size = new System.Drawing.Size(55, 16);
             this.label1.TabIndex = 4;
             this.label1.Text = "タイトル";
             // 
@@ -126,6 +128,7 @@
             this.PartsBox.Controls.Add(this.partsList);
             this.PartsBox.Controls.Add(this.Title_Visible);
             this.PartsBox.Controls.Add(this.Parts_Visible);
+            this.PartsBox.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.PartsBox.Location = new System.Drawing.Point(12, 143);
             this.PartsBox.Name = "PartsBox";
             this.PartsBox.Size = new System.Drawing.Size(355, 243);
@@ -216,6 +219,7 @@
             this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
             this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.ファイルToolStripMenuItem.Text = "ファイル";
+            this.ファイルToolStripMenuItem.Visible = false;
             // 
             // MenuItemFileNew
             // 
@@ -280,7 +284,8 @@
             // 
             // HTMLBOX
             // 
-            this.HTMLBOX.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
+            this.HTMLBOX.BackColor = System.Drawing.Color.White;
+            this.HTMLBOX.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.HTMLBOX.Location = new System.Drawing.Point(12, 22);
             this.HTMLBOX.Multiline = true;
             this.HTMLBOX.Name = "HTMLBOX";
@@ -296,8 +301,6 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
-            this.panel1.Controls.Add(this.groupInput);
-            this.panel1.Controls.Add(this.groupHead);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.webBrowser1);
             this.panel1.Controls.Add(this.HTMLBOX);
@@ -407,7 +410,7 @@
             this.groupInput.Controls.Add(this.flowLayoutPanel_input);
             this.groupInput.Controls.Add(this.button_Input);
             this.groupInput.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupInput.Location = new System.Drawing.Point(528, 416);
+            this.groupInput.Location = new System.Drawing.Point(0, 0);
             this.groupInput.Name = "groupInput";
             this.groupInput.Size = new System.Drawing.Size(343, 398);
             this.groupInput.TabIndex = 5;
@@ -439,6 +442,7 @@
             // groupBody
             // 
             this.groupBody.BackColor = System.Drawing.Color.White;
+            this.groupBody.Controls.Add(this.groupInput);
             this.groupBody.Controls.Add(this.label_pro);
             this.groupBody.Controls.Add(this.flowLayoutPanel_body);
             this.groupBody.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -464,7 +468,7 @@
             this.groupHead.Controls.Add(this.button_title);
             this.groupHead.Controls.Add(this.flowLayoutPanel_head);
             this.groupHead.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupHead.Location = new System.Drawing.Point(120, 416);
+            this.groupHead.Location = new System.Drawing.Point(6, 142);
             this.groupHead.Name = "groupHead";
             this.groupHead.Size = new System.Drawing.Size(343, 398);
             this.groupHead.TabIndex = 28;
@@ -524,6 +528,7 @@
             // 
             this.group_tag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(106)))), ((int)(((byte)(34)))));
             this.group_tag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.group_tag.Controls.Add(this.groupHead);
             this.group_tag.Controls.Add(this.groupBody);
             this.group_tag.Controls.Add(this.button_edit);
             this.group_tag.Controls.Add(this.label2);
