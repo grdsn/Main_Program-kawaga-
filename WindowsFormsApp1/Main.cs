@@ -19,21 +19,17 @@ namespace WindowsFormsApp1
         //定義--------------------------------------------------------
             const string ApplicationName = "かんたんWeb君";//アプリケーション名
             private string FileName = ""; //ファイル名(フルパス)
-            //private string name = "";
             string result;//結果格納
             private bool Edited = false;
-
             string[] text_box = new string[10000]; //HTMLタグ格納用
             int cnt = 0; //タグ数カウント
             Boolean create_new = false; //新規作成判定フラグ
-            Boolean HTML_flg = false;//ソースコード表示判定用
 
         //定義----------------------------------------------------------------
 
         //在間定義------------------------------------------------------------
         //画面フラグ
             bool parts_flg = false;
-            bool open_flg = false; //ファイルを開くか判定
             public int flg = 0;
         //編集フラグ
             public int editflg = 0;
@@ -82,6 +78,7 @@ namespace WindowsFormsApp1
         //ボタンイベントの有無
             public Boolean button_event = false;
 
+        //実行ファイルの場所の保持
             private String FilePath = Directory.GetCurrentDirectory();
         
         //在間定義------------------------------------------------------------
@@ -158,19 +155,14 @@ namespace WindowsFormsApp1
                 lvi.ImageIndex = 8;
                 partsList.Items.Add(lvi);
                 this.Text = ApplicationName;
-
                 // 複数行入力を有効化
                 HTMLBOX.Multiline = true;
-
                 // 垂直方向スクロールバー表示を有効化
                 HTMLBOX.ScrollBars = ScrollBars.Vertical;
-
-                // フォーム全体にテキストボックスを表示
-                //textBox.Dock = DockStyle.Fill;
-
                 // 「名前を付けて保存」ダイアログで「ファイル種類」を選択させる
                 SaveFileDialog.Filter = "HTML|*.html";
 
+                webBrowser1.Navigate("about:blank");
                 UpdateStatus("", false);
             }
             catch(Exception ex)
@@ -186,27 +178,20 @@ namespace WindowsFormsApp1
             HTMLBtn.Visible = true; //ソースコード表示ボタン
             partsList.Visible = true; //部品リスト
             Title.Visible = true;  //タイトル
+            
+            
+        }
 
+        private void ZoomBrowser()
+        {
             //プレビューの拡大表示
             var w = (mshtml.IHTMLWindow2)webBrowser1.Document.Window.DomWindow;
             var s = (mshtml.IHTMLScreen2)w.screen;
-            int zoom = s.deviceXDPI * 100 / 96;
-            // 30%拡大する
-            zoom += 30;
+            int zoom = 130;//130%に固定
             ((SHDocVw.WebBrowser)webBrowser1.ActiveXInstance).ExecWB(
             SHDocVw.OLECMDID.OLECMDID_OPTICAL_ZOOM, SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, zoom, IntPtr.Zero);
         }
-
-        /*
-         * ブラウザ内の情報を更新するインスタンスを呼び出す(かわが)
-         */
-        private void Result_Btn_Click(object sender, EventArgs e)
-        {
-            if (HTML_flg == true)
-            {
-                Browser_show();　//結果を画面上に表示
-            }
-        }
+        
 
         /*
          * 相対パスでデスクトップを指定する
@@ -304,7 +289,7 @@ namespace WindowsFormsApp1
                     this.Text = ApplicationName + " - " + this.FileName;
                 }
 
-                if (Edited)
+                if (Edited == true)
                 {
                     // 編集中があれば「（変更あり）」をタイトル名に付ける
                     title += "（変更あり）";
@@ -327,7 +312,7 @@ namespace WindowsFormsApp1
                     SaveButton.Enabled = true;
                 }
 
-                if (!Edited)
+                if (Edited == false)
                 {
                     // 編集前
                     // 「名前を付けて保存」を無効
@@ -384,7 +369,6 @@ namespace WindowsFormsApp1
             
             MenuItemFileOpen_Click(sender, e);
             create_new = true;
-            open_flg = true;
             Start_Visible();
         }
         /*
@@ -478,9 +462,9 @@ namespace WindowsFormsApp1
         {
             //UTF-8に変換してファイルを開く
             HTMLBOX.Text = System.IO.File.ReadAllText(value, Encoding.GetEncoding("UTF-8"));
-            //this.FileName = value;
             UpdateStatus(FileName, false);
             Browser_show();
+            ZoomBrowser();
 
         }
 
@@ -671,7 +655,6 @@ namespace WindowsFormsApp1
         private void Browser_show()
         {
             String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
-            //String destinationPath = FilePath + "\\HTML\\" + FileName;
             webBrowser1.Navigate(destinationPath);
         }
 
@@ -706,9 +689,9 @@ namespace WindowsFormsApp1
                 HTMLBOX.Text = st.ReadToEnd(); //streamReader内のテキストを書き込む
                 st.Close();//終了
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                
+                OutputErrorLog(ex);
             }
         }
         /*
@@ -722,15 +705,12 @@ namespace WindowsFormsApp1
                 webBrowser1.Visible = false;
                 HTMLBOX.Visible = true; //HTMLソースコード用のテキストボックスを有効化
                 label4.Text = "ソースコード";
-                //HTMLBtn.Text = "プレビュー表示";
                 if(create_new == true)
                 {
                     HTML_show(); //ソースコードを表示
                 }
-                
-                //HTML_flg = true; //次回クリック時にブラウザ画面にもどる
-            
-           
+
+
         }
 
         private void PreviewBtn_Click(object sender, EventArgs e)
@@ -741,9 +721,7 @@ namespace WindowsFormsApp1
                 webBrowser1.Visible = true;
                 HTMLBOX.Visible = false;　//HTMLソースコード用のテキストボックスを無効化
                 label4.Text = "プレビュー";
-                //HTMLBtn.Text = "ソースコード表示";
-                //HTML_flg = false; //再びソースコード表示可にする
-
+                ZoomBrowser();
         }
 
         /*
@@ -764,161 +742,169 @@ namespace WindowsFormsApp1
          */
         private void insert_Parts(string sel)
         {
-            Text_parts tp = new Text_parts(); //テキスト
-            EM_Parts ep = new EM_Parts(); //テキストの強調
-            Hyper_Parts hpp = new Hyper_Parts(); //ハイパーテキスト
-            Img_Parts ip = new Img_Parts(); //画像
-            OL_Parts op = new OL_Parts(); //順序のあるリスト
-            UL_Parts up = new UL_Parts(); //順序のないリスト
-            H_Parts hp = new H_Parts(); //見出し
-            B_Parts bp = new B_Parts(); //太字
-            Table_Parts tbp = new Table_Parts(); //テーブル
-            //部品選択分岐-----------------------------------------------
-            if (sel == "1") //テキスト
+            try
             {
-                result = tp.ShowMiniForm();
-                if(result == "-1")
+                Text_parts tp = new Text_parts(); //テキスト
+                EM_Parts ep = new EM_Parts(); //テキストの強調
+                Hyper_Parts hpp = new Hyper_Parts(); //ハイパーテキスト
+                Img_Parts ip = new Img_Parts(); //画像
+                OL_Parts op = new OL_Parts(); //順序のあるリスト
+                UL_Parts up = new UL_Parts(); //順序のないリスト
+                H_Parts hp = new H_Parts(); //見出し
+                B_Parts bp = new B_Parts(); //太字
+                Table_Parts tbp = new Table_Parts(); //テーブル
+                //部品選択分岐-----------------------------------------------
+                if (sel == "1") //テキスト
                 {
-                    parts_flg = true;
+                    result = tp.ShowMiniForm();
+                    if (result == "-1")
+                    {
+                        parts_flg = true;
+                    }
+                    else
+                    {
+                        writer_html(result, 0);
+                        parts_flg = false;
+                        cnt++; //次の行へ
+                    }
                 }
-                else
-                {
-                    writer_html(result, 0);
-                    parts_flg = false;
-                    cnt++; //次の行へ
-                }
-            }
 
-            if (sel == "2") //テキストの強調
-            {
-                result = ep.ShowMiniForm();
-                if (result == "-1")
+                if (sel == "2") //テキストの強調
                 {
-                    parts_flg = true;
+                    result = ep.ShowMiniForm();
+                    if (result == "-1")
+                    {
+                        parts_flg = true;
+                    }
+                    else
+                    {
+                        writer_html(result, 0);
+                        parts_flg = false;
+                        cnt++; //次の行へ
+                    }
                 }
-                else
-                {
-                    writer_html(result, 0);
-                    parts_flg = false;
-                    cnt++; //次の行へ
-                }
-            }
 
-            if (sel == "3") //ハイパーテキスト
-            {
-                result = hpp.ShowMiniForm();
-                if (result == "-1")
+                if (sel == "3") //ハイパーテキスト
                 {
-                    parts_flg = true;
-                }
-                else
-                {
-                    writer_html(result, 0);
-                    parts_flg = false;
-                    cnt++; //次の行へ
-                }
-                
-            }
-
-            if (sel == "7")　//画像
-            {
-                result = ip.ShowMiniForm();
-                if (result == "-1")
-                {
-                    parts_flg = true;
-                }
-                else
-                {
-                    writer_html(result, 0);
-                    parts_flg = false;
-                    cnt++; //次の行へ
-                }
-            }
-
-            if (sel == "5") //順序のあるリスト
-            {
-                result = op.ShowMiniForm();
-                if (result == "-1")
-                {
-                    parts_flg = true;
-                }
-                else
-                {
-                    writer_html(result, 0);
-                    parts_flg = false;
-                    cnt++; //次の行へ
-                }
-             
-            }
-
-            if (sel == "6") //順序のないリスト
-            {
-                result = up.ShowMiniForm();
-                if (result == "-1")
-                {
-                    parts_flg = true;
-                }
-                else
-                {
-                    writer_html(result, 0);
-                    parts_flg = false;
-                    cnt++; //次の行へ
-                }
-                
-            }
-
-            if (sel == "0") //見出し
-            {
-                result = hp.ShowMiniForm();
-                if (result == "-1")
-                {
-                    parts_flg = true;
-                }
-                else
-                {
-                    writer_html(result, 0);
-                    parts_flg = false;
-                    cnt++; //次の行へ
-                }
-                
-            }
-            if (sel == "4") //太字
-            {
-                result = bp.ShowMiniForm();
-                if (result == "-1")
-                {
-                    parts_flg = true;
+                    result = hpp.ShowMiniForm();
+                    if (result == "-1")
+                    {
+                        parts_flg = true;
+                    }
+                    else
+                    {
+                        writer_html(result, 0);
+                        parts_flg = false;
+                        cnt++; //次の行へ
+                    }
 
                 }
-                else
-                {
-                    writer_html(result, 0);
-                    parts_flg = false;
-                    cnt++; //次の行へ
-                }
-            }
 
-            if (sel == "8") //テーブル
-            {
-                result = tbp.ShowMiniForm();
-                if (result == "-1")
+                if (sel == "7") //画像
                 {
-                    parts_flg = true;
+                    result = ip.ShowMiniForm();
+                    if (result == "-1")
+                    {
+                        parts_flg = true;
+                    }
+                    else
+                    {
+                        writer_html(result, 0);
+                        parts_flg = false;
+                        cnt++; //次の行へ
+                    }
                 }
-                else
-                {
-                    writer_html(result, 0);
-                    parts_flg = false;
-                    cnt++; //次の行へ
-                }
-                
-            }
 
-            if(parts_flg == false)
-            {
-                AddTag(int.Parse(Create_parts_num()));
+                if (sel == "5") //順序のあるリスト
+                {
+                    result = op.ShowMiniForm();
+                    if (result == "-1")
+                    {
+                        parts_flg = true;
+                    }
+                    else
+                    {
+                        writer_html(result, 0);
+                        parts_flg = false;
+                        cnt++; //次の行へ
+                    }
+
+                }
+
+                if (sel == "6") //順序のないリスト
+                {
+                    result = up.ShowMiniForm();
+                    if (result == "-1")
+                    {
+                        parts_flg = true;
+                    }
+                    else
+                    {
+                        writer_html(result, 0);
+                        parts_flg = false;
+                        cnt++; //次の行へ
+                    }
+
+                }
+
+                if (sel == "0") //見出し
+                {
+                    result = hp.ShowMiniForm();
+                    if (result == "-1")
+                    {
+                        parts_flg = true;
+                    }
+                    else
+                    {
+                        writer_html(result, 0);
+                        parts_flg = false;
+                        cnt++; //次の行へ
+                    }
+
+                }
+                if (sel == "4") //太字
+                {
+                    result = bp.ShowMiniForm();
+                    if (result == "-1")
+                    {
+                        parts_flg = true;
+
+                    }
+                    else
+                    {
+                        writer_html(result, 0);
+                        parts_flg = false;
+                        cnt++; //次の行へ
+                    }
+                }
+
+                if (sel == "8") //テーブル
+                {
+                    result = tbp.ShowMiniForm();
+                    if (result == "-1")
+                    {
+                        parts_flg = true;
+                    }
+                    else
+                    {
+                        writer_html(result, 0);
+                        parts_flg = false;
+                        cnt++; //次の行へ
+                    }
+
+                }
+
+                if (parts_flg == false)
+                {
+                    AddTag(int.Parse(Create_parts_num()));
+                }
+                //部品選択分岐-----------------------------------------------
             }
-            //部品選択分岐-----------------------------------------------
+            catch (Exception ex)
+            {
+                OutputErrorLog(ex);
+            }
+            
         }
 
         /*
@@ -933,9 +919,6 @@ namespace WindowsFormsApp1
                 Browser_show(); //結果を画面上に表示
                 UpdateStatus(FileName, true); //変更あり状態に変更する
                 partsList.FocusedItem.Focused = false;
-            
-            
-
         }
 
         //在間くん作成プログラム統合部分-----------------------------------------------
@@ -1027,7 +1010,6 @@ namespace WindowsFormsApp1
                         editflg = 0;
                         contflg = 0;
                         break;
-
                     //HEADボタン
                     case 1:
                         this.groupHead.Visible = true;
@@ -1040,7 +1022,6 @@ namespace WindowsFormsApp1
                         editflg = 0;
                         contflg = 0;
                         break;
-
                     //BODYボタン
                     case 2:
                         this.groupHead.Visible = false;
@@ -1053,17 +1034,12 @@ namespace WindowsFormsApp1
                         editflg = 0;
                         contflg = 0;
                         break;
-
                     //削除ボタン
                     case 5:
-
                         this.button_delete.Visible = true;
-                        this.group_tag.BackColor = Color.FromName("Brown");
-                        this.label2.BackColor = Color.FromName("Brown");
                         this.label_pro.Visible = false;
                         contflg = 0;
                         break;
-
                     //編集ボタン
                     case 6:
                         if (editflg == 0)
@@ -1079,14 +1055,6 @@ namespace WindowsFormsApp1
                         this.label_pro.Visible = false;
                         contflg = 0;
                         break;
-
-                    //入れ替え
-                    /*case 7:
-                        this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
-                        this.label2.BackColor = Color.FromArgb(238, 106, 34);
-                        break;
-                        */
-
                     //例外
                     default:
                         this.group_tag.Visible = true;
@@ -1225,7 +1193,7 @@ namespace WindowsFormsApp1
                             case "em":
                                 label_pro.Text = "強調されて表示します";
                                 break;
-                            case "url"://urlの編集がしたい
+                            case "url":
                                 label_pro.Text = "指定したサイトが開きます";
                                 break;
                             case "b":
@@ -1253,44 +1221,7 @@ namespace WindowsFormsApp1
                         ButtonVisible();
 
                     }//flg==6編集時
-                    /*else if (flg == 5)
-                    {   //削除ボタン
-                        Control[] controls = Controls.Find(name, true);
-                        foreach (Control control in controls)
-                        {   //部品の削除処理
-                            this.Controls.Remove(control);
-                            OpenedName.Remove(dic[name]);
-                            OpenedTag.Remove(dic[name]);
-                            dic.Remove(name);
-                            control.Dispose();
-                            reset_cls();
-                        }
-
-                    }//flg==5削除
-                    */
-                    /*else if (flg == 7)
-                    {//bodyグループ入れ替え処理
-                        switch (contflg)
-                        {   //選択回数
-                            //1回目
-                            case 0:
-                                name1 = name;   //一つ目の部品の名前を保持
-                                ctrl1 = cont;   //部品のコントロールを保持
-                                cont1 = flowLayoutPanel_body.Controls.GetChildIndex(cont);  //Body部品のFlowLayoutPanelのインデックスを保持
-                                contflg = 1;    //選択カウントを設定
-                                break;
-                            //二回目
-                            case 1:
-                                ctrl2 = cont;   //二つ目の部品の名前を保持
-                                cont2 = flowLayoutPanel_body.Controls.GetChildIndex(cont);  //Body部品のFlowLayoutPanelのインデックスを保持
-                                SwapControls(cont1, cont2, ctrl1, ctrl2);       //入れ替えメソッドの実行
-                                contflg = 0;    //初期化
-                                break;
-                            default:
-                                break;
-                        }
-                    }//flg==7入れ替え
-                    */
+                    
                 }
                 catch (Exception ex)
                 {
@@ -1306,14 +1237,14 @@ namespace WindowsFormsApp1
             try
             {
                 int count = flowLayoutPanel_body.Controls.Count;
-                if (count != 0)
+                if (count >= 0)
                 {
                     flowLayoutPanel_body.Controls.RemoveAt(count - 1);
                     reset_cls();
-                    dic.Remove(OpenedName[count]);
-                    OpenedName.Remove(count);
-                    OpenedTag.Remove(count);
-                    
+                    dic.Remove(OpenedName[count-1]);
+                    OpenedName.Remove(count-1);
+                    OpenedTag.Remove(count-1);
+                    UpdateStatus(FileName, true);
                 }
             }
             catch(Exception ex)
@@ -1325,41 +1256,7 @@ namespace WindowsFormsApp1
         //---
 
         //入れ替えボタン
-        private void button_swap_Click_1(object sender, EventArgs e)
-        {
-            flg = 7;
-            ButtonVisible();
-        }
-        //---
-
-        //---入れ替え処理メソッド
-        /*private void SwapControls(int x, int y, Control ctrl1, Control ctrl2)
-        {
-            try
-            {
-                flowLayoutPanel_body.SuspendLayout();
-                flowLayoutPanel_body.Controls.SetChildIndex(ctrl1, y);
-                flowLayoutPanel_body.Controls.SetChildIndex(ctrl2, x);
-                flowLayoutPanel_body.ResumeLayout();
-
-                //csv用入れ替え
-                x++;
-                y++;
-                var tmp = OpenedTag[x];
-                OpenedTag[x] = OpenedTag[y];
-                OpenedTag[y] = tmp;
-                //csv用入れ替え
-                tmp = OpenedName[x];
-                OpenedName[x] = OpenedName[y];
-                OpenedName[y] = tmp;
-            }
-            catch(Exception ex)
-            {
-                OutputErrorLog(ex);
-            }
-        }
-        //---
-        */
+        
         
         //作業ファイルを開いたときの処理
         private void OpenProcess()
@@ -1842,6 +1739,7 @@ namespace WindowsFormsApp1
             HTML_show();
             SaveFile(this.FileName);
             SaveToTEXT(this.FileName);
+            UpdateStatus(FileName, false);
         }
 
         private void SaveToTEXT(string fn)
@@ -1877,10 +1775,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+       
 
         private void html_delete()
         {
@@ -1890,12 +1785,10 @@ namespace WindowsFormsApp1
                 webBrowser1.Navigate("about:blank");
                 Reset();
                 File.Delete(this.FilePath + "\\HTML\\" +  FileName); //新規作成したHTMLを破棄する
+                
             }
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
+        
     }
 }

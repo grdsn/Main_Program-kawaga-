@@ -12,7 +12,6 @@ namespace WindowsFormsApp1
 {
     public partial class H_Parts : Form
     {
-        private string[] argumentValues;
         public static string text_return;
         public H_Parts()
         {

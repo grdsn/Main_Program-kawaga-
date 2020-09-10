@@ -13,8 +13,6 @@ namespace WindowsFormsApp1
     public partial class Table_Parts : Form
     {
         bool exit_flg = false;
-        int tr_num; //列の指定
-        int td_num = 0; //行の指定
         
         public Table_Parts()
         {

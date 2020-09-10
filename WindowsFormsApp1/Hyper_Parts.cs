@@ -12,9 +12,7 @@ namespace WindowsFormsApp1
 {
     public partial class Hyper_Parts : Form
     {
-        private string[] argumentValues;
         public static string text_return;
-        private int count = 0;
 
         public Hyper_Parts()
         {

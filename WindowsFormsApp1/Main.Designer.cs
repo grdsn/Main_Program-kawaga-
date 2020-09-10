@@ -204,7 +204,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(1302, 24);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // ファイルToolStripMenuItem
             // 
@@ -274,14 +273,6 @@
             this.menuItemFileExitToolStripMenuItem.Text = "MenuItemFileExit";
             this.menuItemFileExitToolStripMenuItem.Click += new System.EventHandler(this.menuItemFileExitToolStripMenuItem_Click);
             // 
-            // BackText
-            // 
-            this.BackText.Name = "BackText";
-            this.BackText.Size = new System.Drawing.Size(40, 20);
-            this.BackText.Text = "戻る";
-            this.BackText.Visible = false;
-            this.BackText.Click += new System.EventHandler(this.BackText_Click);
-            // 
             // HTMLBOX
             // 
             this.HTMLBOX.BackColor = System.Drawing.Color.White;
@@ -308,7 +299,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(917, 814);
             this.panel1.TabIndex = 24;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label4
             // 
