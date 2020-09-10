@@ -24,7 +24,7 @@ namespace WindowsFormsApp1
 
         private void FileName_Parts_Load(object sender, EventArgs e)
         {
-
+            this.TextAdd.KeyDown += new KeyEventHandler(Title_Add_KeyDown);
         }
 
         public string ShowMiniForm()
@@ -50,6 +50,14 @@ namespace WindowsFormsApp1
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+        private void Title_Add_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                AddConfirm_Click_1(this, new EventArgs());
+            }
+            
         }
     }
 }

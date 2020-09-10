@@ -143,7 +143,7 @@
             this.partsList.TabIndex = 0;
             this.partsList.UseCompatibleStateImageBehavior = false;
             this.partsList.Visible = false;
-            this.partsList.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.partsList.Click += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // imageList
             // 
@@ -296,6 +296,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(175)))), ((int)(((byte)(29)))));
+            this.panel1.Controls.Add(this.groupInput);
+            this.panel1.Controls.Add(this.groupHead);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.webBrowser1);
             this.panel1.Controls.Add(this.HTMLBOX);
@@ -405,7 +407,7 @@
             this.groupInput.Controls.Add(this.flowLayoutPanel_input);
             this.groupInput.Controls.Add(this.button_Input);
             this.groupInput.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupInput.Location = new System.Drawing.Point(0, 0);
+            this.groupInput.Location = new System.Drawing.Point(528, 416);
             this.groupInput.Name = "groupInput";
             this.groupInput.Size = new System.Drawing.Size(343, 398);
             this.groupInput.TabIndex = 5;
@@ -437,7 +439,7 @@
             // groupBody
             // 
             this.groupBody.BackColor = System.Drawing.Color.White;
-            this.groupBody.Controls.Add(this.groupInput);
+            this.groupBody.Controls.Add(this.label_pro);
             this.groupBody.Controls.Add(this.flowLayoutPanel_body);
             this.groupBody.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBody.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(106)))), ((int)(((byte)(34)))));
@@ -459,11 +461,10 @@
             // groupHead
             // 
             this.groupHead.BackColor = System.Drawing.Color.White;
-            this.groupHead.Controls.Add(this.label_pro);
             this.groupHead.Controls.Add(this.button_title);
             this.groupHead.Controls.Add(this.flowLayoutPanel_head);
             this.groupHead.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupHead.Location = new System.Drawing.Point(6, 142);
+            this.groupHead.Location = new System.Drawing.Point(120, 416);
             this.groupHead.Name = "groupHead";
             this.groupHead.Size = new System.Drawing.Size(343, 398);
             this.groupHead.TabIndex = 28;
@@ -473,12 +474,12 @@
             // label_pro
             // 
             this.label_pro.AutoSize = true;
-            this.label_pro.Location = new System.Drawing.Point(187, 19);
+            this.label_pro.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label_pro.Location = new System.Drawing.Point(167, 15);
             this.label_pro.Name = "label_pro";
-            this.label_pro.Size = new System.Drawing.Size(35, 12);
+            this.label_pro.Size = new System.Drawing.Size(0, 16);
             this.label_pro.TabIndex = 9;
-            this.label_pro.Text = "label3";
-            this.label_pro.Visible = false;
+            this.label_pro.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // button_title
             // 
@@ -523,7 +524,6 @@
             // 
             this.group_tag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(106)))), ((int)(((byte)(34)))));
             this.group_tag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.group_tag.Controls.Add(this.groupHead);
             this.group_tag.Controls.Add(this.groupBody);
             this.group_tag.Controls.Add(this.button_edit);
             this.group_tag.Controls.Add(this.label2);
@@ -667,8 +667,8 @@
             this.panel1.PerformLayout();
             this.groupInput.ResumeLayout(false);
             this.groupBody.ResumeLayout(false);
+            this.groupBody.PerformLayout();
             this.groupHead.ResumeLayout(false);
-            this.groupHead.PerformLayout();
             this.group_tag.ResumeLayout(false);
             this.group_tag.PerformLayout();
             this.ResumeLayout(false);

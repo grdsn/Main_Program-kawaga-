@@ -14,6 +14,7 @@ namespace WindowsFormsApp1
     {
         public static string text_return;
         main fm1 = new main();
+        bool cancel_flg = false;
         public Text_parts()
         {
             InitializeComponent();
@@ -36,11 +37,11 @@ namespace WindowsFormsApp1
             Text_parts f = new Text_parts();
             string receiveText;
             f.ShowDialog();
-            if (TextAdd.Text == "")
+            if (f.cancel_flg == false)
             {
                 receiveText = f.TextAdd.Text.Replace("\r\n", "<br>"); //HTML文
             }
-            else
+            else 
             {
                 receiveText = "-1"; //HTML文
             }
@@ -59,16 +60,20 @@ namespace WindowsFormsApp1
 
         private void cancel_btn_Click(object sender, EventArgs e)
         {
-            TextAdd.Text = "";
+            cancel_flg = true;
             Close();
         }
         //エンターキー、エスケープキー対応
         private void TextAdd_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Return)
+            if(e.KeyCode == Keys.LShiftKey)
             {
-                AddConfirm_Click(this, new EventArgs());
+                if (e.KeyCode == Keys.Return)
+                {
+                    AddConfirm_Click(this, new EventArgs());
+                }
             }
+            
             if(e.KeyCode == Keys.Escape)
             {
                 cancel_btn_Click(this, new EventArgs());

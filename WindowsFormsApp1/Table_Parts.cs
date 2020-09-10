@@ -56,7 +56,7 @@ namespace WindowsFormsApp1
                 }
                 else
                 {
-                    receiveText = "";
+                    receiveText = "-1";
                 }
                 f.Dispose();
                 return receiveText;

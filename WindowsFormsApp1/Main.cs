@@ -22,10 +22,9 @@ namespace WindowsFormsApp1
             //private string name = "";
             string result;//結果格納
             private bool Edited = false;
-            string adress; //アドレスの相対パス
+
             string[] text_box = new string[10000]; //HTMLタグ格納用
             int cnt = 0; //タグ数カウント
-            string sel; //選択した部品の名前を格納
             Boolean create_new = false; //新規作成判定フラグ
             Boolean HTML_flg = false;//ソースコード表示判定用
 
@@ -72,8 +71,8 @@ namespace WindowsFormsApp1
             public int cont1 = 0;
             public int cont2 = 0;
         //入れ替え時の部品コントロール保持用
-            Control ctrl1;
-            Control ctrl2;
+            //Control ctrl1;
+            //Control ctrl2;
 
         //作業状態系
             List<string> listTag = new List<string>();
@@ -535,6 +534,7 @@ namespace WindowsFormsApp1
 
         private void MenuItemSave_Click(object sender, EventArgs e)
         {
+            //ファイルを保存する
             SaveFile(this.FileName);
         }
 
@@ -543,7 +543,7 @@ namespace WindowsFormsApp1
             try
             {
                 //UTF-8で保存
-                System.IO.File.WriteAllText(FilePath  + "\\HTML" + value, HTMLBOX.Text, Encoding.GetEncoding("UTF-8"));
+                System.IO.File.WriteAllText(FilePath  + "\\HTML\\" + value, HTMLBOX.Text, Encoding.GetEncoding("UTF-8"));
 
                 // ファイル名を保持する
                 this.FileName = value;
@@ -648,8 +648,7 @@ namespace WindowsFormsApp1
         private void reset_cls()
             {
                 if (cnt > 0)
-                {
-                    
+                {                    
                     cnt--;
                     writer_html("", 0);
                     Browser_show(); //結果を画面上に表示
@@ -714,8 +713,8 @@ namespace WindowsFormsApp1
                 //HTMLBtn.Text = "プレビュー表示";
                 if(create_new == true)
                 {
-                HTML_show(); //ソースコードを表示
-            }
+                    HTML_show(); //ソースコードを表示
+                }
                 
                 //HTML_flg = true; //次回クリック時にブラウザ画面にもどる
             
@@ -743,6 +742,7 @@ namespace WindowsFormsApp1
             {
                 return partsList.SelectedItems[0].Index.ToString();
             }
+            
             return "-1";
         }
 
@@ -767,7 +767,6 @@ namespace WindowsFormsApp1
                 if(result == "-1")
                 {
                     parts_flg = true;
-                    Browser_show();
                 }
                 else
                 {
@@ -893,9 +892,13 @@ namespace WindowsFormsApp1
                 {
                     parts_flg = true;
                 }
-                writer_html(result, 0);
-                parts_flg = false;
-                cnt++; //次の行へ
+                else
+                {
+                    writer_html(result, 0);
+                    parts_flg = false;
+                    cnt++; //次の行へ
+                }
+                
             }
 
             if(parts_flg == false)
@@ -912,11 +915,14 @@ namespace WindowsFormsApp1
         {
             //(create_parts_num)indexの要素番号を出力する
             // 選択されている部品の名前を取り込む
-            insert_Parts(Create_parts_num()); //indexで判別し部品を挿入する
-            Browser_show(); //結果を画面上に表示
-            UpdateStatus(FileName, true); //変更あり状態に変更する
-
             
+                insert_Parts(Create_parts_num()); //indexで判別し部品を挿入する
+                Browser_show(); //結果を画面上に表示
+                UpdateStatus(FileName, true); //変更あり状態に変更する
+                partsList.FocusedItem.Focused = false;
+            
+            
+
         }
 
         //在間くん作成プログラム統合部分-----------------------------------------------
@@ -1004,9 +1010,11 @@ namespace WindowsFormsApp1
                         this.groupInput.Visible = false;
                         this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
                         this.label2.BackColor = Color.FromArgb(238, 106, 34);
+                        this.label_pro.Visible = false;
                         editflg = 0;
                         contflg = 0;
                         break;
+
                     //HEADボタン
                     case 1:
                         this.groupHead.Visible = true;
@@ -1015,9 +1023,11 @@ namespace WindowsFormsApp1
                         this.groupInput.Visible = false;
                         this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
                         this.label2.BackColor = Color.FromArgb(238, 106, 34);
+                        this.label_pro.Visible = false;
                         editflg = 0;
                         contflg = 0;
                         break;
+
                     //BODYボタン
                     case 2:
                         this.groupHead.Visible = false;
@@ -1026,15 +1036,18 @@ namespace WindowsFormsApp1
                         this.groupInput.Visible = false;
                         this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
                         this.label2.BackColor = Color.FromArgb(238, 106, 34);
+                        this.label_pro.Visible = false;
                         editflg = 0;
                         contflg = 0;
                         break;
+
                     //削除ボタン
                     case 5:
 
                         this.button_delete.Visible = true;
                         this.group_tag.BackColor = Color.FromName("Brown");
                         this.label2.BackColor = Color.FromName("Brown");
+                        this.label_pro.Visible = false;
                         contflg = 0;
                         break;
 
@@ -1050,13 +1063,17 @@ namespace WindowsFormsApp1
                         }
                         this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
                         this.label2.BackColor = Color.FromArgb(238, 106, 34);
+                        this.label_pro.Visible = false;
                         contflg = 0;
                         break;
+
                     //入れ替え
-                    case 7:
+                    /*case 7:
                         this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
                         this.label2.BackColor = Color.FromArgb(238, 106, 34);
                         break;
+                        */
+
                     //例外
                     default:
                         this.group_tag.Visible = true;
@@ -1066,6 +1083,7 @@ namespace WindowsFormsApp1
                         this.button_delete.Visible = false;
                         this.group_tag.BackColor = Color.FromArgb(238, 106, 34);
                         this.label2.BackColor = Color.FromArgb(238, 106, 34);
+                        this.label_pro.Visible = false;
                         editflg = 0;
                         contflg = 0;
                         break;
@@ -1095,9 +1113,6 @@ namespace WindowsFormsApp1
                 ButtonVisible();
             }
         }
-
-       
-        //---
 
         //---タグツリーのタグツリーのBODYボタン処理
         private void button_body1_Click_1(object sender, EventArgs e)
@@ -1184,6 +1199,7 @@ namespace WindowsFormsApp1
                 {
                     if (flg != 6 && flg != 5 && flg != 7)
                     {   //通常時の処理
+                        label_pro.Visible = true;
                         switch (getkind)
                         {
                             //プロパティ系
@@ -1202,11 +1218,11 @@ namespace WindowsFormsApp1
                             case "b":
                                 label_pro.Text = "太字で表示します";
                                 break;
-                            case "lo":
-                                label_pro.Text = "順序なしリストです";
+                            case "ol":
+                                label_pro.Text = "順序ありリストです";
                                 break;
                             case "ul":
-                                label_pro.Text = "順序ありリストです";
+                                label_pro.Text = "順序なしリストです";
                                 break;
                             case "img":
                                 label_pro.Text = "指定した画像を表示します";
@@ -1276,15 +1292,15 @@ namespace WindowsFormsApp1
         {
             try
             {
-                flg = 5;
                 int count = flowLayoutPanel_body.Controls.Count;
                 if (count != 0)
                 {
+                    flowLayoutPanel_body.Controls.RemoveAt(count - 1);
+                    reset_cls();
                     dic.Remove(OpenedName[count]);
                     OpenedName.Remove(count);
                     OpenedTag.Remove(count);
-                    flowLayoutPanel_body.Controls.RemoveAt(count - 1);
-                    reset_cls();
+                    
                 }
             }
             catch(Exception ex)
@@ -1810,6 +1826,7 @@ namespace WindowsFormsApp1
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            HTML_show();
             SaveFile(this.FileName);
             SaveToTEXT(this.FileName);
         }
@@ -1821,7 +1838,6 @@ namespace WindowsFormsApp1
             for (int i = 0; i < text_box.Length ; i++)
             {
                 file.WriteLine(string.Format("{0}", text_box[i]));
-
             }
             file.Close();
         }
@@ -1860,7 +1876,7 @@ namespace WindowsFormsApp1
             {
                 webBrowser1.Navigate("about:blank");
                 Reset();
-                File.Delete(this.FilePath+ FileName);          //新規作成したHTMLを破棄する
+                File.Delete(this.FilePath + "\\HTML\\" +  FileName); //新規作成したHTMLを破棄する
             }
         }
 
