@@ -832,6 +832,7 @@ namespace WindowsFormsApp1
 
                 if (parts_flg == false)
                 {
+                    Browser_show(); //結果を画面上に表示
                     AddTag(int.Parse(Create_parts_num()));
                 }
                 //部品選択分岐-----------------------------------------------
@@ -852,7 +853,6 @@ namespace WindowsFormsApp1
             // 選択されている部品の名前を取り込む
             
                 insert_Parts(Create_parts_num()); //indexで判別し部品を挿入する
-                Browser_show(); //結果を画面上に表示
                 UpdateStatus(FileName, true); //変更あり状態に変更する
                 partsList.FocusedItem.Focused = false;
         }

@@ -22,7 +22,6 @@ namespace WindowsFormsApp1
     public partial class Tutorial_Parts : Form
     {
         main mn;                //メインフォームの取得
-        Tutorial_Parts tuto;
 
         //定義
         String tutoBar = "";      //タイトルバー

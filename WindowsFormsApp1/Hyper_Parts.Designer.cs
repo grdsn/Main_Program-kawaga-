@@ -118,6 +118,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Hyper_Parts";
             this.Text = "Hyper_Parts";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.Hyper_Parts_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -98,6 +98,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "EM_Parts";
             this.Text = "EM_Parts";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.EM_Parts_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

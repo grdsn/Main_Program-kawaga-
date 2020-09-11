@@ -75,6 +75,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Img_Parts";
             this.Text = "Img_Parts";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.Img_Parts_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pcb_preview)).EndInit();
             this.ResumeLayout(false);

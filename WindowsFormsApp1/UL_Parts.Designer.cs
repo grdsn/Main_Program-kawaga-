@@ -118,6 +118,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "UL_Parts";
             this.Text = "UL_Parts";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.UL_Parts_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();

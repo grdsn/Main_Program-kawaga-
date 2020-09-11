@@ -192,6 +192,7 @@
             this.Controls.Add(this.labelText);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.menuStrip1);
+            this.Location = new System.Drawing.Point(1000, 0);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Tutorial_Parts";
             this.Text = "Tutorial";

@@ -119,6 +119,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "H_Parts";
             this.Text = "H_Parts";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.H_Parts_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

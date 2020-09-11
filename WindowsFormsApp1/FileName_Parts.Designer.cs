@@ -100,6 +100,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FileName_Parts";
             this.Text = "ファイル名を指定してください";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.FileName_Parts_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

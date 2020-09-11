@@ -98,6 +98,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Text_parts";
             this.Text = "Create_parts";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.Create_parts_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

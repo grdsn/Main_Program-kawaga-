@@ -473,6 +473,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Table_Parts";
             this.Text = "Table_Parts";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.Table_Parts_Load);
             ((System.ComponentModel.ISupportInitialize)(this.row_Box)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.col_box)).EndInit();
