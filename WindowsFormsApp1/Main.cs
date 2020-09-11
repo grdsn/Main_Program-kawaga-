@@ -234,10 +234,6 @@ namespace WindowsFormsApp1
                 else if (flg == 1) //配列内のデータを初期化
                 {
                     Array.Resize(ref text_box, 0);
-                    //for (int i = 0; i <= cnt; i++)
-                    //{
-                    //    text_box[cnt] = "";
-                    //}
                     writer = new System.IO.StreamWriter(destinationPath, false, System.Text.Encoding.UTF8);
                     writer.Write("");
                     cnt = 0;
