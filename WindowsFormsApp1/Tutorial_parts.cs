@@ -22,6 +22,7 @@ namespace WindowsFormsApp1
     public partial class Tutorial_Parts : Form
     {
         main mn;                //メインフォームの取得
+        Tutorial_Parts tuto;
 
         //定義
         String tutoBar = "";      //タイトルバー
@@ -36,7 +37,7 @@ namespace WindowsFormsApp1
         {
             // メイン・フォームへの参照を保存
             mn = m;
-            this.Owner = mn;
+            //this.Owner = mn;
 
             //内容を画面反映する
             InitializeComponent();
@@ -47,8 +48,6 @@ namespace WindowsFormsApp1
             //テキストの表示
             labelTitle.Text = "チュートリアルへようこそ!";                   //見出し部分
             labelText.Text = "それではかんたんなHTMLを作っていきましょう";   //本文の部分
-
-            //this.FormClosing += this.Tutorial_Parts_FormClosing;
 
         }
 

@@ -247,21 +247,6 @@ namespace WindowsFormsApp1
         }
 
         /*
-         * 戻るボタンが押された場合
-         */
-        private void BackText_Click(object sender, EventArgs e)
-        {
-            if (cnt > 0)
-            {
-                cnt--;
-                writer_html("", 0);
-                Browser_show();　//結果を画面上に表示
-            }
-        }
-
-        
-
-        /*
          * アプリケーションを更新する
          */
         private void UpdateStatus(string Name, bool Edited)
@@ -1713,15 +1698,18 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
             //フォームが表示されているかの判定  
-            if (this.tuto == null || this.tuto.IsDisposed)
+            if (this.tuto == null || this.tuto.IsDisposed==true)
+            {
                 this.tuto = new Tutorial_Parts(this);
 
+            }
             //チュートリアルは起動済みか判定
             if (!this.tuto.Visible)
             {
                 //起動していない…チュートリアルを起動
                 Tutorial_Parts tuto = new Tutorial_Parts(this);
                 this.tuto.Show();
+                //tuto.Owner = this;
             }
             else
             {

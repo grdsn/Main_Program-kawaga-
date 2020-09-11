@@ -195,6 +195,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Tutorial_Parts";
             this.Text = "Tutorial";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Tutorial_Parts_FormClosing);
             this.Load += new System.EventHandler(this.Tutorial_Parts_Load);
             this.menuStrip1.ResumeLayout(false);
