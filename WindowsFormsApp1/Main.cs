@@ -231,7 +231,7 @@ namespace WindowsFormsApp1
                     writer.Write("</HTML>"); //HTML終了
                     writer.Close();
                 }
-                else if (flg == 1) //配列内のデータを初期化
+                else if (flag == 1) //配列内のデータを初期化
                 {
                     Array.Resize(ref text_box, 0);
                     writer = new System.IO.StreamWriter(destinationPath, false, System.Text.Encoding.UTF8);
@@ -346,14 +346,13 @@ namespace WindowsFormsApp1
                     text_box[i] = "";
                 }
                 var filePath = name + "TEMP" + ".txt"; //HTMLフォルダ内のTEMPファイルをパスに設定
-
-                // csvファイルの読込
+                
                 StreamReader reader = new StreamReader(File.OpenRead(filePath));
 
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
-                    if (line != "")
+                    if (line != null)
                     {
                         text_box[cnt] = line;
                         cnt++;
@@ -431,10 +430,9 @@ namespace WindowsFormsApp1
 
                 // ファイル名を保持する
                 this.FileName = value;
-                String path = Directory.GetCurrentDirectory();
                 String textTitle = Title.Text;
                 //csv---
-                var filePath = path + "\\CSV\\" + value + ".csv";   //パスは変える (作業ファイル名.csv)
+                var filePath = FilePath + "\\CSV\\" + value + ".csv";   //パスは変える (作業ファイル名.csv)
                 
                 // csvに出力するデータ
                 for (int i = 0; i < OpenedTag.Count; i++)
@@ -497,9 +495,10 @@ namespace WindowsFormsApp1
             {
                 // 「開く」ボタンがクリックされたとき
                 FileName = OpenFileDialog.SafeFileName;
+                TEXTToHTML(OpenFileDialog.FileName);
                 LoadFile(OpenFileDialog.FileName);
                 LoadFile(OpenFileDialog.FileName, FileName);
-                TEXTToHTML(OpenFileDialog.FileName);
+                
 
             }
         }
@@ -645,8 +644,6 @@ namespace WindowsFormsApp1
                 {
                     HTML_show(); //ソースコードを表示
                 }
-
-
         }
 
         private void PreviewBtn_Click(object sender, EventArgs e)
@@ -1079,16 +1076,7 @@ namespace WindowsFormsApp1
             flg = 0;
             ButtonVisible();
         }
-        //---
-
-        //Formロード時処理
-        //上で定義済み
-        //---
-
-        //部品一覧の部品選択時の処理
-        //上で定義済み
-        //---
-
+        
         //---編集ボタンを押したとき
         private void button_edit_Click(object sender, EventArgs e)
         {
@@ -1180,6 +1168,7 @@ namespace WindowsFormsApp1
                     dic.Remove(OpenedName[count]);
                     OpenedName.Remove(count);
                     OpenedTag.Remove(count);
+                    addBodyCount--;
                     UpdateStatus(FileName, true);
                 }
             }
@@ -1671,9 +1660,7 @@ namespace WindowsFormsApp1
             }
             
         }
-
-        //在間くん作成プログラム統合部分-----------------------------------------------
-
+        
         private void SaveButton_Click(object sender, EventArgs e)
         {
             HTML_show();
@@ -1709,7 +1696,6 @@ namespace WindowsFormsApp1
                 //起動していない…チュートリアルを起動
                 Tutorial_Parts tuto = new Tutorial_Parts(this);
                 this.tuto.Show();
-                //tuto.Owner = this;
             }
             else
             {
@@ -1717,21 +1703,16 @@ namespace WindowsFormsApp1
                 MessageBox.Show("すでにチュートリアルを起動しています");
             }
         }
-
-       
-
+        
         private void html_delete()
         {
             //CSVが保存されていない場合の処理
-            if (File.Exists(this.FilePath + "\\CSV\\" + FileName) == false)
+            if (File.Exists(this.FilePath + "\\CSV\\" + FileName + ".csv") == false)
             {
                 webBrowser1.Navigate("about:blank");
                 Reset();
                 File.Delete(this.FilePath + "\\HTML\\" +  FileName); //新規作成したHTMLを破棄する
-                
             }
         }
-
-        
     }
 }

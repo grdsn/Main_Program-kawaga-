@@ -73,7 +73,7 @@ namespace WindowsFormsApp1
 
         private void Table_Parts_Load(object sender, EventArgs e)
         {
-            
+            tb1.Select();
         }
 
         private void cancel_btn_Click(object sender, EventArgs e)

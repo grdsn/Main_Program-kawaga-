@@ -22,6 +22,7 @@ namespace WindowsFormsApp1
 
         private void OL_Parts_Load(object sender, EventArgs e)
         {
+            Add_Text.Select();
             Add_Text.KeyDown += new KeyEventHandler(Add_Text_KeyDown);
         }
 

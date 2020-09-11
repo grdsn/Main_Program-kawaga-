@@ -19,11 +19,6 @@ namespace WindowsFormsApp1
             InitializeComponent();
         }
         
-        private void UL_Parts_Load(object sender, EventArgs e)
-        {
-            Add_Text.KeyDown += new KeyEventHandler(Add_Text_KeyDown);
-        }
-
         public string ShowMiniForm()
         {
             string receiveText;
@@ -100,7 +95,8 @@ namespace WindowsFormsApp1
 
         private void UL_Parts_Load_1(object sender, EventArgs e)
         {
-
+            Add_Text.Select();
+            Add_Text.KeyDown += new KeyEventHandler(Add_Text_KeyDown);
         }
     }
 }

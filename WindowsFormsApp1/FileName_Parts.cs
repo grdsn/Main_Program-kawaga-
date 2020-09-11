@@ -57,6 +57,10 @@ namespace WindowsFormsApp1
             {
                 AddConfirm_Click_1(this, new EventArgs());
             }
+            if(e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
             
         }
     }
