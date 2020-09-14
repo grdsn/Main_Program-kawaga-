@@ -15,8 +15,6 @@ namespace WindowsFormsApp1
     
     public partial class main : Form
     {
-        
-        //定義--------------------------------------------------------
             const string ApplicationName = "かんたんWeb君";//アプリケーション名
             private string FileName = ""; //ファイル名(フルパス)
             string result;//結果格納
@@ -24,10 +22,8 @@ namespace WindowsFormsApp1
             string[] text_box = new string[1]; //HTMLタグ格納用
             int cnt = 0; //タグ数カウント
             Boolean create_new = false; //新規作成判定フラグ
-
-        //定義----------------------------------------------------------------
-
-        //在間定義------------------------------------------------------------
+        
+        
         //画面フラグ
             bool parts_flg = false;
             public int flg = 0;
@@ -66,9 +62,6 @@ namespace WindowsFormsApp1
         //入れ替え時のインデックス保持用
             public int cont1 = 0;
             public int cont2 = 0;
-        //入れ替え時の部品コントロール保持用
-            //Control ctrl1;
-            //Control ctrl2;
 
         //作業状態系
             List<string> listTag = new List<string>();
@@ -81,7 +74,6 @@ namespace WindowsFormsApp1
         //実行ファイルの場所の保持
             private String FilePath = Directory.GetCurrentDirectory();
         
-        //在間定義------------------------------------------------------------
 
 
         System.IO.StreamWriter writer = null;
@@ -91,7 +83,7 @@ namespace WindowsFormsApp1
         }
 
         /*
-         * リストに部品名を挿入する(かわが)
+         * リストに部品名を挿入する
          */
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -113,8 +105,7 @@ namespace WindowsFormsApp1
 
                 //////////////////////////////////////////////////////////////////
 
-                MessageBox.Show("まず新規作成でファイルを作成するか\n開くボタンでファイルを開いてください\n" +
-                                "ファイルはデスクトップ上に作成されます");
+                MessageBox.Show("まず新規作成でファイルを作成するか\n開くボタンでファイルを開いてください");
                 ListViewItem lvi = new ListViewItem();
 
                 lvi.Text = "見出し";
@@ -201,7 +192,7 @@ namespace WindowsFormsApp1
         }
 
         /*
-         *HTMLを書き出すためのプログラム(かわが)
+         *HTMLを書き出すためのプログラム
          */
         public void writer_html(string input, int flag)
         {
@@ -328,7 +319,6 @@ namespace WindowsFormsApp1
          */
         private void oepn_Btn_Click(object sender, EventArgs e)
         {
-            
             MenuItemFileOpen_Click(sender, e);
             create_new = true;
             Start_Visible();
@@ -427,7 +417,7 @@ namespace WindowsFormsApp1
             {
                 //UTF-8で保存
                 System.IO.File.WriteAllText(FilePath  + "\\HTML\\" + value, HTMLBOX.Text, Encoding.GetEncoding("UTF-8"));
-
+                
                 // ファイル名を保持する
                 this.FileName = value;
                 String textTitle = Title.Text;
@@ -525,7 +515,7 @@ namespace WindowsFormsApp1
         }
 
         /*
-         *  最下部のHTMLタグを削除する(かわが)
+         *  最下部のHTMLタグを削除する
          */
         
         private void reset_cls()
@@ -539,16 +529,16 @@ namespace WindowsFormsApp1
             }
 
         /*
-         * フォーム内のブラウザを更新する(かわが)
+         * フォーム内のブラウザを更新する
          */
         private void Browser_show()
         {
-            String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
+            String destinationPath = get_Path(); //相対パスで指定
             webBrowser1.Navigate(destinationPath);
         }
 
         /*
-         *新規追加(かわが)
+         *新規追加
          */
         private void NewButton_Click(object sender, EventArgs e)
         {
@@ -613,13 +603,13 @@ namespace WindowsFormsApp1
         }
 
         /*
-         * HTMLソースコードを表示する(かわが)
+         * HTMLソースコードを表示する
          */
         private void HTML_show()
         {
             try
             {
-                String destinationPath = get_Path(); //相対パスで指定 (デスクトップに保存)
+                String destinationPath = get_Path(); //相対パスで指定
                 StreamReader st = new StreamReader(destinationPath, Encoding.GetEncoding("UTF-8")); //StreamReaderでファイルの内容を読み込む
                 HTMLBOX.Text = st.ReadToEnd(); //streamReader内のテキストを書き込む
                 st.Close();//終了
@@ -630,7 +620,7 @@ namespace WindowsFormsApp1
             }
         }
         /*
-         * ソースコード表示ボタン制御(かわが)
+         * ソースコード表示ボタン制御
          */
         private void HTMLBtn_Click(object sender, EventArgs e)
         {
@@ -658,7 +648,7 @@ namespace WindowsFormsApp1
         }
 
         /*
-         * パーツ名返却(かわが)
+         * パーツ名返却
          */
         private string Create_parts_num()
         {
@@ -666,7 +656,6 @@ namespace WindowsFormsApp1
             {
                 return partsList.SelectedItems[0].Index.ToString();
             }
-            
             return "-1";
         }
 
@@ -842,7 +831,7 @@ namespace WindowsFormsApp1
         }
 
         /*
-         * パーツを選択し、各部品に分岐させる(かわが)
+         * パーツを選択し、各部品に分岐させる
          */
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -854,8 +843,7 @@ namespace WindowsFormsApp1
                 partsList.FocusedItem.Focused = false;
         }
 
-        //在間くん作成プログラム統合部分-----------------------------------------------
-
+        //タグツリー関連の初期化処理
         private void Reset()
         {
             try
@@ -1107,33 +1095,33 @@ namespace WindowsFormsApp1
                         label_pro.Visible = true;
                         switch (getkind)
                         {
-                            //プロパティ系
+                            //タグの説明をラベルに表示
                             case "h":
-                                label_pro.Text = "見出しです";
+                                label_pro.Text = "見出しです。";
                                 break;
                             case "p":
-                                label_pro.Text = "テキストです";
+                                label_pro.Text = "テキストです。\n通常の文字が表示されます。";
                                 break;
                             case "em":
-                                label_pro.Text = "強調されて表示します";
+                                label_pro.Text = "強調されて表示します。";
                                 break;
                             case "url":
-                                label_pro.Text = "指定したサイトが開きます";
+                                label_pro.Text = "指定したサイトのURLです。";
                                 break;
                             case "b":
-                                label_pro.Text = "太字で表示します";
+                                label_pro.Text = "太字で表示します。";
                                 break;
                             case "ol":
-                                label_pro.Text = "順序ありリストです";
+                                label_pro.Text = "順番のあるリストです。\n１から順番に表示します。";
                                 break;
                             case "ul":
-                                label_pro.Text = "順序なしリストです";
+                                label_pro.Text = "順番のないリストです。\n箇条書きで表示されます。";
                                 break;
                             case "img":
-                                label_pro.Text = "指定した画像を表示します";
+                                label_pro.Text = "指定した画像を表示します。";
                                 break;
                             case "table":
-                                label_pro.Text = "テーブルです";
+                                label_pro.Text = "テーブルです。\n指定した行、列で\n作成されます。";
                                 break;
                             default:
                                 break;
@@ -1178,9 +1166,6 @@ namespace WindowsFormsApp1
             }
             
         }
-        //---
-
-        //入れ替えボタン
         
         
         //作業ファイルを開いたときの処理

@@ -321,7 +321,7 @@
             this.flowLayoutPanel_input.AutoScroll = true;
             this.flowLayoutPanel_input.Location = new System.Drawing.Point(3, 62);
             this.flowLayoutPanel_input.Name = "flowLayoutPanel_input";
-            this.flowLayoutPanel_input.Size = new System.Drawing.Size(158, 327);
+            this.flowLayoutPanel_input.Size = new System.Drawing.Size(144, 327);
             this.flowLayoutPanel_input.TabIndex = 8;
             // 
             // button_Input
@@ -357,18 +357,18 @@
             // 
             this.label_pro.AutoSize = true;
             this.label_pro.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label_pro.Location = new System.Drawing.Point(167, 15);
+            this.label_pro.Location = new System.Drawing.Point(152, 10);
+            this.label_pro.Margin = new System.Windows.Forms.Padding(3, 0, 6, 0);
             this.label_pro.Name = "label_pro";
             this.label_pro.Size = new System.Drawing.Size(0, 16);
             this.label_pro.TabIndex = 9;
-            this.label_pro.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // flowLayoutPanel_body
             // 
             this.flowLayoutPanel_body.AutoScroll = true;
             this.flowLayoutPanel_body.Location = new System.Drawing.Point(0, 7);
             this.flowLayoutPanel_body.Name = "flowLayoutPanel_body";
-            this.flowLayoutPanel_body.Size = new System.Drawing.Size(161, 382);
+            this.flowLayoutPanel_body.Size = new System.Drawing.Size(146, 382);
             this.flowLayoutPanel_body.TabIndex = 6;
             // 
             // groupHead
@@ -404,7 +404,7 @@
             this.flowLayoutPanel_head.AutoScroll = true;
             this.flowLayoutPanel_head.Location = new System.Drawing.Point(0, 62);
             this.flowLayoutPanel_head.Name = "flowLayoutPanel_head";
-            this.flowLayoutPanel_head.Size = new System.Drawing.Size(158, 327);
+            this.flowLayoutPanel_head.Size = new System.Drawing.Size(147, 327);
             this.flowLayoutPanel_head.TabIndex = 8;
             // 
             // button_head1

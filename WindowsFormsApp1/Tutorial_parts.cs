@@ -128,7 +128,7 @@ namespace WindowsFormsApp1
                 if (mn.editflg == 1)    //削除ボタンが有効か判定
                 {
                     //テキストの表示
-                    labelText.Text = "タグツリーのHTML、BODY、HEAD、\nTITLEをクリックした後に\n編集ボタンを押すと削除ができます"; //本文の部分
+                    labelText.Text = "タグツリーのBODYをクリックした後に\n編集ボタンを押すと削除ができます"; //本文の部分
                     //labelText.Text = "タグツリーでは追加した素材の編集ができます！\n編集は並び替えと削除の２種類があります\nまずは、並び替え機能を見てみましょう！"; //本文の部分(並び替え機能搭載Ver)
 
                     //チュートリアルを進める
